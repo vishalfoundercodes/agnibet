@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="192x192" />
+    <link rel="shortcut icon" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Betoo</title>
+    <style>
+      /* ✅ Prevent "stretch/bounce" on mobile */
+      html,
+      body {
+        /* overscroll-behavior: none; */
+        overscroll-behavior-y: contain;
+
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        touch-action: pan-y;
+        /* allows vertical scroll, blocks pinch/zoom */
+        overflow-x: hidden;
+      }
+    
+      /* Optional: lock app height strictly to viewport */
+      #root {
+        height: 100%;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+      <!-- 🚫 Disable Zoom -->
+      <script>
+        // Disable zoom with Ctrl + scroll
+        document.addEventListener("wheel", function (e) {
+          if (e.ctrlKey) e.preventDefault();
+        }, { passive: false });
+
+        // Disable zoom with Ctrl + '+', Ctrl + '-', or Ctrl + '0'
+        document.addEventListener("keydown", function (e) {
+          if (
+            (e.ctrlKey || e.metaKey) &&
+            (e.key === "+" || e.key === "-" || e.key === "=" || e.key === "0")
+          ) {
+            e.preventDefault();
+          }
+        });
+
+        // ✅ Disable pinch-zoom only (not normal scroll)
+        let lastTouchEnd = 0;
+
+        document.addEventListener("touchstart", function (event) {
+          if (event.touches.length > 1) {
+            // More than one finger — block pinch zoom
+            event.preventDefault();
+          }
+        }, { passive: false });
+
+        document.addEventListener("touchend", function (event) {
+          const now = new Date().getTime();
+          if (now - lastTouchEnd <= 300) {
+            // Prevent double-tap zoom
+            event.preventDefault();
+          }
+          lastTouchEnd = now;
+        }, false);
+      </script>
+
+  </body>
+</html>

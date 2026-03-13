@@ -1,0 +1,55 @@
+.custom-calendar { border: none !important; font-family: Inter, sans-serif; }
+
+/* Hide default header */
+.custom-calendar .react-calendar__navigation { display: none !important; }
+
+/* Weekday header */
+.custom-calendar .react-calendar__month-view__weekdays {
+  text-align: center; font-weight: 600; font-size: 12px;
+  text-transform: uppercase; border-bottom: 1px solid #eee; margin-bottom: 4px;
+}
+.custom-calendar .react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none !important; color: #333;
+}
+
+/* Remove dots under days (from some themes) */
+.custom-calendar .react-calendar__tile abbr:after { display: none !important; }
+
+/* Base tiles */
+.custom-calendar .react-calendar__tile {
+  padding: 10px 0 !important; font-size: 14px; border-radius: 50%;
+  background: none !important; color: black;
+}
+
+/* Hover (non-selected) */
+.custom-calendar .react-calendar__tile:enabled:hover {
+  background: #f5f5f5 !important; border-radius: 50%;
+}
+
+/* TODAY only when no date selected */
+.custom-calendar.show-today .react-calendar__tile--now {
+  background: #C10932 !important;
+  color: #fff !important;
+  border-radius: 50% !important;
+}
+
+/* SELECTED date */
+.custom-calendar .react-calendar__tile--active {
+  background: #C10932 !important;
+  color: #fff !important;
+  border-radius: 50% !important;
+}
+/* keep hover same when today */
+.custom-calendar .react-calendar__tile--now:enabled:hover {
+  background: #C10932 !important; color: #fff !important;
+}
+
+/* SELECTED → red circle + white text */
+/* .custom-calendar .react-calendar__tile--active,
+.custom-calendar .react-calendar__tile--active abbr {
+  background: #C10932 !important; color: #fff !important; border-radius: 50% !important;
+} */
+/* keep hover same when selected */
+.custom-calendar .react-calendar__tile--active:enabled:hover {
+  background: #C10932 !important; color: #fff !important;
+}
