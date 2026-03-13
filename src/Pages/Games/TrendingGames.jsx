@@ -84,7 +84,7 @@ const TrendingGames = ({ title, games, icon, brand,  sectionRef }) => {
   // ✅ Then call it here:
   return (
     <div
-      className="w-full px-4 py-3 rounded-[25px] bg-lightMain mt-2"
+      className="w-full px-4 py-3 rounded-[25px] bg-grayBg mt-2"
       ref={sectionRef}
       id={`brand-${brand?.brand_id || "unknown"}`}
       style={{
@@ -93,10 +93,10 @@ const TrendingGames = ({ title, games, icon, brand,  sectionRef }) => {
       }}
     >
       {/* Header */}
-      <div className="flex justify-between items-center px-3 py-2 bg-lightMain rounded-[8px] shadow-md mb-3">
-        <div className={`flex items-center gap-1 xsm3:gap-2`}>
-          <span className="w-6 h-6">{icon || "🎮"}</span>
-          <h2 className="text-ssm xsm3:text-sm font-semibold">
+      <div className="flex justify-between items-center px-3 py-2 bg-grayBg rounded-[8px] shadow-md mb-3">
+        <div className={`flex items-center gap-1 xsm3:gap-2 text-white`}>
+          <span className="w-6 h-6 ">{icon || "🎮"}</span>
+          <h2 className="text-ssm xsm3:text-sm font-semibold ">
             {title || "Trending Games"}
           </h2>
         </div>
@@ -104,13 +104,13 @@ const TrendingGames = ({ title, games, icon, brand,  sectionRef }) => {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setExpanded(!expanded)}
-            className="text-red font-medium text-ssm cursor-pointer lg2:hidden"
+            className="text-softGold font-medium text-ssm cursor-pointer lg2:hidden"
           >
             {expanded ? t(`See_Less`) : t(`See_All`)}
           </button>
           <button
             onClick={() => setExpanded(!expanded)}
-            className="hidden text-red font-medium text-ssm cursor-pointer lg2:block"
+            className="hidden text-softGold font-medium text-ssm cursor-pointer lg2:block"
           >
             {/* {expanded ? "See All" : "See Less"} */}
             {expanded ? t(`See_All`) : t(`See_Less`)}
@@ -120,13 +120,13 @@ const TrendingGames = ({ title, games, icon, brand,  sectionRef }) => {
             <>
               <button
                 onClick={() => scrollRow(title + "-row-1", "left")}
-                className="p-1 border border-red rounded-[8px] shadow text-red"
+                className="p-1 border border-softGold rounded-[8px] shadow text-softGold"
               >
                 <ChevronLeft size={18} />
               </button>
               <button
                 onClick={() => scrollRow(title + "-row-1", "right")}
-                className="p-1 border border-red rounded-[8px] shadow text-red"
+                className="p-1 border border-softGold rounded-[8px] shadow text-softGold"
               >
                 <ChevronRight size={18} />
               </button>
@@ -136,13 +136,13 @@ const TrendingGames = ({ title, games, icon, brand,  sectionRef }) => {
             <>
               <button
                 onClick={() => scrollRow(title + "-row-1", "left")}
-                className="p-1 border border-red rounded-[8px] shadow text-red"
+                className="p-1 border border-softGold rounded-[8px] shadow text-softGold"
               >
                 <ChevronLeft size={18} />
               </button>
               <button
                 onClick={() => scrollRow(title + "-row-1", "right")}
-                className="p-1 border border-red rounded-[8px] shadow text-red"
+                className="p-1 border border-softGold rounded-[8px] shadow text-softGold"
               >
                 <ChevronRight size={18} />
               </button>

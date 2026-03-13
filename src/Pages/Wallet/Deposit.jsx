@@ -430,8 +430,8 @@ const whatsappNumber =
                     <button
                       className={`px-4 lg2:py-8 cursor-pointer rounded-xl border flex flex-col items-center justify-center space-y-1 ${
                         selectedPayment === item?.id
-                          ? "border-red bg-lightMain"
-                          : "border-lightMain"
+                          ? "border-red bg-grayBg"
+                          : "border-grayBg"
                       }`}
                       onClick={() => {
                         setSelectedPayment(item?.id);
@@ -948,7 +948,7 @@ const whatsappNumber =
                 <button
                   key={idx}
                   onClick={() => setAmount(val)}
-                  className="bg-lightMain text-white rounded-[8px] py-2 font-semibold cursor-pointer"
+                  className="bg-grayBg text-white rounded-[8px] py-2 font-semibold cursor-pointer"
                 >
                   +{val.toLocaleString()}
                 </button>
@@ -990,7 +990,7 @@ const whatsappNumber =
                 <button
                   key={idx}
                   onClick={() => setusdtAmout(val)}
-                  className="bg-lightMain text-white rounded-[8px] py-2 font-semibold cursor-pointer"
+                  className="bg-grayBg text-white rounded-[8px] py-2 font-semibold cursor-pointer"
                 >
                   +{val.toLocaleString()}
                 </button>
@@ -1078,7 +1078,10 @@ const whatsappNumber =
                 type="text"
                 placeholder="Enter Transaction ID"
                 min="0"
-                onChange={(e) =>{console.log("value:", e.target.value); setUtrNumber(e.target.value)}}
+                onChange={(e) => {
+                  console.log("value:", e.target.value);
+                  setUtrNumber(e.target.value);
+                }}
                 className="w-full border  border-dashed rounded-[8px] border-darkGray px-3 py-2 text-ssm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-lightMain"
               />
             </div>
@@ -1149,7 +1152,7 @@ const whatsappNumber =
             type="submit"
             className={`w-full  text-white text-ssm font-medium py-3 rounded-md text-center ${
               Number(amount) >= minAmount && Number(amount) <= maxAmount
-                ? "bg-red hover:bg-red-600"
+                ? "bg-red-600 hover:bg-red-600"
                 : "bg-lightGray cursor-not-allowed"
             }    lg2:w-[160px] lg2:py-2 lg2:text-[13px] lg2:font-semibold lg2:rounded-md lg2:ml-auto lg2:block cursor-pointer`}
             onClick={handleManualSubmit}
@@ -1162,7 +1165,7 @@ const whatsappNumber =
             type="submit"
             className={`w-full  text-white text-ssm font-medium py-3 rounded-md text-center ${
               Number(amount) >= minAmount && Number(amount) <= maxAmount
-                ? "bg-red hover:bg-red-600"
+                ? "bg-red-600 hover:bg-red-600"
                 : "bg-lightGray cursor-not-allowed"
             }    lg2:w-[160px] lg2:py-2 lg2:text-[13px] lg2:font-semibold lg2:rounded-md lg2:ml-auto lg2:block cursor-pointer`}
             onClick={handleusdtSubmit}
@@ -1207,7 +1210,7 @@ const whatsappNumber =
               rel="noopener noreferrer"
               className="block"
             >
-              <div className="bg-lightMain flex justify-center items-center rounded-t-[8px] lg2:rounded-t-none rounded-b-[8px] p-8 ">
+              <div className="bg-grayBg flex justify-center items-center rounded-t-[8px] lg2:rounded-t-none rounded-b-[8px] p-8 ">
                 <div className="flex flex-col items-center text-center gap-4">
                   <svg
                     width="84"
@@ -1265,7 +1268,7 @@ const whatsappNumber =
                     </svg>
                   </div>
                   <div className="text-left">
-                    <p className="font-medium text-sm text-lightMain">
+                    <p className="font-medium text-sm text-white">
                       {t(`Chat_on_WhatsApp`)}
                     </p>
                     <p className="text-ssm text-white">

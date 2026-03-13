@@ -1,2 +1,2 @@
-const Currency = "৳";
+const Currency = "₹";
 export default Currency;

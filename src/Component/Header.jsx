@@ -73,7 +73,7 @@ const Header = ({ profileDetails2}) => {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 bg-red text-white px-3 py-2 flex items-center justify-between md:px-16 sm:px-28  3xl:px-60 ${
+        className={`sticky top-0 z-50 bg-headerBg text-white px-3 py-2 flex items-center justify-between md:px-16 sm:px-28  3xl:px-60 ${
           isWingoPath ? "lg2:px-3" : "lg2:px-16"
         }`}
       >
@@ -102,12 +102,12 @@ const Header = ({ profileDetails2}) => {
             className="font-bold text-sm md:text-md items-center justify-center cursor-pointer"
             onClick={() => navigate("/")}
           >
-            <h1>Betoo</h1>
-            {/* <img
+            {/* <h1>Betoo</h1> */}
+            <img
               src={headerImage}
               alt="WINBHAI"
               className="w-24 xsm4:w-28 xsm3:w-32 xxs:w-40 -mt-1"
-            /> */}
+            />
           </div>
         </div>
 
@@ -199,16 +199,15 @@ const Header = ({ profileDetails2}) => {
         ) : (
           /* WITH LOGIN STATE */
           <>
-            <div className="flex items-center gap-2">
-            </div>
+            <div className="flex items-center gap-2"></div>
 
             {/* Right Section - Deposit Button & User Balance */}
             <div className="flex items-start gap-3 lg2:justify-end">
               <button
-                className="bg-white text-red text-xs font-medium px-3 py-2 rounded-full md:hidden whitespace-nowrap"
+                className="bg-lightMain text-white text-xs font-medium px-3 py-2 rounded-full md:hidden whitespace-nowrap"
                 onClick={() => navigate("/deposit")}
               >
-                {t('Deposit')}
+                {t("Deposit")}
               </button>
 
               {/* User Balance */}
@@ -217,7 +216,8 @@ const Header = ({ profileDetails2}) => {
                 onClick={toggleSidebar}
               >
                 <span className="text-[13px]">
-                  {Currency} {profileDetails?.wallet || profileDetails2?.wallet || "0"}
+                  {Currency}{" "}
+                  {profileDetails?.wallet || profileDetails2?.wallet || "0"}
                 </span>
                 <FaUser className="text-ssm" />
               </div>

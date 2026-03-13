@@ -368,7 +368,7 @@ export default function GameSlider2({ profileDetails, onCategoryClick }) {
        { id: 8, name: "slot_games", image: SlotGames, route: "", brandId: "1" },
        { id: 9, name: "affiliate", image: Affiliate, route: "/affilation" },
        { id: 10, name: "profile", image: Profile, route: "/Info" },
-       { id: 11, name: "Language Change", image: LanguageChange, route: "" },
+      //  { id: 11, name: "Language Change", image: LanguageChange, route: "" },
        { id: 14, name: "logout", image: Logout, route: "" },
      ];
   
@@ -613,7 +613,6 @@ export default function GameSlider2({ profileDetails, onCategoryClick }) {
                         selected === game.id ? "text-red" : "text-white"
                       }`}
                     >
-                      {/* {game.name} */}
                       {t(`${game.name}`)}
                     </span>
                   </div>

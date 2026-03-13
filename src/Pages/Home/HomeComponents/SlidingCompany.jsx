@@ -28,19 +28,20 @@ export default function SlidingCompany() {
           {categories.map((cat) => (
             <button
               key={cat.id}
-              onClick={() => {setActive(cat.id);
-       if (window.location.pathname !== "/") {
-         navigate("/"); // go to homepage first
-         setTimeout(() => scrollToSection(cat.brandId), 800); // scroll after render
-       } else {
-         scrollToSection(cat.brandId);
-       }
-}}
+              onClick={() => {
+                setActive(cat.id);
+                if (window.location.pathname !== "/") {
+                  navigate("/"); // go to homepage first
+                  setTimeout(() => scrollToSection(cat.brandId), 800); // scroll after render
+                } else {
+                  scrollToSection(cat.brandId);
+                }
+              }}
               className={`flex items-center justify-center w-[80px] xsm4:w-[85px] xsm3:w-[90px] xxs:w-[105px] h-[40px] lg2:w-[255px] lg2:h-[50px] rounded-[8px] border transition-all duration-200 px-4 py-2 cursor-pointer
                 ${
                   active === cat.id
                     ? "bg-white border-white"
-                    : "bg-lightMain border-lightMain"
+                    : "bg-grayBg border-lightMain"
                 }`}
             >
               <img

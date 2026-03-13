@@ -507,8 +507,8 @@ const defaultImages = [image1, image2, image3];
                     <button
                       className={`px-4 lg2:py-8 cursor-pointer rounded-xl border flex flex-col items-center justify-center space-y-1 ${
                         selectedPayment === item?.id
-                          ? "border-red bg-lightMain"
-                          : "border-lightMain"
+                          ? "border-red bg-grayBg"
+                          : "border-grayBg"
                       }`}
                       onClick={() => {
                         setSelectedPayment(item?.id);
@@ -1347,7 +1347,7 @@ const defaultImages = [image1, image2, image3];
                 <button
                   key={idx}
                   onClick={() => setAmount(val)}
-                  className="bg-lightMain text-white rounded-[8px] py-2 font-semibold hover:bg-gray-500 cursor-pointer"
+                  className="bg-grayBg text-white rounded-[8px] py-2 font-semibold hover:bg-gray-500 cursor-pointer"
                 >
                   +{val.toLocaleString()}
                 </button>
@@ -1425,7 +1425,7 @@ const defaultImages = [image1, image2, image3];
               // onClick={handleManualSubmit}
               className={`w-full bg-[#969696] text-white font-medium py-3 rounded-md ${
                 Number(amount) >= manualMin && Number(amount) <= manualMax
-                  ? "bg-red hover:bg-red-600"
+                  ? "bg-red-600 hover:bg-red-600"
                   : "bg-lightGray cursor-not-allowed"
               } lg2:w-[160px] lg2:py-2 lg2:text-[13px] lg2:font-semibold lg2:rounded-md lg2:ml-auto lg2:block cursor-pointer`}
               style={{
@@ -1449,7 +1449,7 @@ const defaultImages = [image1, image2, image3];
                   cryptoMin &&
                 profileDetails?.withdraw_conversion_rate * usdtAmount <=
                   cryptoMax
-                  ? "bg-red hover:bg-red-600"
+                  ? "bg-red-600 hover:bg-red-600"
                   : "bg-lightGray cursor-not-allowed"
               } lg2:w-[160px] lg2:py-2 lg2:text-[13px] lg2:font-semibold lg2:rounded-md lg2:ml-auto lg2:block cursor-pointer`}
               style={{
@@ -1468,7 +1468,7 @@ const defaultImages = [image1, image2, image3];
               onClick={handleIndainPayment}
               className={`w-full  text-white font-medium py-3 rounded-md ${
                 Number(amount) >= cryptoMin && Number(amount) <= cryptoMax
-                  ? "bg-red hover:bg-red-600"
+                  ? "bg-red-600 hover:bg-red-600"
                   : "bg-lightGray cursor-not-allowed"
               } lg2:w-[160px] lg2:py-2 lg2:text-[13px] lg2:font-semibold lg2:rounded-md lg2:ml-auto lg2:block cursor-pointer`}
               style={{

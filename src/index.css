@@ -15,13 +15,16 @@
   --color-black: #3B3B3B;
   --color-black2: #000000;
   /* --color-red: #C10932; */
-  --color-red:  #212739;
-  --color-lightMain:  #636774;
+  --color-red:  #0A0A0A ;
+  --color-headerBg:  #111111;
+  --color-softGold:  #F3E9D8;
+  --color-royalGold:  #E5C970;
+  --color-lightMain:  #D21102;
   --color-blue: #342988;
   --color-red2: #242424;
   --color-red3: #F30B3D;
   --color-red4: #FFB7B980;
-  --color-grayBg: #E7E7E7;
+  --color-grayBg: #2A2A2A;
   --color-lightgrayBg: #C4C4C4;
   --color-lightgrayBg2: #ADADAD;
   --color-lightGray: #969696;

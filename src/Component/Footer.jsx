@@ -14,7 +14,7 @@ export default function Footer() {
   return (
     <div className="sticky bottom-0 z-50 left-0 w-full">
       <div
-        className="relative bg-red rounded-t-2xl px-6 py-2 flex justify-between items-center gap-2 "
+        className="relative bg-headerBg rounded-t-2xl px-6 py-2 flex justify-between items-center gap-2 "
         style={{
           fontFamily: "Poppins",
           fontWeight: "500",

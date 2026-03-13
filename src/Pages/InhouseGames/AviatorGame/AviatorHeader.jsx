@@ -194,18 +194,18 @@ function AviatorHeader({
               />
             </svg>
           </button>
-          {/* <img
-            className="w-32 h-8 object-fill cursor-pointer"
+          <img
+            className="w-40 h-14 object-fill cursor-pointer"
             src={usawinlogo}
             alt="Logo"
             onClick={() => navigate("/")}
-          /> */}
-          <h1
+          />
+          {/* <h1
             className="text-white font-bold text-sm cursor-pointer"
             onClick={() => navigate("/")}
           >
             Betoo
-          </h1>
+          </h1> */}
         </div>
 
         <div className="flex items-center gap-2 text-xsm relative">

@@ -12,6 +12,7 @@ import { t } from "i18next";
 import { useTranslation } from "react-i18next";
 
 const GameSection = ({ title, games, icon, brand,  sectionRef, gamesDetails }) => {
+  console.log("title:",title)
   const { profileDetails, setprofileDetails } = useProfile();
   const {t}=useTranslation()
   // const { registerSection } = useScroll();
@@ -253,7 +254,7 @@ const handleGameOpen = async (id, name) => {
       ref={sectionElement}
       id={`brand-${sectionBrandId}`}
       data-device={window.innerWidth <= 768 ? "mobile" : "desktop"}
-      className="w-full px-4 py-3 rounded-[25px] bg-lightMain mt-4"
+      className="w-full px-4 py-3 rounded-[25px] bg-grayBg mt-4"
       style={{
         scrollMarginTop: "120px",
         minHeight: "200px",
@@ -263,16 +264,18 @@ const handleGameOpen = async (id, name) => {
       }}
     >
       {/* Header */}
-      <div className="flex justify-between items-center px-3 py-2 bg-lightMain rounded-[8px] shadow-md mb-3">
+      <div className="flex justify-between items-center px-3 py-2 bg-grayBg rounded-[8px] shadow-md mb-3">
         <div className="flex items-center gap-2">
           <span className="w-6 h-6">{icon || "🎮"}</span>
-          <h2 className="text-sm font-semibold">{title || "Games"}</h2>
+          <h2 className="text-sm font-semibold text-white">
+            {title || "Games"}
+          </h2>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             onClick={() => setExpanded(!expanded)}
-            className="text-red font-medium text-ssm cursor-pointer"
+            className="text-softGold font-medium text-ssm cursor-pointer"
           >
             {expanded ? t(`See_Less`) : t(`See_All`)}
           </button>
@@ -281,13 +284,13 @@ const handleGameOpen = async (id, name) => {
             <>
               <button
                 onClick={() => scrollRow(`${title}-row-1`, "left")}
-                className="p-1 border border-red rounded-[8px] shadow text-red"
+                className="p-1 border border-softGold rounded-[8px] shadow text-softGold"
               >
                 <ChevronLeft size={18} />
               </button>
               <button
                 onClick={() => scrollRow(`${title}-row-1`, "right")}
-                className="p-1 border border-red rounded-[8px] shadow text-red"
+                className="p-1 border border-softGold rounded-[8px] shadow text-softGold"
               >
                 <ChevronRight size={18} />
               </button>
@@ -297,13 +300,13 @@ const handleGameOpen = async (id, name) => {
             <>
               <button
                 onClick={() => scrollRow(`${title}-row-1`, "left")}
-                className="p-1 border border-red rounded-[8px] shadow text-red"
+                className="p-1 border border-softGold rounded-[8px] shadow text-softGold"
               >
                 <ChevronLeft size={18} />
               </button>
               <button
                 onClick={() => scrollRow(`${title}-row-1`, "right")}
-                className="p-1 border border-red rounded-[8px] shadow text-red"
+                className="p-1 border border-softGold rounded-[8px] shadow text-softGold"
               >
                 <ChevronRight size={18} />
               </button>
@@ -332,9 +335,9 @@ const handleGameOpen = async (id, name) => {
                 handleGameOpen(game.gameID, game.game_name);
               }}
             >
-              {game.image || game.imgUrl || game.game_img ? (
+              {game.image || game.imgUrl || game.img || game.game_img ? (
                 <img
-                  src={game.image || game.imgUrl || game.game_img}
+                  src={game.image || game.imgUrl || game.img || game.game_img}
                   alt={game.name}
                   className="w-full h-full object-cover lg2:object-cover rounded-[8px] "
                 />

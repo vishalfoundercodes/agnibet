@@ -198,12 +198,12 @@ export default function GameSection({
                 className="font-bold text-sm md:text-md items-center justify-center cursor-pointer"
                 onClick={() => navigate("/")}
               >
-                {/* <img
+                <img
                   src={headerImage}
                   alt="WINBHAI"
                   className="w-24 xsm4:w-28 xsm3:w-32 xxs:w-40 -mt-1"
-                /> */}
-                <h1 className="text-white">Betoo</h1>
+                />
+                {/* <h1 className="text-white">Betoo</h1> */}
               </div>
             </div>
           </div>
