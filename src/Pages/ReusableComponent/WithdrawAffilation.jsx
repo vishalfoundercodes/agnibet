@@ -113,7 +113,7 @@ export default function WithdrawAffilation() {
           />
         </svg>
       </div>
-      <div className="bg-red lg2:rounded-xl p-2 px-4 lg2:mr-4 hidden lg2:block">
+      <div className="bg-grayBg lg2:rounded-xl p-2 px-4 lg2:mr-4 hidden lg2:block">
         <h2 className="text-white text-sm font-semibold">{t(`Withdrawal`)}</h2>
       </div>
       <div
@@ -125,7 +125,7 @@ export default function WithdrawAffilation() {
         {/* Split Background */}
         <div className="absolute inset-0 lg2:hidden">
           <div className="h-[32.5%] bg-red"></div>
-          <div className="h-[67.5%] bg-grayBg"></div>
+          <div className="h-[67.5%] bg-red"></div>
         </div>
 
         {/* Content */}
@@ -146,9 +146,9 @@ export default function WithdrawAffilation() {
                 {/* Offers List */}
                 <div className="space-y-4 px-2 py-0 lg2:px-0">
                   {/* Total Commission */}
-                  <div className="bg-lightMain rounded-[8px] shadow p-4 border-l-5 border-red-300">
+                  <div className="bg-grayBg rounded-[8px] shadow p-4 border-l-5 border-red-300">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 rounded-full bg-red flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full bg-red flex items-center justify-center text-white">
                         {/* <DollarSign className="text-white w-5 h-5" /> */}
                         {Currency}
                       </div>
@@ -166,7 +166,7 @@ export default function WithdrawAffilation() {
                   </div>
 
                   {/* Available to Withdraw */}
-                  <div className="bg-lightMain rounded-[8px] shadow p-4 border-l-5 border-red">
+                  <div className="bg-grayBg rounded-[8px] shadow p-4 border-l-5 border-red">
                     <div className="flex items-center space-x-3">
                       <div className="w-10 h-10 rounded-full bg-red flex items-center justify-center">
                         <CreditCard className="text-white w-5 h-5" />
@@ -187,7 +187,7 @@ export default function WithdrawAffilation() {
                   {/* withdraw funds */}
                   <div className="flex w-full items-center justify-center">
                     <button
-                      className="px-10 py-4 bg-red text-white rounded-[8px] flex gap-2 items-center justify-center text-sm shadow-md  lg2:items-center lg2:flex lg2:font-semibold lg2:rounded-md lg2:ml-auto  cursor-pointer"
+                      className="px-10 py-4 bg-lightMain text-white rounded-[8px] flex gap-2 items-center justify-center text-sm shadow-md  lg2:items-center lg2:flex lg2:font-semibold lg2:rounded-md lg2:ml-auto  cursor-pointer"
                       onClick={() => {
                         const account_type =
                           localStorage.getItem("account_type");

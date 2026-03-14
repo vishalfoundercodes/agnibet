@@ -55,7 +55,7 @@ export default function PrivacyPolicy() {
       </div>
       {data ? (
         <div
-          className="html-content bg-lightMain text-white p-2 rounded-2xl m-2 lg2:m-0"
+          className="html-content bg-grayBg text-white p-2 rounded-2xl m-2 lg2:m-0"
           dangerouslySetInnerHTML={{ __html: data }}
         />
       ) : (

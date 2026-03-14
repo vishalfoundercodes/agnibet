@@ -56,14 +56,16 @@ export default function WinbhaiWallet() {
         </svg>
       </div>
       <div className="bg-red lg2:rounded-t-2xl p-2 px-4 hidden lg2:block">
-        <h2 className="text-white text-sm font-semibold">{t(`Betoo_Wallet`)}</h2>
+        <h2 className="text-white text-sm font-semibold">
+          {t(`Betoo_Wallet`)}
+        </h2>
       </div>
       <div className="space-y-4 lg2:space-y-0 py-4 lg2:py-0">
         <div className="text-black2 rounded-[8px] text-sm font-medium lg2:hidden">
           <p>{t(`Betoo_Wallet`)} :</p>
         </div>
         <div></div>
-        <div className="bg-lightMain rounded-[8px] lg2:rounded-t-[0px]  px-6 py-4 w-full text-center border border-red border-b-12">
+        <div className="bg-grayBg rounded-[8px] lg2:rounded-t-[0px]  px-6 py-4 w-full text-center border border-red border-b-12">
           <div className="flex justify-center ">
             <div className="px-4 pt-4 pb-0 text-[30px] xsm3:text-[40px] font-medium text-white">
               <h1>{profileDetails?.available_commission_to_withdraw} INR</h1>

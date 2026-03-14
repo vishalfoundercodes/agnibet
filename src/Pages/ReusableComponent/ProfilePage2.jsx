@@ -105,7 +105,7 @@ export default function ProfilePage2() {
         {/* Revenue Section */}
         <div className="flex w-full  rounded-[8px] overflow-hidden mb-4 gap-1">
           {/* Left Side */}
-          <div className="flex items-center gap-3 bg-lightMain text-white flex-1 px-4 py-2">
+          <div className="flex items-center gap-3 bg-grayBg text-white flex-1 px-4 py-2">
             {/* <Wallet className="w-8 h-8" /> */}
             <svg
               width="37"
@@ -124,12 +124,14 @@ export default function ProfilePage2() {
               <p className="font-bold text-lg">
                 {Currency} {details?.total_commission || 0}{" "}
               </p>
-              <p className="text-sm">{t(`Revshare`)} : {details?.revenue || 0}%</p>
+              <p className="text-sm">
+                {t(`Revshare`)} : {details?.revenue || 0}%
+              </p>
             </div>
           </div>
 
           {/* Right Side */}
-          <div className="flex items-center justify-center bg-lightMain px-6">
+          <div className="flex items-center justify-center bg-grayBg px-6">
             {/* <ArrowRight className="w-6 h-6 text-white" /> */}
             <svg
               width="26"
@@ -150,7 +152,7 @@ export default function ProfilePage2() {
         <div className="grid grid-cols-2 lg2:grid-cols-6 gap-4 w-full  mb-4">
           {/* creatre campaign */}
           <div
-            className="bg-lightMain rounded-lg shadow-sm flex flex-col items-center justify-center py-6 cursor-pointer"
+            className="bg-grayBg rounded-lg shadow-sm flex flex-col items-center justify-center py-6 cursor-pointer"
             onClick={() => navigate("/CreateCampaign")}
           >
             {/* <Megaphone className="w-8 h-8 text-red-600 mb-2" /> */}
@@ -172,7 +174,7 @@ export default function ProfilePage2() {
             </p>
           </div>
           <div
-            className="bg-lightMain rounded-lg shadow-sm  flex flex-col items-center justify-center py-8 cursor-pointer"
+            className="bg-grayBg rounded-lg shadow-sm  flex flex-col items-center justify-center py-8 cursor-pointer"
             onClick={() => navigate("/affilationDashboard")}
           >
             {/* <Wallet className="w-8 h-8 text-red-600 mb-2" /> */}
@@ -189,11 +191,13 @@ export default function ProfilePage2() {
               />
             </svg>
 
-            <p className="font-bold  text-sm text-white pt-4">{t(`Dashboard`)}</p>
+            <p className="font-bold  text-sm text-white pt-4">
+              {t(`Dashboard`)}
+            </p>
           </div>
 
           <div
-            className="bg-lightMain rounded-lg shadow-sm  flex flex-col items-center justify-center py-8 cursor-pointer"
+            className="bg-grayBg rounded-lg shadow-sm  flex flex-col items-center justify-center py-8 cursor-pointer"
             onClick={() => navigate("/Statistics")}
           >
             {/* <BarChart2 className="w-8 h-8 text-red-600 mb-2" /> */}
@@ -214,7 +218,7 @@ export default function ProfilePage2() {
           </div>
 
           <div
-            className="bg-lightMain rounded-lg shadow-sm  flex flex-col items-center justify-center py-6 cursor-pointer"
+            className="bg-grayBg rounded-lg shadow-sm  flex flex-col items-center justify-center py-6 cursor-pointer"
             onClick={() => navigate("/WithdrawAffilation")}
           >
             {/* <LogOut className="w-8 h-8 text-red-600 mb-2" /> */}
@@ -247,14 +251,16 @@ export default function ProfilePage2() {
               />
             </svg>
 
-            <p className="font-bold text-sm text-white pt-4">{t(`Withdrawal`)}</p>
+            <p className="font-bold text-sm text-white pt-4">
+              {t(`Withdrawal`)}
+            </p>
           </div>
         </div>
 
         {/* Chat on WhatsApp */}
         <div className="w-full  mt-4 hide-scrollbar">
           <button
-            className="w-full bg-lightMain rounded-xl shadow p-8 flex items-center justify-between"
+            className="w-full bg-grayBg rounded-xl shadow p-8 flex items-center justify-between"
             onClick={() => {
               if (profileDetails?.chat_on_whatsapp) {
                 window.open(profileDetails.chat_on_whatsapp, "_self");
@@ -282,9 +288,7 @@ export default function ProfilePage2() {
                 <p className="font-medium text-sm text-white">
                   {t(`Chat_on_WhatsApp`)}
                 </p>
-                <p className="text-ssm text-white">
-                  {t(`Contact_any_time`)}
-                </p>
+                <p className="text-ssm text-white">{t(`Contact_any_time`)}</p>
               </div>
             </div>
             <ArrowRight className="w-14 h-5 text-white" />

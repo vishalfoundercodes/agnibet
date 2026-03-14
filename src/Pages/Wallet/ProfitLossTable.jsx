@@ -119,7 +119,7 @@ export default function ProfitLossTable({ payload }) {
         {data.map((row, i) => (
           <div
             key={i}
-            className="flex justify-between items-center p-3 text-ssm font-Inter last:border-0 bg-lightMain"
+            className="flex justify-between items-center p-3 text-ssm font-Inter last:border-0 bg-grayBg"
           >
             <div className="w-2/3 text-white">{row.event}</div>
 
@@ -129,8 +129,8 @@ export default function ProfitLossTable({ payload }) {
                   row.total.startsWith("+")
                     ? "text-green-600 font-semibold"
                     : row.total.startsWith("-")
-                    ? "text-red-600 font-semibold"
-                    : "text-white"
+                      ? "text-red-600 font-semibold"
+                      : "text-white"
                 }`}
               >
                 {row.total}

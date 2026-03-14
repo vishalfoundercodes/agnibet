@@ -211,13 +211,17 @@ export default function DepositHistory() {
           </svg>
         </div>
         <div className="bg-red lg2:rounded-t-2xl p-2 px-4 hidden lg:block">
-          <h2 className="text-white text-sm font-bold">{t(`Deposit_History`)}</h2>
+          <h2 className="text-white text-sm font-bold">
+            {t(`Deposit_History`)}
+          </h2>
         </div>
-        <div className="lg2:grid lg2:grid-cols-12 lg2:gap-4 bg-lightMain lg2:rounded-b-2xl p-3 lg2:py-3 lg2:px-8 rounded-2xl lg2:rounded-none">
+        <div className="lg2:grid lg2:grid-cols-12 lg2:gap-4 bg-grayBg lg2:rounded-b-2xl p-3 lg2:py-3 lg2:px-8 rounded-2xl lg2:rounded-none">
           <div className="lg2:col-span-5 ">
             {/* Header */}
             <div className="flex justify-between items-center pb-0 mb-0">
-              <h1 className="text-[20px] font-bold text-white">{t(`Deposit`)}</h1>
+              <h1 className="text-[20px] font-bold text-white">
+                {t(`Deposit`)}
+              </h1>
               <button className="p-2 rounded-full hover:bg-gray-200 cursor-pointer">
                 <RefreshCcw size={20} />
               </button>
@@ -364,9 +368,7 @@ export default function DepositHistory() {
                         </span>
                       )}
                     </div>
-                    <p className="text-xs  mt-2">
-                      {deposit.created_at}
-                    </p>
+                    <p className="text-xs  mt-2">{deposit.created_at}</p>
                   </div>
                   <div className="text-right">
                     <span
@@ -374,21 +376,22 @@ export default function DepositHistory() {
                         deposit.status === 3
                           ? "bg-red-100 text-red-600"
                           : deposit.status === 1
-                          ? "bg-green-100 text-green-600"
-                          : "bg-[#DBEAFE] text-[#2563EB]"
+                            ? "bg-green-100 text-green-600"
+                            : "bg-[#DBEAFE] text-[#2563EB]"
                       }`}
                     >
                       {/* Deposit Status */}
                       {deposit.status === 1
                         ? "Processing"
                         : deposit.status === 2
-                        ? "Success"
-                        : deposit.status === 3
-                        ? "Failed"
-                        : "Unknown"}
+                          ? "Success"
+                          : deposit.status === 3
+                            ? "Failed"
+                            : "Unknown"}
                     </span>
                     <p className=" font-bold">
-                      <span className="text-lightMain">{Currency}</span> {deposit.cash}
+                      <span className="text-grayBg">{Currency}</span>{" "}
+                      {deposit.cash}
                     </p>
                   </div>
                 </div>

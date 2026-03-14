@@ -154,7 +154,7 @@ const [active, setActive] = useState("Option 1");
         </svg>
       </div>
       {/* account detail manual */}
-      <div className="lg2:bg-red lg2:px-4 lg2:py-6  lg2:rounded-2xl">
+      <div className="lg2:bg-grayBg lg2:px-4 lg2:py-6  lg2:rounded-2xl">
         <div className="text-white rounded-[8px] text-sm font-medium lg2:mb-2">
           <p>{t(`Crypto_Withdrawal`)} :</p>
         </div>
@@ -242,7 +242,7 @@ const [active, setActive] = useState("Option 1");
       </div>
 
       {/* add account */}
-      <div className="flex items-center justify-between w-full p-4 bg-red rounded-[5px] shadow-sm mt-4">
+      <div className="flex items-center justify-between w-full p-4 bg-grayBg rounded-[5px] shadow-sm mt-4">
         {/* Left Text */}
         <span className="text-white font-medium">{t(`Add_Account`)}</span>
 
@@ -255,9 +255,10 @@ const [active, setActive] = useState("Option 1");
         </button>
       </div>
       {/* amount */}
-      <div className="rounded-[8px] shadow p-4 bg-red">
+      <div className="rounded-[8px] shadow p-4 bg-grayBg">
         <h2 className="text-white font-semibold mb-3">
-          {t(`Amount`)}<span className="text-white-500">*</span>
+          {t(`Amount`)}
+          <span className="text-white-500">*</span>
         </h2>
         <div className="flex items-center gap-2 border rounded-[8px] border-grayBorder px-3 py-1">
           <span className="text-white">₮</span>
@@ -292,7 +293,7 @@ const [active, setActive] = useState("Option 1");
       <div className="flex w-full items-center justify-center">
         <button
           type="submit"
-          className="w-full bg-red text-white font-medium py-3 rounded-md lg2:w-[160px] lg2:py-2 lg2:text-[13px] lg2:font-semibold lg2:rounded-md lg2:ml-auto lg2:block cursor-pointer"
+          className="w-full bg-lightMain text-white font-medium py-3 rounded-md lg2:w-[160px] lg2:py-2 lg2:text-[13px] lg2:font-semibold lg2:rounded-md lg2:ml-auto lg2:block cursor-pointer"
           style={{
             fontFamily: "Roboto",
             fontSize: "13.5px",

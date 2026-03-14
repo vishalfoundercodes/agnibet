@@ -239,12 +239,12 @@ export default function AccountStatement() {
               {t(`Account/Statement`)}
             </h2>
           </div>
-          <div className="bg-lightMain w-full p-3 lg2:p-0 rounded-2xl lg2:rounded-t-none  lg2:rounded-b-2xl">
+          <div className="bg-grayBg w-full p-3 lg2:p-0 rounded-2xl lg2:rounded-t-none  lg2:rounded-b-2xl">
             <div className="py-6 hidden lg2:block">
               <SlidingTabs />
             </div>
 
-            <div className="lg2:grid lg2:grid-cols-12 lg2:gap-4 lg2:bg-lightMain lg2:rounded-b-2xl lg2:py-3 lg2:px-8">
+            <div className="lg2:grid lg2:grid-cols-12 lg2:gap-4 lg2:bg-grayBg lg2:rounded-b-2xl lg2:py-3 lg2:px-8">
               {/* Date Filter */}
               <div className="mb-3 lg2:col-span-5">
                 <div className="flex justify-between mb-3 gap-2">
@@ -302,7 +302,7 @@ export default function AccountStatement() {
                       className="w-full flex items-center justify-between rounded-xl px-3 py-2 bg-white lg2:bg-lgGray text-black shadow-sm text-ssm font-medium cursor-pointer"
                       onClick={() =>
                         setDropdownModal(
-                          dropdownModal === "report" ? null : "report"
+                          dropdownModal === "report" ? null : "report",
                         )
                       }
                     >
@@ -349,7 +349,7 @@ export default function AccountStatement() {
                       className="w-full flex items-center justify-between rounded-xl px-3 py-2 bg-white lg2:bg-lgGray text-black shadow-sm text-ssm font-medium cursor-pointer"
                       onClick={() =>
                         setDropdownModal(
-                          dropdownModal === "range" ? null : "range"
+                          dropdownModal === "range" ? null : "range",
                         )
                       }
                     >

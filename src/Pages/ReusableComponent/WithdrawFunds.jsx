@@ -133,7 +133,7 @@ export default function WithdrawFunds() {
         {options.map((option) => (
           <div
             key={option.id}
-            className="bg-red rounded-[6px]  px-4 py-3 flex items-center space-x-3 shadow-sm cursor-pointer hover:bg-lightMain"
+            className="bg-grayBg rounded-[6px]  px-4 py-3 flex items-center space-x-3 shadow-sm cursor-pointer hover:bg-lightMain"
             onClick={() => {
               console.log("vfjb");
               if (option.label === t("Winbhai_Wallet")) {

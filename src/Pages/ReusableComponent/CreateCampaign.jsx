@@ -74,11 +74,11 @@ const CreateCampaign = () => {
               <div>
                 <h2 className="text-lg font-bold">{t(`Refer_&_Earn`)}</h2>
                 <p className="mt-1 text-ssm">{t(`Invite_friends`)}</p>
-                <button className="mt-4 bg-lightMain text-white px-4 py-2 rounded-md text-ssm font-medium hover:bg-green-600">
+                <button className="mt-4 bg-grayBg text-white px-4 py-2 rounded-md text-ssm font-medium hover:bg-green-600">
                   {t(`Join_Now`)}
                 </button>
               </div>
-              <div className="w-16 h-16 bg-lightMain rounded-full flex items-center justify-center text-2xl font-bold">
+              <div className="w-16 h-16 bg-grayBg rounded-full flex items-center justify-center text-2xl font-bold">
                 %
               </div>
             </div>
@@ -108,7 +108,7 @@ const CreateCampaign = () => {
                   campaigns.map((item) => (
                     <div
                       key={item.id}
-                      className="w-full bg-gray-400 rounded-[8px] shadow"
+                      className="w-full bg-grayBg rounded-[8px] shadow"
                     >
                       <div className="p-3 flex items-center justify-between">
                         {/* Left side - Avatar + Name */}

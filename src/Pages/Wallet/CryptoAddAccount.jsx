@@ -131,7 +131,7 @@ export default function CryptoAddAccount() {
   };
   return (
     <div
-      className="min-h-screen  p-6 lg2:p-0 lg2:pr-4 rounded-md bg-lightMain lg2:bg-transparent m-2 lg2:m-0"
+      className="min-h-screen  p-6 lg2:p-0 lg2:pr-4 rounded-md bg-grayBg lg2:bg-transparent m-2 lg2:m-0"
       style={{
         fontFamily: "Roboto",
       }}
@@ -164,7 +164,7 @@ export default function CryptoAddAccount() {
         </h2>
 
         <form
-          className="space-y-4 lg2:py-2 bg-lightMain lg2:px-4"
+          className="space-y-4 lg2:py-2 bg-grayBg lg2:px-4"
           onSubmit={handleSubmit}
         >
           {/* Select Currency */}
@@ -231,7 +231,9 @@ export default function CryptoAddAccount() {
               </div>
             )}
             {errors.wallet_type && (
-              <p className="text-xs text-white-500 mt-1">{errors.wallet_type}</p>
+              <p className="text-xs text-white-500 mt-1">
+                {errors.wallet_type}
+              </p>
             )}
           </div>
 
@@ -316,7 +318,7 @@ export default function CryptoAddAccount() {
           <button
             type="submit"
             // disabled={buttonDisabled}
-            className="w-full bg-red text-white font-medium py-3 rounded-md lg2:w-[160px] lg2:py-2 lg2:text-[13px] lg2:font-semibold lg2:rounded-md lg2:ml-auto lg2:block cursor-pointer"
+            className="w-full bg-lightMain text-white font-medium py-3 rounded-md lg2:w-[160px] lg2:py-2 lg2:text-[13px] lg2:font-semibold lg2:rounded-md lg2:ml-auto lg2:block cursor-pointer"
             style={{
               fontFamily: "Roboto",
               fontSize: "13.5px",

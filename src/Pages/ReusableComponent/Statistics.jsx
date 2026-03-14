@@ -68,12 +68,12 @@ export default function Statistics() {
         {/* Split Background */}
         <div className="absolute inset-0 lg2:hidden">
           <div className="h-1/2 bg-red"></div>
-          <div className="h-1/2 bg-gray-100"></div>
+          <div className="h-1/2 bg-red"></div>
         </div>
 
         {/* Content */}
         <div className="relative z-1 max-w-3xl lg2:max-w-full mx-auto px-4 lg2:px-0 py-6 lg2:py-0 lg2:pr-4">
-          <div className="flex flex-col justify-between mb-6 gap-2 lg2:bg-lightMain lg2:rounded-b-2xl lg2:py-6 lg2:px-4">
+          <div className="flex flex-col justify-between mb-6 gap-2 lg2:bg-grayBg lg2:rounded-b-2xl lg2:py-6 lg2:px-4">
             <h2
               className="text-white lg2:hidden font-medium text-sm"
               style={{
@@ -83,7 +83,7 @@ export default function Statistics() {
               Statistics
             </h2>
             <div className="flex items-center gap-2">
-              <select className="px-3 py-1 rounded-md border border-gray-300 flex-1 bg-lightMain appearance-gray focus:outline-none cursor-pointer ">
+              <select className="px-3 py-1 rounded-md border border-gray-300 flex-1 text-white bg-grayBg appearance-gray focus:outline-none cursor-pointer ">
                 <option></option>
                 <option>All Time</option>
                 <option>Period</option>
@@ -143,7 +143,7 @@ export default function Statistics() {
                 </tr>
               </thead>
 
-              <tbody className="text-ssm font-medium text-center text-white bg-white lg2:bg-lightMain">
+              <tbody className="text-ssm font-medium text-center text-white bg-grayBg lg2:bg-grayBg">
                 {/* All Time Row */}
                 <tr>
                   <td className="py-2 px-2 border border-lightBorder text-start lg2:text-center">

@@ -250,14 +250,16 @@ export default function BetHistory() {
             </svg>
           </div>
           <div className="bg-red lg2:rounded-t-2xl p-2 px-4 hidden lg:block">
-            <h2 className="text-white text-sm font-semibold">{t(`Bet_History`)}</h2>
+            <h2 className="text-white text-sm font-semibold">
+              {t(`Bet_History`)}
+            </h2>
           </div>
-          <div className="lg2:bg-lightMain w-full  lg2:rounded-b-2xl">
+          <div className="lg2:bg-grayBg w-full  lg2:rounded-b-2xl">
             <div className="py-6 hidden lg2:block">
               <SlidingTabs />
             </div>
 
-            <div className="lg2:grid lg2:grid-cols-12 lg2:gap-4 bg-lightMain lg2:rounded-b-2xl lg2:py-3 lg2:px-8 m-2 rounded-2xl pb-1 lg2:pb-0 lg2:rounded-none lg2:m-0">
+            <div className="lg2:grid lg2:grid-cols-12 lg2:gap-4 bg-grayBg lg2:rounded-b-2xl lg2:py-3 lg2:px-8 m-2 rounded-2xl pb-1 lg2:pb-0 lg2:rounded-none lg2:m-0">
               <div className="mb-3 p-2 px-4 lg2:col-span-5 lg2:px-0 lg2:p-0">
                 <div className="flex justify-between mb-3 gap-2 ">
                   {/* From Date */}

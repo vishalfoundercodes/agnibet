@@ -157,7 +157,7 @@ export default function Sidebar({
             </h2>
             <div className="w-full mb-2 border-b border-grayBorder"></div>
             {/* <div className="w-full mb-2 border-b border-grayBorder"></div> */}
-            <div className="border border-grayBorder mx-4 bg-lightMain rounded-[10px] p-2 text-center mb-2  justify-items-start cursor-pointer">
+            <div className="border border-grayBorder mx-4 bg-grayBg rounded-[10px] p-2 text-center mb-2  justify-items-start cursor-pointer">
               <p className="text-xs font-medium text-white">
                 {t(`Total_Balance`)}
               </p>
@@ -167,7 +167,7 @@ export default function Sidebar({
               </p>
             </div>
             <div className="grid grid-cols-2 gap-2 text-sm mb-3 px-4">
-              <div className="border rounded-[10px] p-2  col-span-1 border-grayBorder bg-lightMain cursor-pointer">
+              <div className="border rounded-[10px] p-2  col-span-1 text-white border-grayBorder bg-grayBg cursor-pointer">
                 <p className="text-xs text-white font-medium uppercase">
                   {t(`Free_Cash`)}
                 </p>
@@ -178,7 +178,7 @@ export default function Sidebar({
                     "0"}
                 </p>
               </div>
-              <div className="border rounded-[10px] p-2  border-grayBorder bg-lightMain cursor-pointer">
+              <div className="border rounded-[10px] p-2  border-grayBorder text-white bg-grayBg cursor-pointer">
                 <p className="text-xs text-white font-medium">
                   {t(`Winning_amount`)}
                 </p>
@@ -203,7 +203,7 @@ export default function Sidebar({
             {/* Deposit / Withdraw */}
             <div className="flex gap-3 mb-3 px-4 ">
               <div
-                className="flex flex-1 flex-col items-center justify-center cursor-pointer bg-lightMain
+                className="flex flex-1 flex-col items-center justify-center cursor-pointer bg-grayBg
  rounded-[8px] p-0 w-20 h-18"
                 onClick={() => {
                   (onClose(), navigate("/deposit"));
@@ -251,7 +251,7 @@ export default function Sidebar({
               </div>
 
               <div
-                className="flex flex-1 flex-col items-center justify-center cursor-pointer bg-lightMain
+                className="flex flex-1 flex-col items-center justify-center cursor-pointer bg-grayBg
  rounded-[8px] p-1 w-20 h-18"
                 onClick={() => {
                   (onClose(), navigate("/withdraw"));
@@ -311,7 +311,7 @@ export default function Sidebar({
           </div>
 
           {/* Help Section */}
-          <div className="bg-lightMain border border-grayBorder px-4 py-2  font-bold text-white text-sm">
+          <div className="bg-grayBg border border-grayBorder px-4 py-2  font-bold text-white text-sm">
             {t(`Help_&_Support`)}
           </div>
           <ul className="divide-y divide-grayBorder font-medium px-4">
@@ -391,7 +391,7 @@ export default function Sidebar({
           </ul>
 
           {/* Statement */}
-          <div className="bg-lightMain border border-grayBorder px-4 py-2 text-sm font-bold text-white ">
+          <div className="bg-grayBg border border-grayBorder px-4 py-2 text-sm font-bold text-white ">
             {t(`Statement`)}
           </div>
           <ul className="divide-y divide-grayBorder font-medium px-4 text-white">
@@ -568,7 +568,7 @@ export default function Sidebar({
           </ul>
 
           {/* Legal */}
-          <div className="bg-lightMain border border-grayBorder px-4 py-2 text-sm font-bold text-white ">
+          <div className="bg-grayBg border border-grayBorder px-4 py-2 text-sm font-bold text-white ">
             {t(`Legal_&_Compliance`)}
           </div>
           <ul className="divide-y divide-grayBorder font-medium px-4 text-white">
@@ -667,7 +667,7 @@ export default function Sidebar({
           </ul>
 
           {/* Account */}
-          <div className="bg-lightMain border border-grayBorder px-4 py-2 text-sm font-bold text-white ">
+          <div className="bg-grayBg border border-grayBorder px-4 py-2 text-sm font-bold text-white ">
             {t(`Account_Actions`)}
           </div>
           <ul className="divide-y divide-grayBorder font-medium px-4 text-white">
@@ -715,7 +715,7 @@ export default function Sidebar({
           {/* Contact Us */}
           <div className="p-4">
             <button
-              className="w-full bg-lightMain text-white py-10 rounded-lg font-medium flex flex-col items-center justify-center gap-2 text-2xl cursor-pointer"
+              className="w-full bg-grayBg text-white py-10 rounded-lg font-medium flex flex-col items-center justify-center gap-2 text-2xl cursor-pointer"
               onClick={() => {
                 if (contact?.mobile_number) {
                   window.open(contact.mobile_number, "_self");

@@ -146,7 +146,7 @@ fetchNotification()
           {apiNotifications.map((n) => (
             <div
               key={n.id}
-              className={`bg-lightMain rounded-xl shadow overflow-hidden border-l-4 ${
+              className={`bg-grayBg rounded-xl shadow overflow-hidden border-l-4 ${
                 n.border ? "border-red" : "border-white"
               }`}
             >

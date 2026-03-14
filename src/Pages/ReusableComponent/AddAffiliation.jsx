@@ -101,7 +101,7 @@ const AffiliateModal = ({ isOpen, setIsOpen, onCampaignCreated, onClose }) => {
                 placeholder="Enter campaign name"
                 value={campaignName}
                 onChange={(e) => setCampaignName(e.target.value)}
-                className="mt-1 w-full px-4 py-2 border rounded-md bg-lightMain outline-none border-lightBorder text-white"
+                className="mt-1 w-full px-4 py-2 border rounded-md bg-grayBg outline-none border-lightBorder text-white"
               />
             </div>
 
@@ -118,7 +118,7 @@ const AffiliateModal = ({ isOpen, setIsOpen, onCampaignCreated, onClose }) => {
                 onChange={(e) =>
                   setUniqueCode(e.target.value.trim().toUpperCase())
                 }
-                className="mt-1 w-full px-4 py-2 border rounded-md bg-lightMain outline-none border-lightBorder text-white"
+                className="mt-1 w-full px-4 py-2 border rounded-md bg-grayBg outline-none border-lightBorder text-white"
               />
             </div>
 
@@ -135,7 +135,7 @@ const AffiliateModal = ({ isOpen, setIsOpen, onCampaignCreated, onClose }) => {
                   value={`https://betoo.app/signup?campaign=${
                     uniqueCode || ""
                   }`}
-                  className="mt-1 w-full px-4 py-2 border rounded-md bg-lightMain cursor-not-allowed border-lightBorder text-white pr-12"
+                  className="mt-1 w-full px-4 py-2 border rounded-md bg-grayBg cursor-not-allowed border-lightBorder text-white pr-12"
                 />
 
                 {/* Copy Button */}
@@ -161,7 +161,7 @@ const AffiliateModal = ({ isOpen, setIsOpen, onCampaignCreated, onClose }) => {
 
             {/* Buttons */}
             <div className="flex flex-col gap-3 mt-6">
-              <button className="w-full bg-lightgrayBg2 text-white py-2 rounded-md cursor-pointer">
+              <button className="w-full bg-grayBg text-white py-2 rounded-md cursor-pointer">
                 {t(`Reset`)}
               </button>
               <button

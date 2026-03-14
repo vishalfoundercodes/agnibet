@@ -145,7 +145,7 @@ export default function RedeemBonus() {
               {t(`Reedem_SubHeader`)}
             </p>
 
-            <div className=" flex mt-4 bg-red rounded-xl shadow p-4 gap-2">
+            <div className=" flex mt-4 bg-grayBg rounded-xl shadow p-4 gap-2">
               <input
                 type="text"
                 placeholder={t(`PlaceholderCoupon`)}
@@ -163,7 +163,7 @@ export default function RedeemBonus() {
           </div>
 
           {/* Bonus Status */}
-          <div className="w-full max-w-m bg-red rounded-xl shadow mt-4 p-10 flex flex-col items-center">
+          <div className="w-full max-w-m bg-grayBg rounded-xl shadow mt-4 p-10 flex flex-col items-center">
             <div className="bg-lightMain rounded-full p-4">
               {/* <Gift size={40} className="text-gray-400 mb-2" /> */}
               <svg
@@ -180,16 +180,12 @@ export default function RedeemBonus() {
               </svg>
             </div>
 
-            <p className="text-white text-sm font-semibold">
-              {t(`NoPending`)}
-            </p>
-            <p className="text-ssm text-white text-center mt-1">
-              {t(`Valid`)}
-            </p>
+            <p className="text-white text-sm font-semibold">{t(`NoPending`)}</p>
+            <p className="text-ssm text-white text-center mt-1">{t(`Valid`)}</p>
           </div>
 
           {/* Trusted Gaming Section */}
-          <div className="w-full max-w-m bg-red rounded-xl shadow mt-4 px-10 py-4 flex flex-col items-center">
+          <div className="w-full max-w-m bg-grayBg rounded-xl shadow mt-4 px-10 py-4 flex flex-col items-center">
             <img src={trustedGame} alt="Trophy" className="w-28 h-24 mb-2" />
             <h3 className="text-white text-sm font-semibold">
               {t(`Trust_header`)}
@@ -377,7 +373,7 @@ export default function RedeemBonus() {
               </div>
             </div>
           </div> */}
-          <div className="w-full max-w-m bg-red rounded-xl shadow mt-4 p-4">
+          <div className="w-full max-w-m bg-grayBg rounded-xl shadow mt-4 p-4">
             <h4 className="text-white text-sm font-bold">{t(`Recent`)}</h4>
 
             <div className="mt-3 space-y-3 text-sm">
@@ -443,7 +439,9 @@ export default function RedeemBonus() {
                         isDeposit ? "text-green-500" : "text-red-500"
                       }`}
                     >
-                      {isDeposit ? `+ ${Currency}${item.amount}` : `- ${Currency}${item.amount}`}
+                      {isDeposit
+                        ? `+ ${Currency}${item.amount}`
+                        : `- ${Currency}${item.amount}`}
                     </p>
                   </div>
                 );

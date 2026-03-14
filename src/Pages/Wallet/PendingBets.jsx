@@ -258,14 +258,16 @@ export default function PendingBets() {
         </svg>
       </div>
       <div className="bg-red lg2:rounded-t-2xl p-2 px-4 hidden lg:block">
-        <h2 className="text-white text-sm font-semibold">{t(`Pending_Bets`)}</h2>
+        <h2 className="text-white text-sm font-semibold">
+          {t(`Pending_Bets`)}
+        </h2>
       </div>
-      <div className="lg2:bg-lightMain w-full  lg2:rounded-b-2xl">
+      <div className="lg2:bg-grayBg w-full  lg2:rounded-b-2xl">
         <div className="py-6 hidden lg2:block">
           <SlidingTabs />
         </div>
 
-        <div className="lg2:grid lg2:grid-cols-12 lg2:gap-4 bg-lightMain lg2:rounded-b-2xl lg2:py-3 lg2:px-8 m-2 pb-1 rounded-2xl">
+        <div className="lg2:grid lg2:grid-cols-12 lg2:gap-4 bg-grayBg lg2:rounded-b-2xl lg2:py-3 lg2:px-8 m-2 pb-1 rounded-2xl">
           <div className="p-2 px-4 lg2:col-span-5">
             {/* Game Filter Dropdown */}
             <div className="mb-3 ">
@@ -305,7 +307,7 @@ export default function PendingBets() {
               <div className="flex justify-between mb-3 gap-2 mt-3">
                 {/* Start Date */}
                 <div className="relative flex-1">
-                  <label className="text-black text-[12px] font-medium">
+                  <label className="text-white text-[12px] font-medium">
                     {t(`From_Date`)}
                   </label>
                   <input
@@ -326,7 +328,7 @@ export default function PendingBets() {
 
                 {/* End Date */}
                 <div className="relative flex-1">
-                  <label className="text-black text-[12px] font-medium">
+                  <label className="text-white text-[12px] font-medium">
                     {t(`To_Date`)}
                   </label>
                   <input

@@ -226,14 +226,111 @@ export default function Home() {
   const [sponser, setSponser] = useState(null);
 
   useEffect(() => {
+
+      const loadDataFromLocalStorage = () => {
+        console.log("local data fetching...");
+        const brandGamesData = [];
+        const hotGamesTemp = [];
+        const slotGamesTemp = [];
+        const allGamesTemp = [];
+
+        // Load each brand's data
+        allowed_games.forEach((brandId) => {
+          const brandStorageKey = `${BRAND_DATA_PREFIX}${brandId}`;
+          const storedData = localStorage.getItem(brandStorageKey);
+
+          if (storedData) {
+            const { brand, games } = JSON.parse(storedData);
+            console.log(`📦 Loaded brand ${brandId} from localStorage`);
+
+            // Brand ID 57 - Casino Table games
+            if (brand.brand_id === "57") {
+              const hotGamesFiltered = games.filter(
+                (game) => game.category === "CasinoTable",
+              );
+              hotGamesTemp.push(...hotGamesFiltered);
+            }
+
+            // Brand ID 52 - Chess games
+            if (brand.brand_id === "52") {
+              const hotGamesFiltered = games.filter(
+                (game) => game.category === "chess",
+              );
+              hotGamesTemp.push(...hotGamesFiltered);
+            }
+
+            // Filter out "slot" category games for brand_id 49
+            if (brand.brand_id === "49") {
+              const slotCategoryGames = games.filter(
+                (game) => game.category === "slot",
+              );
+              const hotGamesFiltered = games.filter(
+                (game) => game.category === "fish",
+              );
+              const nonSlotGames = games.filter(
+                (game) => game.category !== "slot",
+              );
+
+              slotGamesTemp.push(...slotCategoryGames);
+              hotGamesTemp.push(...hotGamesFiltered);
+              allGamesTemp.push(...nonSlotGames);
+
+              brandGamesData.push({ brand, games: nonSlotGames });
+            } else {
+              brandGamesData.push({ brand, games });
+            }
+          }
+        });
+
+        // Load banner data
+        const bannerData = localStorage.getItem(BANNER_DATA_KEY);
+        if (bannerData) {
+          const { banner, bannerImages } = JSON.parse(bannerData);
+          setbanner(banner);
+          setBannerImages(bannerImages);
+          console.log("📦 Loaded banner data from localStorage");
+        }
+
+        // Load sponser data
+        const sponserData = localStorage.getItem(SPONSER_DATA_KEY);
+        if (sponserData) {
+          const { sponser } = JSON.parse(sponserData);
+          setSponser(sponser);
+          console.log("📦 Loaded sponser data from localStorage");
+        }
+        // Load sponser data
+        const cassinoLobbyData = localStorage.getItem(CassinoLobby_DATA_KEY);
+        if (cassinoLobbyData) {
+          const { cassnoLobby } = JSON.parse(cassinoLobbyData);
+          setCasinoLobby(cassnoLobby);
+          console.log("📦 Loaded sponser data from localStorage");
+        }
+
+        console.log("brands data:", brandGamesData);
+        // Set all states
+        setBrandGames(brandGamesData);
+        setHotGames(hotGamesTemp);
+        setSlotGames(slotGamesTemp);
+        setAllGames(allGamesTemp);
+
+        console.log("✅ All data loaded from localStorage successfully!");
+      };
+
     const fetchBrandsAndGames = async () => {
       try {
         setLoading(true);
 
         // Check if first time load parameter
-        const isFirstTimeLoad = localStorage.getItem(FIRST_TIME_LOAD_KEY);
-        console.log("is game in local:",isFirstTimeLoad)
-        if (isFirstTimeLoad === true) {
+        // const isFirstTimeLoad = localStorage.getItem(FIRST_TIME_LOAD_KEY);
+        // console.log("is game in local:",isFirstTimeLoad)
+        // if (isFirstTimeLoad == true) {
+        const isFirstTimeLoad =
+          localStorage.getItem(FIRST_TIME_LOAD_KEY) === "true";
+
+          console.log("isFirstTimeLoad:", isFirstTimeLoad);
+          console.log("type:", typeof isFirstTimeLoad);
+
+        if (isFirstTimeLoad) {
           // Data already stored hai, localStorage se load karo
           console.log("🔄 Loading data from localStorage...");
           loadDataFromLocalStorage();
@@ -478,92 +575,7 @@ export default function Home() {
     };
 
     // Function to load data from localStorage
-    const loadDataFromLocalStorage = () => {
-      const brandGamesData = [];
-      const hotGamesTemp = [];
-      const slotGamesTemp = [];
-      const allGamesTemp = [];
-
-      // Load each brand's data
-      allowed_games.forEach((brandId) => {
-        const brandStorageKey = `${BRAND_DATA_PREFIX}${brandId}`;
-        const storedData = localStorage.getItem(brandStorageKey);
-
-        if (storedData) {
-          const { brand, games } = JSON.parse(storedData);
-          // console.log(`📦 Loaded brand ${brandId} from localStorage`);
-
-          // Brand ID 57 - Casino Table games
-          if (brand.brand_id === "57") {
-            const hotGamesFiltered = games.filter(
-              (game) => game.category === "CasinoTable"
-            );
-            hotGamesTemp.push(...hotGamesFiltered);
-          }
-
-          // Brand ID 52 - Chess games
-          if (brand.brand_id === "52") {
-            const hotGamesFiltered = games.filter(
-              (game) => game.category === "chess"
-            );
-            hotGamesTemp.push(...hotGamesFiltered);
-          }
-
-          // Filter out "slot" category games for brand_id 49
-          if (brand.brand_id === "49") {
-            const slotCategoryGames = games.filter(
-              (game) => game.category === "slot"
-            );
-            const hotGamesFiltered = games.filter(
-              (game) => game.category === "fish"
-            );
-            const nonSlotGames = games.filter(
-              (game) => game.category !== "slot"
-            );
-
-            slotGamesTemp.push(...slotCategoryGames);
-            hotGamesTemp.push(...hotGamesFiltered);
-            allGamesTemp.push(...nonSlotGames);
-
-            brandGamesData.push({ brand, games: nonSlotGames });
-          } else {
-            brandGamesData.push({ brand, games });
-          }
-        }
-      });
-
-      // Load banner data
-      const bannerData = localStorage.getItem(BANNER_DATA_KEY);
-      if (bannerData) {
-        const { banner, bannerImages } = JSON.parse(bannerData);
-        setbanner(banner);
-        setBannerImages(bannerImages);
-        console.log("📦 Loaded banner data from localStorage");
-      }
-
-      // Load sponser data
-      const sponserData = localStorage.getItem(SPONSER_DATA_KEY);
-      if (sponserData) {
-        const { sponser } = JSON.parse(sponserData);
-        setSponser(sponser);
-        console.log("📦 Loaded sponser data from localStorage");
-      }
-      // Load sponser data
-      const cassinoLobbyData = localStorage.getItem(CassinoLobby_DATA_KEY);
-      if (cassinoLobbyData) {
-        const { cassnoLobby } = JSON.parse(cassinoLobbyData);
-        setCasinoLobby(cassnoLobby);
-        console.log("📦 Loaded sponser data from localStorage");
-      }
-
-      // Set all states
-      setBrandGames(brandGamesData);
-      setHotGames(hotGamesTemp);
-      setSlotGames(slotGamesTemp);
-      setAllGames(allGamesTemp);
-
-      console.log("✅ All data loaded from localStorage successfully!");
-    };
+  
 
     fetchBrandsAndGames();
   }, []);

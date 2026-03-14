@@ -19,176 +19,120 @@ export default function ForgotPassword() {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
    const [countryCode, setCountryCode] = useState("+91");
-      const countries = [
-                       { code: "+91", name: "INDIA", flag: indiaFlag },
-                       { code: "+880", name: "BANGLADESH", flag: bangladeshFlag },
-                     ];
+     const countries = [
+            { code: "+91", name: "INDIA", flag: indiaFlag },
+            { code: "+971", name: "UAE", flag: uaeFlag },
+            { code: "+92", name: "PAKISTAN", flag: pakistanFlag },
+            { code: "+977", name: "NEPAL", flag: nepalFlag },
+            { code: "+880", name: "BANGLADESH", flag: bangladeshFlag },
+            { code: "+94", name: "SRILANKA", flag: srilankaFlag },
+            { code: "+1", name: "UNITED STATES", flag: usFlag },
+            { code: "+1", name: "CANADA", flag: canadaFlag },
+            { code: "+44", name: "UNITED KINGDOM", flag: ukFlag },
+          ];
             const [isOpen, setIsOpen] = useState(false);
             const [selected, setSelected] = useState(countries[0]);
  const [phoneNumber, setPhoneNumber] = useState("");
-  // const [otp, setOtp] = useState("");
+  const [otp, setOtp] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [buttonDisabled,setButtonDisabled]=useState(false);
-const [email, setEmail] = useState("");
-const [otp, setOtp] = useState("");
-const [step, setStep] = useState(1); // 1=email, 2=otp, 3=reset
-const sendOtpEmail = async () => {
-  if (!email) {
-    toast.error("Email is required");
-    return;
-  }
+  const [buttonDisabled,setButtonDisabled]=useState(true)
 
-  try {
-    // const res = await axios.post("https://root.betoo.app/api/send-otp-email",
-  const res = await axios.post(apis?.sendotpemail, { email });
+            const handleSubmit = async (e) => {
+                  e.preventDefault(); // Prevent page refresh
 
+                  if (!phoneNumber) {
+                    toast.error("Phone Number is required.");
+                    return; // Exit the function if validation fails
+                  }
+                  if (!password) {
+                    toast.error("Password is required.");
+                    return; // Exit the function if validation fails
+                  }
+                  if (password !== confirmPassword) {
+                    toast.error("Password and confirm password must be same.");
+                    return; // Exit the function if validation fails
+                  }
+                 // Create payload
+                  const payload = {
+                    country_code: selected.code,
+                    mobile: phoneNumber,
+                    otp: otp,
+                    password: password,
+                    password_confirmation: confirmPassword,
+                  };
+                  // Log the payload
+                  console.log(payload);
+                  const res = await axios.post(apis.forget_password, payload);
+                  console.log(res);
 
-    if (res.data.status === 200) {
-      toast.success("OTP sent to email");
-      setStep(2);
-    } else {
-      toast.error(res.data.message);
-    }
-  } catch (err) {
-    toast.error("Failed to send OTP");
-  }
-};
-const verifyOtpEmail = async () => {
-  if (!otp) {
-    toast.error("OTP required");
-    return;
-  }
+                  if (res?.data?.status === 200) {
+                    toast.success(res?.data?.message);
+                    navigate("/login");
+                  }
+                  if (res?.data?.status === 400) {
+                    toast.error(res?.data?.message);
+                  }
+                };
 
-  try {
-    // const res = await axios.post(
-    //   "https://root.betoo.app/api/verify-otp-email",
-    //   { email, otp }
-    // );
-  const res = await axios.post(apis?.verifyotpemail, { email,otp });
-    if (res.data.status === 200) {
-      toast.success("OTP verified");
-      setStep(3);
-    } else {
-      toast.error(res.data.message);
-    }
-  } catch (err) {
-    toast.error("OTP verification failed");
-  }
-};
+                const checkOtp = async (number) => {
+                  const checkOtpPayload = {
+                    mobile: number,
+                  };
+                  try {
+                    const res = await axios.post(
+                      apis.check_otp_pack,
+                      checkOtpPayload,
+                    );
+                    console.log("otp pack:", res);
+                    if (res?.status === 200) {
+                      await sendOtp(number); 
+                    }
+                  } catch (error) {
+                    console.error(error);
+                    toast.warn(
+                      error?.response?.data?.message ||
+                        "OTP pack has been exhausted",
+                    );
+                  }
+                };
 
-            // const handleSubmit = async (e) => {
-            //       e.preventDefault(); // Prevent page refresh
+                     const sendOtp = async (number) => {
+                       const res = await axios.post(`${apis.sendOtp}${number}`);
+                       console.log(res?.data);
+                       if (
+                         res?.data?.error === 200 ||
+                         res?.data?.error === "200"
+                       ) {
+                         toast.success(res?.data?.msg);
+                       } else {
+                         toast.error(res?.data?.msg);
+                       }
+                     };
 
-            //       if (!phoneNumber) {
-            //         toast.error("Phone Number is required.");
-            //         return; // Exit the function if validation fails
-            //       }
-            //       if (!password) {
-            //         toast.error("Password is required.");
-            //         return; // Exit the function if validation fails
-            //       }
-            //       if (password !== confirmPassword) {
-            //         toast.error("Password and confirm password must be same.");
-            //         return; // Exit the function if validation fails
-            //       }
-            //      // Create payload
-            //       const payload = {
-            //         country_code: selected.code,
-            //         mobile: phoneNumber,
-            //         // otp: otp,
-            //         password: password,
-            //         password_confirmation: confirmPassword,
-            //       };
-            //       // Log the payload
-            //       console.log(payload);
-            //       const res = await axios.post(apis.forget_password, payload);
-            //       console.log(res);
+                     const handleVerify = async (value) => {
+                       console.log(phoneNumber, value);
+                       console.log(
+                         `${apis.verifyOtp}${phoneNumber}&otp=${value}`
+                       );
+                       const res = await axios.post(
+                         `${apis.verifyOtp}${phoneNumber}&otp=${value}`
+                       );
 
-            //       if (res?.data?.status === 200) {
-            //         toast.success(res?.data?.message);
-            //         navigate("/login");
-            //       }
-            //       if (res?.data?.status === 400) {
-            //         toast.error(res?.data?.message);
-            //       }
-            //     };
-
-                    //  const sendOtp = async (number) => {
-                    //    const res = await axios.post(`${apis.sendOtp}${number}`);
-                    //    console.log(res?.data);
-                    //    if (
-                    //      res?.data?.error === 200 ||
-                    //      res?.data?.error === "200"
-                    //    ) {
-                    //      toast.success(res?.data?.msg);
-                    //    } else {
-                    //      toast.error(res?.data?.msg);
-                    //    }
-                    //  };
-
-                    //  const handleVerify = async (value) => {
-                    //    console.log(phoneNumber, value);
-                    //    console.log(
-                    //      `${apis.verifyOtp}${phoneNumber}&otp=${value}`
-                    //    );
-                    //    const res = await axios.post(
-                    //      `${apis.verifyOtp}${phoneNumber}&otp=${value}`
-                    //    );
-
-                    //    console.log(res);
-                    //    if (
-                    //      res?.data?.error === 200 ||
-                    //      res?.data?.error === "200"
-                    //    ) {
-                    //      toast.success(res?.data?.msg);
-                    //      setButtonDisabled(false);
-                    //    } else if (
-                    //      res?.data?.error === 400 ||
-                    //      res?.data?.error === "400"
-                    //    ) {
-                    //      toast.error(res?.data?.msg);
-                    //    }
-                    //  };
-
-                    const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  if (!password || !confirmPassword) {
-    toast.error("Password required");
-    return;
-  }
-
-  if (password !== confirmPassword) {
-    toast.error("Passwords do not match");
-    return;
-  }
-
-  try {
-    // const res = await axios.post(
-    //   "https://root.betoo.app/api/forget_pass",
-    //   {
-    //     email,
-    //     otp,
-    //     password
-    //   }
-    // );
-  const res = await axios.post(apis?.forget_password,  {
-         email,
-        otp,
-       password
-      });
-  
-    if (res.data.status === 200) {
-      toast.success("Password reset successful");
-      navigate("/login");
-    } else {
-      toast.error(res.data.message);
-    }
-  } catch (err) {
-    toast.error("Password reset failed");
-  }
-};
+                       console.log(res);
+                       if (
+                         res?.data?.error === 200 ||
+                         res?.data?.error === "200"
+                       ) {
+                         toast.success(res?.data?.msg);
+                         setButtonDisabled(false);
+                       } else if (
+                         res?.data?.error === 400 ||
+                         res?.data?.error === "400"
+                       ) {
+                         toast.error(res?.data?.msg);
+                       }
+                     };
 
   return (
     <div
@@ -198,7 +142,7 @@ const verifyOtpEmail = async () => {
       <div className="absolute inset-0 bg-black/40 z-0" />
 
       <div className="relative z-10 w-80 sm:w-96 max-w-[448px] bg-white rounded-2xl shadow-lg px-6 py-4 pt-3">
-        <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-red rounded-full shadow-md">
+        <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-md">
           <img src={logo} alt="Logo" className="h-16 w-16 object-contain" />
         </div>
 
@@ -211,8 +155,8 @@ const verifyOtpEmail = async () => {
 
         <form className="space-y-4 mt-4 mb-2" onSubmit={handleSubmit}>
           {/* Phone Number */}
-          {/* <div className="flex mt-2 gap-2">
-            
+          <div className="flex mt-2 gap-2">
+            {/* Country Code Box */}
             <div>
               <label
                 className="block mb-1"
@@ -247,9 +191,8 @@ const verifyOtpEmail = async () => {
                 </span>
               </div>
 
-              
+              {/* Dropdown */}
               {isOpen && buttonDisabled && (
-              
                 <div className="absolute mt-2 w-72  bg-white border border-gray-300 rounded-[6px] shadow-lg max-h-60 overflow-y-auto z-50 hide-scrollbar px-3 py-2">
                   {countries.map((country, idx) => (
                     <div
@@ -263,23 +206,23 @@ const verifyOtpEmail = async () => {
                         setIsOpen(false);
                       }}
                     >
-                     
+                      {/* Left side: flag + name */}
                       <div className="flex items-center gap-3">
-                        
+                        {/* <span className="text-lg">{country.flag}</span> */}
                         <img src={country.flag} alt="" className="w-5" />
                         <span className="text-inputText font-medium">
                           {country.name}
                         </span>
                       </div>
 
-                  
+                      {/* Right side: code */}
                       <span className="text-inputText font-medium">
                         {country.code}
                       </span>
                     </div>
                   ))}
                 </div>
-              )} 
+              )}
             </div>
             <div>
               <label
@@ -293,9 +236,9 @@ const verifyOtpEmail = async () => {
                 Phone Number
               </label>
               <div className="relative w-full">
-              
+                {/* Input Field */}
                 <input
-                  // disabled={!buttonDisabled}
+                  disabled={!buttonDisabled}
                   type="text"
                   placeholder="Phone Number"
                   className="w-full pl-2 pr-20 py-2 border-2 border-gray-300 rounded-xl text-[16px] font-medium focus:outline-none bg-inputBoxBg text-inputText"
@@ -310,13 +253,13 @@ const verifyOtpEmail = async () => {
                   maxLength={10}
                 />
 
-               
+                {/* OTP Button */}
                 <button
                   type="button"
                   className="absolute top-1/2 right-1.5 -translate-y-1/2 bg-buttonRed text-white px-3 py-2 text-[10px] rounded hover:bg-red-600 cursor-pointer"
                   onClick={() => {
                     if (phoneNumber.length === 10) {
-                      sendOtp(phoneNumber);
+                      checkOtp(phoneNumber);
                     } else {
                       toast.error("Enter the 10 digit number");
                     }
@@ -326,10 +269,10 @@ const verifyOtpEmail = async () => {
                 </button>
               </div>
             </div>
-          </div> */}
+          </div>
 
           {/* OTP */}
-          {/* <div>
+          <div>
             <label className="block mb-1 text-[16px] font-semibold">OTP</label>
             <input
               type="text"
@@ -348,71 +291,7 @@ const verifyOtpEmail = async () => {
               }}
               maxLength={4}
             />
-          </div> */}
-
-
-{step === 1 && (
-  <>
-  <label
-                className="block mb-1"
-                style={{
-                  fontFamily: "Roboto, sans-serif",
-                  fontWeight: 500,
-                  fontSize: "18px",
-                }}
-              >
-                Email
-              </label>
-              <div className="relative w-full">
-      
-    <input
-      type="email"
-      placeholder="Enter Email"
-      value={email}
-      onChange={(e) => setEmail(e.target.value)}
-                        className="w-full pl-2 pr-20 py-2 border-2 border-gray-300 rounded-xl text-[16px] font-medium focus:outline-none bg-inputBoxBg text-inputText"
-
-    />
-    <button type="button" onClick={sendOtpEmail}
-                  className="absolute top-1/2 right-1.5 -translate-y-1/2 bg-buttonRed text-white px-3 py-2 text-[10px] rounded hover:bg-red-600 cursor-pointer"
-    >
-      
-      Send OTP
-    </button>
-  
-  </div>
-  </>
-     
-)}
-{step === 2 && (
-  <>
-    <label
-                className="block mb-1"
-                style={{
-                  fontFamily: "Roboto, sans-serif",
-                  fontWeight: 500,
-                  fontSize: "18px",
-                }}
-              >
-                Enter Otp
-              </label>
-               <div className="relative w-full">
-    <input
-      type="text"
-      placeholder="Enter OTP"
-      value={otp}
-      onChange={(e) => setOtp(e.target.value)}
-                    className="w-full px-4 py-2 border rounded-xl text-sm bg-inputBoxBg text-inputText border-inputBorder focus:outline-none"
-
-    />
-    <button type="button" onClick={verifyOtpEmail}
-                  className="absolute top-1/2 right-1.5 -translate-y-1/2 bg-buttonRed text-white px-3 py-2 text-[10px] rounded hover:bg-red-600 cursor-pointer"
-    >
-      Verify OTP
-    </button>
-    </div>
-  </>
-)}
+          </div>
 
           {/* New Password */}
           <div>
@@ -555,14 +434,6 @@ const verifyOtpEmail = async () => {
           >
             Confirm
           </button>
-          {/* {step === 3 && (
-  <button type="submit"
-            className="w-full bg-[#000000] text-white py-2 rounded-md text-ssm font-medium hover:bg-gray-800 transition cursor-pointer"
-  >
-    Confirm
-  </button>
-)} */}
-
         </form>
       </div>
     </div>

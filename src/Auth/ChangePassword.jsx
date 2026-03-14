@@ -6,11 +6,8 @@ import axios from "axios";
 import apis from "../utils/apis";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { t } from "i18next";
-import { useTranslation } from "react-i18next";
 
 const ChangePassword = () => {
-  const {t}=useTranslation()
   // State to toggle each field visibility
   const [showCurrent, setShowCurrent] = useState(false);
   const [showNew, setShowNew] = useState(false);
@@ -66,18 +63,18 @@ const ChangePassword = () => {
   });
 
   return (
-    <div className="py-4 px-2 bg-red rounded-2xl m-2 lg2:m-0">
+    <div className="py-4 px-2">
       <form onSubmit={formik.handleSubmit} className="space-y-4 font-semibold">
         {/* Current Password */}
         <div>
           <label className="block text-ssm mb-1 text-white">
-            {t(`Current_Password`)}
+            Current Password
           </label>
           <div className="relative">
             <input
               type={showCurrent ? "text" : "password"}
               name="currentPassword"
-              placeholder={t("Enter_current_password")}
+              placeholder="Enter current password"
               value={formik.values.currentPassword}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -92,7 +89,7 @@ const ChangePassword = () => {
             </button>
           </div>
           {formik.touched.currentPassword && formik.errors.currentPassword && (
-            <p className="text-white text-xs mt-1">
+            <p className="text-red text-xs mt-1">
               {formik.errors.currentPassword}
             </p>
           )}
@@ -100,14 +97,12 @@ const ChangePassword = () => {
 
         {/* New Password */}
         <div>
-          <label className="block text-ssm mb-1 text-white">
-            {t(`New_Password`)}
-          </label>
+          <label className="block text-ssm mb-1 text-white">New Password</label>
           <div className="relative">
             <input
-              type={showNew ? t("text") : t("password")}
+              type={showNew ? "text" : "password"}
               name="newPassword"
-              placeholder={t("Enter_new_password")}
+              placeholder="Enter new password"
               value={formik.values.newPassword}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -122,22 +117,20 @@ const ChangePassword = () => {
             </button>
           </div>
           {formik.touched.newPassword && formik.errors.newPassword && (
-            <p className="text-white text-xs mt-1">
-              {formik.errors.newPassword}
-            </p>
+            <p className="text-red text-xs mt-1">{formik.errors.newPassword}</p>
           )}
         </div>
 
         {/* Confirm Password */}
         <div>
           <label className="block text-ssm mb-1 text-white">
-            {t(`Confirm_New_Password`)}
+            Confirm New Password
           </label>
           <div className="relative">
             <input
-              type={showConfirm ? t("text") : t("password")}
+              type={showConfirm ? "text" : "password"}
               name="confirmPassword"
-              placeholder={t("Confirm_New_Password")}
+              placeholder="Confirm new password"
               value={formik.values.confirmPassword}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -152,7 +145,7 @@ const ChangePassword = () => {
             </button>
           </div>
           {formik.touched.confirmPassword && formik.errors.confirmPassword && (
-            <p className="text-white text-xs mt-1">
+            <p className="text-red text-xs mt-1">
               {formik.errors.confirmPassword}
             </p>
           )}
@@ -160,9 +153,9 @@ const ChangePassword = () => {
 
         <button
           type="submit"
-          className="w-full bg-lightMain text-white py-2 rounded-[8px] font-semibold text-ssm hover:text-red cursor-pointer"
+          className="w-full bg-grayBg text-white py-2 rounded-[8px] font-semibold text-ssm hover:bg-red cursor-pointer"
         >
-          {t(`Update_Password`)}
+          Update Password
         </button>
       </form>
     </div>

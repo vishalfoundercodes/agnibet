@@ -130,14 +130,14 @@ const [selectedPayment, setSelectedPayment] = useState(null);
         </div>
 
         {/* Title */}
-        <h2 className="text-[22px] font-semibold text-center mb-6 text-gray-800 lg2:hidden">
+        <h2 className="text-[22px] font-semibold text-center mb-6 text-white lg2:hidden">
           {headingText}
         </h2>
 
-        <form className="space-y-4 lg2:py-4 lg2:bg-lightMain lg2:px-4 lg2:rounded-b-2xl">
+        <form className="space-y-4 lg2:py-4 lg2:bg-grayBg text-white lg2:px-4 lg2:rounded-b-2xl">
           {/* Full Name */}
           <div>
-            <label className="block text-sm font-medium text-red mb-1">
+            <label className="block text-sm font-medium  mb-1">
               {t(`Account_Holder_Name`)}
             </label>
             <input
@@ -146,7 +146,7 @@ const [selectedPayment, setSelectedPayment] = useState(null);
               value={formData.name}
               onChange={handleChange}
               placeholder="Enter account holder’s name"
-              className="w-full border bg-lightMain  placeholder:text-sm  text-white rounded-md px-3 py-2 text-sm "
+              className="w-full border bg-grayBg  placeholder:text-sm  text-white rounded-md px-3 py-2 text-sm "
             />
             {errors.name && (
               <p className="text-xs text-red-500 mt-1">{errors.name}</p>
@@ -155,7 +155,7 @@ const [selectedPayment, setSelectedPayment] = useState(null);
 
           {/* Bank Account Number */}
           <div>
-            <label className="block text-sm font-medium text-red mb-1">
+            <label className="block text-sm font-medium  mb-1">
               {t(`Bank_Account_Number`)}
             </label>
             <input
@@ -164,7 +164,7 @@ const [selectedPayment, setSelectedPayment] = useState(null);
               value={formData.account_number}
               onChange={handleChange}
               placeholder="Enter bank account number"
-              className="w-full border bg-lightMain text-white placeholder:text-sm rounded-md px-3 py-2 text-sm "
+              className="w-full border bg-grayBg text-white placeholder:text-sm rounded-md px-3 py-2 text-sm "
             />
             {errors.account_number && (
               <p className="text-xs text-red-500 mt-1">
@@ -175,7 +175,7 @@ const [selectedPayment, setSelectedPayment] = useState(null);
 
           {/* Confirm Bank Account Number */}
           <div>
-            <label className="block text-sm font-medium text-red mb-1">
+            <label className="block text-sm font-medium mb-1">
               {t(`Confirm_Bank_Account_Number`)}
             </label>
             <input
@@ -184,7 +184,7 @@ const [selectedPayment, setSelectedPayment] = useState(null);
               value={formData.confirm_account_number}
               onChange={handleChange}
               placeholder="Re-enter bank account number"
-              className="w-full border bg-lightMain text-white rounded-md px-3 py-2 text-sm "
+              className="w-full border bg-grayBg text-white rounded-md px-3 py-2 text-sm "
             />
             {errors.confirm_account_number && (
               <p className="text-xs text-red-500 mt-1">
@@ -195,7 +195,7 @@ const [selectedPayment, setSelectedPayment] = useState(null);
 
           {/* IFSC Code */}
           <div>
-            <label className="block text-sm font-medium text-red mb-1">
+            <label className="block text-sm font-medium  mb-1">
               {t(`IFSC_Code`)}
             </label>
             <input
@@ -204,7 +204,7 @@ const [selectedPayment, setSelectedPayment] = useState(null);
               value={formData.ifsc_code}
               onChange={handleChange}
               placeholder="Enter IFSC code"
-              className="w-full border bg-lightMain text-white rounded-md px-3 py-2 text-sm  placeholder:text-sm "
+              className="w-full border bg-grayBg text-white rounded-md px-3 py-2 text-sm  placeholder:text-sm "
             />
             {errors.ifsc_code && (
               <p className="text-xs text-red-500 mt-1">{errors.ifsc_code}</p>
@@ -213,7 +213,7 @@ const [selectedPayment, setSelectedPayment] = useState(null);
 
           {/* Submit Button */}
           <button
-            className="w-full bg-[#969696] text-white font-medium py-3 rounded-md lg2:w-[160px] lg2:py-2 lg2:text-[13px] lg2:font-semibold lg2:rounded-md lg2:ml-auto lg2:block cursor-pointer"
+            className="w-full bg-lightMain text-white font-medium py-3 rounded-md lg2:w-[160px] lg2:py-2 lg2:text-[13px] lg2:font-semibold lg2:rounded-md lg2:ml-auto lg2:block cursor-pointer"
             style={{
               fontFamily: "Roboto",
               fontSize: "13.5px",

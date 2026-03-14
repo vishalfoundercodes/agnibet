@@ -204,7 +204,7 @@ export default function WithdrawHistory() {
             {t(`Withdrawal_History`)}
           </h2>
         </div>
-        <div className="lg2:grid lg2:grid-cols-12 lg2:gap-4 bg-lightMain lg2:rounded-b-2xl lg2:py-3 lg2:px-8 p-2 rounded-2xl lg2:rounded-none">
+        <div className="lg2:grid lg2:grid-cols-12 lg2:gap-4 bg-grayBg lg2:rounded-b-2xl lg2:py-3 lg2:px-8 p-2 rounded-2xl lg2:rounded-none">
           <div className="lg2:col-span-5 ">
             {/* Header */}
             <div className="flex justify-between items-center pb-0 mb-0">
@@ -363,18 +363,18 @@ export default function WithdrawHistory() {
                         deposit.status === 3
                           ? "bg-red-100 text-red-600"
                           : deposit.status === 1
-                          ? "bg-green-100 text-green-600"
-                          : "bg-[#DBEAFE] text-[#2563EB]"
+                            ? "bg-green-100 text-green-600"
+                            : "bg-[#DBEAFE] text-[#2563EB]"
                       }`}
                     >
                       {/* Deposit Status */}
                       {deposit.status === 1
                         ? "Processing"
                         : deposit.status === 2
-                        ? "Success"
-                        : deposit.status === 3
-                        ? "Failed"
-                        : "Unknown"}
+                          ? "Success"
+                          : deposit.status === 3
+                            ? "Failed"
+                            : "Unknown"}
                     </span>
                     <p className="text-white font-bold">
                       <span className="text-red-600">{Currency}</span>{" "}

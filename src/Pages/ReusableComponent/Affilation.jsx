@@ -75,7 +75,7 @@ export default function AffiliatePage() {
       <div className="min-h-screen flex justify-center p-4 lg2:p-0 lg2:pr-4">
         <div className="w-full max-w-s  overflow-hidden ">
           {/* Profile Section */}
-          <div className="w-full max-w-s bg-red rounded-lg shadow mb-5">
+          <div className="w-full max-w-s bg-grayBg rounded-lg shadow mb-5">
             <div className="p-3 flex items-center justify-between">
               {/* Left side - Avatar + Name */}
               <div className="flex items-center space-x-3">
@@ -111,7 +111,7 @@ export default function AffiliatePage() {
           </div>
 
           {/* Stats Section */}
-          <div className="p-4 border-b bg-red rounded-t-2xl ">
+          <div className="p-4 border-b bg-grayBg rounded-t-2xl ">
             {/* Dropdown Header */}
             <div className="relative mb-3">
               <button
@@ -149,13 +149,13 @@ export default function AffiliatePage() {
 
               {/* Dropdown Options */}
               {open && (
-                <div className="absolute z-20 mt-1 w-50 bg-lightMain rounded shadow">
+                <div className="absolute z-20 mt-1 w-50 bg-grayBg rounded shadow">
                   {options.map((option, idx) => (
                     <div
                       key={idx}
                       onClick={() => handleSelect(option)}
                       className={`px-3 py-2 text-sm cursor-pointer font-semibold text-red ${
-                        option === selected ? "bg-red text-white" : "bg-lightMain"
+                        option === selected ? "bg-red text-white" : "bg-grayBg"
                       } hover:bg-gray-100`}
                     >
                       {option}
@@ -218,53 +218,53 @@ export default function AffiliatePage() {
           {/* Filters Section */}
           <div className="py-4 px-0 space-y-3 text-ssm font-medium">
             {/* Date Range */}
-            <div className="flex items-center justify-center rounded px-1 py-2 text-white  bg-red ">
+            <div className="flex items-center justify-center rounded px-1 py-2 text-white  bg-grayBg ">
               <span>08/08/2025 - 08/09/2025</span>
               <Calendar className="w-4 h-4" />
             </div>
 
             {/* Dropdowns */}
-            <select className="w-full rounded px-3 py-2  text-white bg-lightMain">
+            <select className="w-full rounded px-3 py-2  text-white bg-grayBg">
               <option>{t(`All_sources`)}</option>
             </select>
 
-            <select className="w-full rounded px-3 py-2  text-white bg-lightMain">
+            <select className="w-full rounded px-3 py-2  text-white bg-grayBg">
               <option>{t(`All_Links`)}</option>
             </select>
 
-            <select className="w-full rounded px-3 py-2  text-white bg-lightMain">
+            <select className="w-full rounded px-3 py-2  text-white bg-grayBg">
               <option>{t(`All_Countries`)}</option>
             </select>
 
             {/* Apply Button */}
-            <button className="w-full bg-red text-white rounded py-2 font-medium ">
+            <button className="w-full bg-grayBg text-white rounded py-2 font-medium ">
               {t(`Apply`)}
             </button>
           </div>
 
           {/* Legend Section */}
-          <div className="h-50 bg-red rounded-xl">
+          <div className="h-50 bg-grayBg rounded-xl">
             <div className="p-4 flex flex-wrap gap-2 text-xs lg2:grid-cols-12">
               <div className="lg2:col-span-9">
                 <div className="grid grid-cols-3 lg2:grid-cols-9  gap-2">
-                  <span className="flex items-center space-x-1 bg-lightgrayBg text-[#F2F2F2] py-1 px-4 rounded-2xl">
+                  <span className="flex items-center space-x-1 bg-red text-[#F2F2F2] py-1 px-4 rounded-2xl">
                     <span className="w-2 h-2 bg-black rounded-full border-2 border-white "></span>
                     <span>{t(`Referrals`)}</span>
                   </span>
-                  <span className="flex items-center space-x-1 bg-lightgrayBg text-[#F2F2F2] py-1 px-4 rounded-2xl">
+                  <span className="flex items-center space-x-1 bg-red text-[#F2F2F2] py-1 px-4 rounded-2xl">
                     <span className="w-2 h-2 bg-black rounded-full border-2 border-white "></span>
                     <span>{t(`Registrations`)}</span>
                   </span>
-                  <span className="flex items-center space-x-1 bg-lightgrayBg text-[#F2F2F2] py-1 px-4 rounded-2xl">
+                  <span className="flex items-center space-x-1 bg-red text-[#F2F2F2] py-1 px-4 rounded-2xl">
                     <span className="w-2 h-2 bg-blue rounded-full border-2 border-white"></span>
                     <span>{t(`Income`)}</span>
                   </span>
                   <div className="hidden lg2:flex w-full justify-between gap-2 ">
-                    <span className="flex items-center w-32 space-x-1 bg-lightgrayBg text-[#F2F2F2] py-1 px-4 rounded-2xl whitespace-nowrap">
+                    <span className="flex items-center w-32 space-x-1 bg-red text-[#F2F2F2] py-1 px-4 rounded-2xl whitespace-nowrap">
                       <span className="w-2 h-2 bg-yellow-400 rounded-full border-2 border-white"></span>
                       <span>{t(`First_Deposits`)}</span>
                     </span>
-                    <span className="flex items-center w-40 space-x-1 bg-lightgrayBg text-[#F2F2F2] py-1 px-4 rounded-2xl whitespace-nowrap">
+                    <span className="flex items-center w-40 space-x-1 bg-red text-[#F2F2F2] py-1 px-4 rounded-2xl whitespace-nowrap">
                       <span className="w-2 h-2 bg-green-500 rounded-full border-2 border-white"></span>
                       <span>{t(`Amount_of_Deposits`)}</span>
                     </span>
@@ -277,7 +277,7 @@ export default function AffiliatePage() {
                   </span>
                   <span className="flex items-center space-x-1 bg-lightgrayBg text-[#F2F2F2] py-1 px-4 rounded-2xl">
                     <span className="w-2 h-2 bg-green-500 rounded-full border-2 border-white"></span>
-                    <span>{(`Amount_of_Deposits`)}</span>
+                    <span>{`Amount_of_Deposits`}</span>
                   </span>
                 </div>
               </div>

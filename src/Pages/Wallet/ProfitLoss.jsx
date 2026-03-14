@@ -131,14 +131,16 @@ export default function ProfitLoss() {
           </svg>
         </div>
         <div className="bg-red lg2:rounded-t-2xl p-2 px-4 hidden lg:block">
-          <h2 className="text-white text-sm font-semibold">{t(`Profit/Loss`)}</h2>
+          <h2 className="text-white text-sm font-semibold">
+            {t(`Profit/Loss`)}
+          </h2>
         </div>
-        <div className="lg2:bg-lightMain w-full  lg2:rounded-b-2xl">
+        <div className="lg2:bg-grayBg w-full  lg2:rounded-b-2xl">
           <div className="py-6 hidden lg2:block">
             <SlidingTabs />
           </div>
 
-          <div className="lg2:grid lg2:grid-cols-12 lg2:gap-4 bg-lightMain lg2:rounded-b-2xl lg2:py-3 lg2:px-8 m-2 lg2:m-0 rounded-2xl lg2:rounded-none">
+          <div className="lg2:grid lg2:grid-cols-12 lg2:gap-4 bg-grayBg lg2:rounded-b-2xl lg2:py-3 lg2:px-8 m-2 lg2:m-0 rounded-2xl lg2:rounded-none">
             <div className="lg2:col-span-5">
               <div className="p-2 px-4 lg2:px-0 lg2:p-0">
                 {/* Date Filter */}
@@ -159,7 +161,7 @@ export default function ProfitLoss() {
 
                     {/* Dropdown menu */}
                     {isOpen && (
-                      <div className="absolute mt-1 w-full bg-lightMain lg2:bg-red rounded-md shadow-lg max-h-100 overflow-y-auto z-50 hide-scrollbar text-white font-semibold text-ssm ">
+                      <div className="absolute mt-1 w-full bg-grayBg lg2:bg-grayBg rounded-md shadow-lg max-h-100 overflow-y-auto z-50 hide-scrollbar text-white font-semibold text-ssm ">
                         {options.map((option) => (
                           <div
                             key={option}

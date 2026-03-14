@@ -194,7 +194,7 @@ export default function PersonalInfo() {
         </div>
       </form> */}
       <form
-        className="space-y-4 bg-lightMain p-6 rounded-b-2xl rounded-t-2xl lg2:rounded-t-none"
+        className="space-y-4 bg-grayBg p-6 rounded-b-2xl rounded-t-2xl lg2:rounded-t-none"
         onSubmit={handleSubmit}
       >
         {/* User Name */}
@@ -335,7 +335,7 @@ export default function PersonalInfo() {
           </button>
           <button
             type="submit"
-            className="bg-red text-white rounded-md py-2 text-ssm font-medium w-full lg2:w-auto px-6"
+            className="bg-lightMain text-white  cursor-pointer rounded-md py-2 text-ssm font-medium w-full lg2:w-auto px-6"
           >
             Save Changes
           </button>
