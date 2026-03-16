@@ -1,9 +1,9 @@
 import AffiliateModal from "../Pages/ReusableComponent/AddAffiliation";
 
-export const baseUrlWinBhai = "https://root.betoo.app";
+export const baseUrlWinBhai = "https://adminagnibet.flywin.live";
 export const configModalWinBhai = `${baseUrlWinBhai}/api/`
 
-export const referral_url = "https://root.betoo.app/";
+export const referral_url = "https://adminagnibet.flywin.live/";
 
 export const configModalApk = `${baseUrlWinBhai}/apk/`;
 // export const configModalBanner = `${baseUrlWinBhai}/public/api/`;
