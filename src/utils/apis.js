@@ -10,7 +10,7 @@ export const configModalApk = `${baseUrlWinBhai}/apk/`;
 // https://root.betoo.app/public/api/about_us?type=10
 // https://root.betoo.app/public/api/coupon_show
 // https://root.betoo.app/api/customer_service
-
+// https://adminagnibet.flywin.live/api/get_qr_upi?user_id=11
 const apis = {
   sendOtp: "https://otp.fctechteam.org/send_otp.php?mode=test&digit=4&mobile=",
   verifyOtp: "https://otp.fctechteam.org/verifyotp.php?mobile=",
@@ -115,7 +115,7 @@ const apis = {
   accountStatement: `${configModalWinBhai}AccountStatement`,
 
   //wallet
-  pay_modes: `${configModalWinBhai}pay_modes`,
+  pay_modes: `${configModalWinBhai}get_qr_upi?user_id=`,
   withdraw_mode_show: `${configModalWinBhai}withdraw_mode_show`,
   // https://root.betoo.app/api/crypto
   // https://root.betoo.app/api/game_subcat_sliders
