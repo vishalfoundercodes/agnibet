@@ -21,6 +21,10 @@ const [selectedPayment, setSelectedPayment] = useState(null);
       account_number: "",
       confirm_account_number: "",
       ifsc_code: "",
+      ifsc_code: "",
+      bank_name: "", //naya
+      branch: "", // naya
+      upi_id: "",
     });
 
     const [errors, setErrors] = useState({});
@@ -62,6 +66,15 @@ const [selectedPayment, setSelectedPayment] = useState(null);
         newErrors.ifsc_code = "Enter a valid IFSC code";
       }
 
+      if (!formData.bank_name.trim()) {
+        newErrors.bank_name = "Bank name is required";
+      }
+
+      if (!formData.branch.trim()) {
+        newErrors.branch = "Branch is required";
+      }
+
+
       setErrors(newErrors);
       return Object.keys(newErrors).length === 0;
     };
@@ -75,6 +88,9 @@ const [selectedPayment, setSelectedPayment] = useState(null);
           name: formData.name.trim(),
           account_number: formData.account_number.trim(),
           ifsc_code: formData.ifsc_code.trim(),
+          bank_name: formData.bank_name.trim(), // naya
+          branch: formData.branch.trim(), // naya
+          upi_id: formData.upi_id.trim(),
         };
 
         console.log("✅ Payload:", payload);
@@ -208,6 +224,60 @@ const [selectedPayment, setSelectedPayment] = useState(null);
             />
             {errors.ifsc_code && (
               <p className="text-xs text-red-500 mt-1">{errors.ifsc_code}</p>
+            )}
+          </div>
+
+          {/* Bank Name */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              {t("Bank_Name")}
+            </label>
+            <input
+              type="text"
+              name="bank_name"
+              value={formData.bank_name}
+              onChange={handleChange}
+              placeholder="Enter bank name"
+              className="w-full border bg-grayBg text-white placeholder:text-sm rounded-md px-3 py-2 text-sm"
+            />
+            {errors.bank_name && (
+              <p className="text-xs text-red-500 mt-1">{errors.bank_name}</p>
+            )}
+          </div>
+
+          {/* Branch */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              {t("Branch")}
+            </label>
+            <input
+              type="text"
+              name="branch"
+              value={formData.branch}
+              onChange={handleChange}
+              placeholder="Enter branch name"
+              className="w-full border bg-grayBg text-white placeholder:text-sm rounded-md px-3 py-2 text-sm"
+            />
+            {errors.branch && (
+              <p className="text-xs text-red-500 mt-1">{errors.branch}</p>
+            )}
+          </div>
+
+          {/* UPI ID */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              {t("UPI_ID")}
+            </label>
+            <input
+              type="text"
+              name="upi_id"
+              value={formData.upi_id}
+              onChange={handleChange}
+              placeholder="Enter UPI ID (e.g. name@ybl)"
+              className="w-full border bg-grayBg text-white placeholder:text-sm rounded-md px-3 py-2 text-sm"
+            />
+            {errors.upi_id && (
+              <p className="text-xs text-red-500 mt-1">{errors.upi_id}</p>
             )}
           </div>
 

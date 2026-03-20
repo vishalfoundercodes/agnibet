@@ -50,11 +50,11 @@ const PrivateRoute = ({ children }) => {
 
       const serverToken = res?.data?.data?.login_token;
 
-      console.log("Local Token:", localToken);
-      console.log("Server Token:", serverToken);
+      // console.log("Local Token:", localToken);
+      // console.log("Server Token:", serverToken);
 
       if (!serverToken || serverToken !== localToken) {
-        console.log("⚠️ Token mismatch → Force Logout");
+        // console.log("⚠️ Token mismatch → Force Logout");
 
         localStorage.clear();
 

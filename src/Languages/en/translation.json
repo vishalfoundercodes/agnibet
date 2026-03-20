@@ -334,6 +334,9 @@
   "Send_OTP": "Send OTP",
   "Betoo_Wallet": "AgniBet Wallet",
   "Available_Balance": "Available Balance",
+  "Bank_Name": "Bank name",
+  "Branch": "Branch",
+  "UPI_ID": "Upi id",
   
   "Transfer1": "Transfer This Into AgniBet Wallet",
   "Transfer2": "And Get 8% Bonus",

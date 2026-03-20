@@ -1,27 +1,18 @@
 import AffiliateModal from "../Pages/ReusableComponent/AddAffiliation";
 
-export const baseUrlWinBhai = "https://adminagnibet.flywin.live";
+export const baseUrlWinBhai = "https://root.agnibet.com";
 export const configModalWinBhai = `${baseUrlWinBhai}/api/`
 
-export const referral_url = "https://adminagnibet.flywin.live/";
+export const referral_url = "https://root.agnibet.com/";
 
 export const configModalApk = `${baseUrlWinBhai}/apk/`;
-// export const configModalBanner = `${baseUrlWinBhai}/public/api/`;
-// https://root.betoo.app/public/api/about_us?type=10
-// https://root.betoo.app/public/api/coupon_show
-// https://root.betoo.app/api/customer_service
-// https://adminagnibet.flywin.live/api/get_qr_upi?user_id=11
+
+// https://root.agnibet.com/api/deposit_history?user_id=1
+
 const apis = {
   sendOtp: "https://otp.fctechteam.org/send_otp.php?mode=test&digit=4&mobile=",
   verifyOtp: "https://otp.fctechteam.org/verifyotp.php?mobile=",
-  // https://root.betoo.app/api/slider_image_view
-  // https://root.betoo.app/api/getAllNotices
-  // https://root.betoo.app/api/get-category-language-data?category_id=
   learn: `${configModalWinBhai}get-category-language-data?category_id=`,
-  // https://root.betoo.app/api/campaign_summary
-  // https://root.betoo.app/api/campaign_analytics
-  // https://root.betoo.app/api/campaign_commission_summary
-
   affiliateDashboard: `${configModalWinBhai}campaign_summary`,
   affiliateStatics: `${configModalWinBhai}campaign_analytics`,
   affiliateWithdrawHome: `${configModalWinBhai}campaign_commission_summary`,
@@ -30,8 +21,6 @@ const apis = {
   affiliation_wallet_add: `${configModalWinBhai}affiliation_wallet_add`,
   gift_cart_apply: `${configModalWinBhai}gift_cart_apply`,
   subcategories_by_cat: `${configModalWinBhai}subcategories-by-cat`,
-
-  // https://root.betoo.app/api/get_casino_lobby
   get_casino_lobby: `${configModalWinBhai}get_casino_lobby`,
 
   sendotpemail: `${configModalWinBhai}send-otp-email`,
@@ -68,7 +57,6 @@ const apis = {
   subordinateData: `${configModalWinBhai}subordinate-data`,
   tier: `${configModalWinBhai}tier`,
 
-  // https://root.betoo.app/api/jilliGame
 
   //wingo game urls
   wingo_bet: `${configModalWinBhai}bets`,
@@ -96,11 +84,8 @@ const apis = {
   download_apk: `${configModalApk}chickenroad.apk`,
   banner_image: `${configModalWinBhai}getBanners`,
   bet_value: `${configModalWinBhai}bet_values`,
-  // https://root.betoo.app/public/api/admin_notifications?user_id=1
   notification: `${configModalWinBhai}admin_notifications?user_id=`,
-  //jilli  game apis
-  // all_game_list: `${configModalWinBhai}getJilliGames`,
-  // https://root.betoo.app/api/get_brands
+
   all_game_list: `${configModalWinBhai}get_brands`,
   game_categories: `${configModalWinBhai}game-categories`,
   all_jilli_game_list: `https://softapi.gt.tc/brands.php?brand_id=49`,

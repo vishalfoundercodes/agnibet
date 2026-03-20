@@ -32,7 +32,7 @@ export default function AffiliatePage() {
         campaign_id: id,
       };
       const res = await axios.post(`${apis.affiliateDashboard}`,payload);
-      // console.log("Affiliate Data:", res?.data);
+      console.log("Affiliate Data:", res?.data);
       setDetalis(res?.data?.data || null)
     } catch (error) {
       console.log(error)
@@ -79,7 +79,7 @@ export default function AffiliatePage() {
             <div className="p-3 flex items-center justify-between">
               {/* Left side - Avatar + Name */}
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-full bg-lightMain flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-red flex items-center justify-center">
                   <span className="text-pink-600 font-semibold">
                     {" "}
                     {details?.Campaign_Name?.[0]?.toUpperCase() || "?"}

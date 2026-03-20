@@ -2276,7 +2276,7 @@ export default function DepositPage() {
       setLoading(true);
       const user_id = localStorage.getItem("userId");
       const res = await axios.get(`${apis.pay_modes}${user_id}`);
-      console.log("paymodess", res?.data);
+      // console.log("paymodess", res?.data);
       // data is a single object: { agent_id, qr_image, upi_id }
       setPayModeData(res?.data?.data);
     } catch (error) {

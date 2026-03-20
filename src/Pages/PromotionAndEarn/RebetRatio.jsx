@@ -361,7 +361,7 @@ const RebateRatio = () => {
               {t(`Rebate_ratio`)}
             </h2>
           </div>
-          <div className="lg2:bg-lightMain">
+          <div className="lg2:bg-grayBg">
             <div className="  min-h-screen flex flex-col items-center">
               <div className="w-full ">
                 {/* Rebate Levels */}

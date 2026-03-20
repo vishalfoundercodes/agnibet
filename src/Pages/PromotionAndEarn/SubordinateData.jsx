@@ -254,7 +254,7 @@ function SubordinateData() {
                 {t(`Subordinate_data`)}
               </h2>
             </div>
-            <div className="lg2:grid lg2:grid-cols-12 lg2:gap-4 lg2:bg-lightMain lg2:rounded-b-2xl lg2:py-3 lg2:px-8">
+            <div className="lg2:grid lg2:grid-cols-12 lg2:gap-4 lg2:bg-grayBg lg2:rounded-b-2xl lg2:py-3 lg2:px-8">
               <div className=" lg2:col-span-5">
                 <div className="lg2:w-full">
                   <div className="w-full flex items-center bg-red rounded-md p-2 gap-2">
@@ -289,26 +289,26 @@ function SubordinateData() {
                         {modalFirstValue === 0
                           ? "All"
                           : modalFirstValue === 1
-                          ? "Level1"
-                          : modalFirstValue === 2
-                          ? "Level2"
-                          : modalFirstValue === 3
-                          ? "Level3"
-                          : modalFirstValue === 4
-                          ? "Level4"
-                          : modalFirstValue === 5
-                          ? "Level5"
-                          : modalFirstValue === 6
-                          ? "Level6"
-                          : modalFirstValue === 7
-                          ? "Level7"
-                          : modalFirstValue === 8
-                          ? "Level8"
-                          : modalFirstValue === 9
-                          ? "Level9"
-                          : modalFirstValue === 10
-                          ? "Level10"
-                          : ""}
+                            ? "Level1"
+                            : modalFirstValue === 2
+                              ? "Level2"
+                              : modalFirstValue === 3
+                                ? "Level3"
+                                : modalFirstValue === 4
+                                  ? "Level4"
+                                  : modalFirstValue === 5
+                                    ? "Level5"
+                                    : modalFirstValue === 6
+                                      ? "Level6"
+                                      : modalFirstValue === 7
+                                        ? "Level7"
+                                        : modalFirstValue === 8
+                                          ? "Level8"
+                                          : modalFirstValue === 9
+                                            ? "Level9"
+                                            : modalFirstValue === 10
+                                              ? "Level10"
+                                              : ""}
                       </p>
                       <p>
                         <IoIosArrowDown size={18} />
@@ -390,11 +390,11 @@ function SubordinateData() {
                       <p className="text-white text-sm font-bold">
                         {suboridnateData?.data.first_deposit_amount
                           ? Number.isInteger(
-                              Number(suboridnateData.data.first_deposit_amount)
+                              Number(suboridnateData.data.first_deposit_amount),
                             )
                             ? Number(suboridnateData.data.first_deposit_amount)
                             : Number(
-                                suboridnateData.data.first_deposit_amount
+                                suboridnateData.data.first_deposit_amount,
                               ).toFixed(2)
                           : "0"}
                       </p>
@@ -406,10 +406,7 @@ function SubordinateData() {
                 <div className="mt-5 text-white lg2:bg-red rounded-2xl">
                   {suboridnateData?.data.subordinates_data?.length > 0 ? (
                     suboridnateData?.data.subordinates_data?.map((item, i) => (
-                      <div
-                        key={i}
-                        className="bg-red rounded-lg py-2 px-2 mb-4"
-                      >
+                      <div key={i} className="bg-red rounded-lg py-2 px-2 mb-4">
                         <p className="py-4 border-b border1 ">
                           {t(`UID`)}: {item?.u_id}{" "}
                           <button
@@ -530,10 +527,10 @@ function SubordinateData() {
               <button
                 onClick={() => {
                   const formattedDate = `${selectedDate.getFullYear()}-${String(
-                    selectedDate.getMonth() + 1
+                    selectedDate.getMonth() + 1,
                   ).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(
                     2,
-                    "0"
+                    "0",
                   )}`;
 
                   console.log("Hitting API with date:", formattedDate); // optional log
@@ -567,8 +564,8 @@ function SubordinateData() {
                             new Date(
                               year,
                               selectedDate.getMonth(),
-                              selectedDate.getDate()
-                            )
+                              selectedDate.getDate(),
+                            ),
                           )
                         }
                         className={`text-white py-2 text-center rounded-md cursor-pointer ${
@@ -578,7 +575,7 @@ function SubordinateData() {
                         {year}
                       </div>
                     );
-                  }
+                  },
                 )}
               </div>
 
@@ -604,8 +601,8 @@ function SubordinateData() {
                             new Date(
                               selectedDate.getFullYear(),
                               month - 1,
-                              selectedDate.getDate()
-                            )
+                              selectedDate.getDate(),
+                            ),
                           )
                         }
                         className={`text-white py-2 text-center rounded-md cursor-pointer ${
@@ -625,10 +622,10 @@ function SubordinateData() {
                     length: new Date(
                       selectedDate.getFullYear(),
                       selectedDate.getMonth() + 1,
-                      0
+                      0,
                     ).getDate(),
                   },
-                  (_, i) => i + 1
+                  (_, i) => i + 1,
                 )
                   .filter((day) => {
                     if (
@@ -650,8 +647,8 @@ function SubordinateData() {
                             new Date(
                               selectedDate.getFullYear(),
                               selectedDate.getMonth(),
-                              day
-                            )
+                              day,
+                            ),
                           )
                         }
                         className={`text-white py-2 text-center rounded-md cursor-pointer ${

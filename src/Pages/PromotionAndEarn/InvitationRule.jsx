@@ -128,7 +128,7 @@ const InvitationRules = () => {
               >
                 {/* Number badge — half inside, half outside */}
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="bg-lightMain text-white font-bold px-8 py-1 rounded-[10px] text-sm shadow-md">
+                  <span className="bg-grayBg text-white font-bold px-8 py-1 rounded-[10px] text-sm shadow-md">
                     {rule.id}
                   </span>
                 </div>
@@ -211,7 +211,7 @@ const InvitationRules = () => {
                   <tr
                     key={index}
                     className={`text-xs ${
-                      index % 2 === 0 ? "bg-red" : "bg-lightMain"
+                      index % 2 === 0 ? "bg-red" : "bg-grayBg"
                     }`}
                   >
                     <td className="border-t border-r border-redLight py-2 text-center">

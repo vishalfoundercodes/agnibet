@@ -11,10 +11,11 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Currency from "../../utils/Currency";
+import { div } from "framer-motion/client";
 
 export default function DepositHistory() {
-  const {t}=useTranslation()
-  const [data,setData]=useState([])
+  const { t } = useTranslation();
+  const [data, setData] = useState([]);
   const [deposits] = useState([
     {
       id: "ORD12345675",
@@ -72,7 +73,7 @@ export default function DepositHistory() {
     },
   ]);
   const [activeTab, setActiveTab] = useState("All");
-  const naviagte=useNavigate()
+  const naviagte = useNavigate();
   const tabs = [t("All"), t("Failed"), t("Processing"), t("Success")];
 
   // const [startDate, setStartDate] = useState("");
@@ -82,6 +83,7 @@ export default function DepositHistory() {
   const endRef = useRef(null);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [showHistoryImage, setshowHistoryImage] = useState(null); // null ya image URL
   const [openModal, setOpenModal] = useState(null); // "start" | "end" | null
 
   // const formatDate = (date) => {
@@ -323,10 +325,10 @@ export default function DepositHistory() {
                   <div>
                     <div className="flex items-center gap-2 relative">
                       <p className="text-ssm font-semibold">
-                        {deposit.order_id}
+                        {deposit.utr_number}
                       </p>
                       <svg
-                        onClick={() => handleCopy(deposit.order_id)}
+                        onClick={() => handleCopy(deposit.utr_number)}
                         width="16"
                         height="17"
                         viewBox="0 0 16 17"
@@ -370,6 +372,14 @@ export default function DepositHistory() {
                     </div>
                     <p className="text-xs  mt-2">{deposit.created_at}</p>
                   </div>
+                  <div>
+                    <img
+                      src={deposit.screenshot}
+                      alt=""
+                      className="w-10 h-10 cursor-pointer object-cover rounded"
+                      onClick={() => setshowHistoryImage(deposit.screenshot)}
+                    />
+                  </div>
                   <div className="text-right">
                     <span
                       className={`px-2 py-1 text-xs rounded-2xl font-medium inline-block mb-1 ${
@@ -381,11 +391,11 @@ export default function DepositHistory() {
                       }`}
                     >
                       {/* Deposit Status */}
-                      {deposit.status === 1
+                      {deposit.status === 0
                         ? "Processing"
-                        : deposit.status === 2
+                        : deposit.status === 1
                           ? "Success"
-                          : deposit.status === 3
+                          : deposit.status === 2
                             ? "Failed"
                             : "Unknown"}
                     </span>
@@ -410,6 +420,32 @@ export default function DepositHistory() {
           if (openModal === "end") setEndDate(formatDate(date));
         }}
       />
+      {showHistoryImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+          onClick={() => setshowHistoryImage(null)} // bahar click karne pe band ho
+        >
+          <div
+            className="relative max-w-[90vw] max-h-[90vh]"
+            onClick={(e) => e.stopPropagation()} // image pe click karne pe band na ho
+          >
+            {/* Close button */}
+            <button
+              onClick={() => setshowHistoryImage(null)}
+              className="absolute -top-3 -right-3 z-10 w-8 h-8 cursor-pointer rounded-full bg-white text-black flex items-center justify-center shadow-lg hover:bg-gray-200 transition"
+            >
+              ✕
+            </button>
+
+            {/* Full image */}
+            <img
+              src={showHistoryImage}
+              alt="Deposit Screenshot"
+              className="max-w-full max-h-[85vh] rounded-xl object-contain shadow-2xl"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

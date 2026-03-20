@@ -1060,7 +1060,7 @@ const defaultImages = [image1, image2, image3];
           </div>
         )}
         {/* account detail manual */}
-        {selectedPayment === "manual" && (
+        {selectedPayment === 1 && (
           <div className="mb-2">
             <Swiper
               key={slidesPerView} // ✅ reinitialize when slidesPerView changes
@@ -1099,7 +1099,7 @@ const defaultImages = [image1, image2, image3];
                     <div className="absolute inset-0 flex flex-col py-2 px-6 justify-center">
                       {/* Top row (IFSC + Buttons) */}
                       <div className="flex justify-between items-center mb-2">
-                        <p className="text-sm font-semibold text-white ml-10 lg2:ml-0">
+                        <p className="text-sm font-semibold text-red ml-10 lg2:ml-0">
                           {card.ifsc}
                         </p>
                         <div className="flex gap-2">
@@ -1120,12 +1120,12 @@ const defaultImages = [image1, image2, image3];
                       </div>
 
                       {/* Account number */}
-                      <p className="text-lg font-bold tracking-wide text-white mb-1 mx-auto">
+                      <p className="text-lg font-bold tracking-wide text-red mb-1 mx-auto">
                         {card.account}
                       </p>
 
                       {/* Name */}
-                      <p className="font-medium text-white text-right mr-4">
+                      <p className="font-medium text-red text-right mr-4">
                         {card.name}
                       </p>
                     </div>
@@ -1206,7 +1206,7 @@ const defaultImages = [image1, image2, image3];
           </div>
         )}
         {/* add account */}
-        {selectedPayment === "manual" && (
+        {selectedPayment === 1 && (
           <div className="flex items-center justify-between w-full p-4 bg-red rounded-[5px] shadow-sm mt-2">
             {/* Left Text */}
             <span className="text-white font-medium">{t(`Add_Account`)}</span>

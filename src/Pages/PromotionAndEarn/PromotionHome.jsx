@@ -37,7 +37,7 @@ function PromotionHome() {
     }
     try {
       const res = await axios.get(`${apis?.profile}${userId}`);
-      console.log("profile", res);
+      // console.log("profile", res);
       if (res?.data?.success === 200) {
         setMyDetails(res?.data);
       }
@@ -55,10 +55,10 @@ function PromotionHome() {
   const promotionDataHandler = async () => {
     setLoading(true);
     try {
-      console.log(`promotion data api: ${apis.promotionData}${userId}`);
-      console.log(`userId: ${userId}`);
+      // console.log(`promotion data api: ${apis.promotionData}${userId}`);
+      // console.log(`userId: ${userId}`);
       const res = await axios.get(`${apis?.promotionData}${userId}`);
-      console.log("resooooo", res.data.referral_code);
+      // console.log("resooooo", res.data.referral_code);
       setinvitationCode(res.data.referral_code);
       if (res?.status === 200) {
         setLoading(false);
@@ -77,7 +77,7 @@ function PromotionHome() {
       promotionDataHandler();
     }
   }, [userId]);
-  console.log("object", myDetails?.data.referral_code_url);
+  // console.log("object", myDetails?.data.referral_code_url);
   const handleCopyInvitationLink = () => {
     console.log("handleCopyInvitationLink called");
     if (myDetails?.data?.u_id) {
@@ -401,7 +401,7 @@ function PromotionHome() {
                 }
                 setCopyInvitation(true);
               }}
-              className="w-full lg2:w-auto lg2:px-4 font-semibold py-1.5 rounded-[5px] bg-red text-white"
+              className="w-full lg2:w-auto lg2:px-4 font-semibold py-1.5 rounded-[5px] bg-grayBg text-white"
             >
               {t(`INVITATION_LINK`)}
             </button>
