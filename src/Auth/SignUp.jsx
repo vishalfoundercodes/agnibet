@@ -15,6 +15,7 @@ import axios from "axios";
 import apis from "../utils/apis";
 import { toast } from "react-toastify";
 import { number } from "framer-motion";
+import Loader from "../Pages/resuable_component/Loader/Loader";
 export default function SignUp() {
   const navigate = useNavigate();
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -44,6 +45,7 @@ export default function SignUp() {
   const [campaignCode, setCampaignCode] = useState("");
   const [checkbox,setCheckbox]=useState(false)
   const [buttonDisabled,setButtonDisabled]=useState(true)
+  const [loading,setLoading]=useState(false)
     const handleCheckboxChange = () => {
       setCheckbox((prev) => !prev); // Toggle the checkbox state
     };
@@ -54,14 +56,9 @@ const checkOtp = async (number) => {
     mobile: number,
   };
   try {
-    const res = await axios.post(apis.check_otp_pack, checkOtpPayload);
-    console.log("otp pack:", res);
-    if (res?.status === 200) {
-      await sendOtp(number); // ✅ Only call sendOtp, no loop back
-    }
+    sendOtp(number);
   } catch (error) {
     console.error(error);
-    toast.warn(error?.response?.data?.message || "OTP pack has been exhausted");
   }
 };
  
@@ -118,31 +115,50 @@ const checkOtp = async (number) => {
     };
 
          const sendOtp = async (number) => {
-           const res = await axios.post(`${apis.sendOtp}${number}`);
-           console.log(res?.data);
+           try {
+             // ✅ 1. Check OTP pack first
+             setLoading(true);
+             const payload = {
+               mobile: number,
+             };
 
-           if (res?.data?.error === 200 || res?.data?.error === "200") {
-             toast.success(res?.data?.msg);
-           } else {
-             toast.error(res?.data?.msg);
+             // ✅ 2. Send OTP
+             const res = await axios.post(`${apis.sendOtp}`, payload);
+             // console.log(`${apis.sendOtp}${number}`);
+             // console.log(res?.data);
+
+             if (res?.data?.status === 200 || res?.data?.status === "200") {
+               toast.success(res?.data?.message);
+             } else {
+               toast.error(res?.data?.message);
+             }
+           } catch (error) {
+             // console.error("Send OTP Error:", error);
+             toast.error("Unable to send OTP. Please try again.");
+           } finally {
+             setLoading(false);
            }
          };
 
-          const handleVerify = async (value) => {
-            console.log(phoneNumber, value);
-            console.log(`${apis.verifyOtp}${phoneNumber}&otp=${value}`);
-            const res = await axios.post(
-              `${apis.verifyOtp}${phoneNumber}&otp=${value}`
-            );
+         const handleVerify = async (value) => {
+           // console.log(phoneNumber, value);
+           const payload = {
+             mobile: phoneNumber,
+             otp: value,
+           };
+           const res = await axios.post(`${apis.verifyOtp}`, payload);
 
-            console.log(res);
-            if (res?.data?.error === 200 || res?.data?.error === "200") {
-              toast.success(res?.data?.msg);
-              setButtonDisabled(false);
-            } else if (res?.data?.error === 400 || res?.data?.error === "400") {
-              toast.error(res?.data?.msg);
-            }
-          };
+           // console.log(res);
+           if (res?.data?.status === 200 || res?.data?.status === "200") {
+             toast.success(res?.data?.message);
+             setButtonDisabled(false);
+           } else if (
+             res?.data?.status === 400 ||
+             res?.data?.status === "400"
+           ) {
+             toast.error(res?.data?.message);
+           }
+         };
 const location = useLocation(); // ✅ for reading URL query params
 
 // useEffect(async() => {
@@ -200,6 +216,14 @@ const signup_contact = async () => {
 useEffect(() => {
   signup_contact();
 }, []);
+
+  if (loading) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <div

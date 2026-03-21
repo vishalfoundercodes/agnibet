@@ -21,7 +21,6 @@ const [selectedPayment, setSelectedPayment] = useState(null);
       account_number: "",
       confirm_account_number: "",
       ifsc_code: "",
-      ifsc_code: "",
       bank_name: "", //naya
       branch: "", // naya
       upi_id: "",

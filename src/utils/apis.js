@@ -10,8 +10,8 @@ export const configModalApk = `${baseUrlWinBhai}/apk/`;
 // https://root.agnibet.com/api/deposit_history?user_id=1
 
 const apis = {
-  sendOtp: "https://otp.fctechteam.org/send_otp.php?mode=test&digit=4&mobile=",
-  verifyOtp: "https://otp.fctechteam.org/verifyotp.php?mobile=",
+  sendOtp: `${configModalWinBhai}send-otp`,
+  verifyOtp: `${configModalWinBhai}verify-otp`,
   learn: `${configModalWinBhai}get-category-language-data?category_id=`,
   affiliateDashboard: `${configModalWinBhai}campaign_summary`,
   affiliateStatics: `${configModalWinBhai}campaign_analytics`,
@@ -56,7 +56,6 @@ const apis = {
   promotionData: `${configModalWinBhai}agency-promotion-data-`,
   subordinateData: `${configModalWinBhai}subordinate-data`,
   tier: `${configModalWinBhai}tier`,
-
 
   //wingo game urls
   wingo_bet: `${configModalWinBhai}bets`,

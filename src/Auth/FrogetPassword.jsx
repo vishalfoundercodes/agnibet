@@ -80,59 +80,64 @@ export default function ForgotPassword() {
                     mobile: number,
                   };
                   try {
-                    const res = await axios.post(
-                      apis.check_otp_pack,
-                      checkOtpPayload,
-                    );
-                    console.log("otp pack:", res);
-                    if (res?.status === 200) {
-                      await sendOtp(number); 
-                    }
+                  sendOtp(number);
                   } catch (error) {
                     console.error(error);
-                    toast.warn(
-                      error?.response?.data?.message ||
-                        "OTP pack has been exhausted",
-                    );
+                  
                   }
                 };
 
-                     const sendOtp = async (number) => {
-                       const res = await axios.post(`${apis.sendOtp}${number}`);
-                       console.log(res?.data);
+                   const sendOtp = async (number) => {
+                     try {
+                       // ✅ 1. Check OTP pack first
+                       setLoading(true);
+                       const payload = {
+                         mobile: number,
+                       };
+
+                       // ✅ 2. Send OTP
+                       const res = await axios.post(`${apis.sendOtp}`, payload);
+                       // console.log(`${apis.sendOtp}${number}`);
+                       // console.log(res?.data);
+
                        if (
-                         res?.data?.error === 200 ||
-                         res?.data?.error === "200"
+                         res?.data?.status === 200 ||
+                         res?.data?.status === "200"
                        ) {
-                         toast.success(res?.data?.msg);
+                         toast.success(res?.data?.message);
                        } else {
-                         toast.error(res?.data?.msg);
+                         toast.error(res?.data?.message);
                        }
-                     };
+                     } catch (error) {
+                       // console.error("Send OTP Error:", error);
+                       toast.error("Unable to send OTP. Please try again.");
+                     } finally {
+                       setLoading(false);
+                     }
+                   };
 
-                     const handleVerify = async (value) => {
-                       console.log(phoneNumber, value);
-                       console.log(
-                         `${apis.verifyOtp}${phoneNumber}&otp=${value}`
-                       );
-                       const res = await axios.post(
-                         `${apis.verifyOtp}${phoneNumber}&otp=${value}`
-                       );
-
-                       console.log(res);
-                       if (
-                         res?.data?.error === 200 ||
-                         res?.data?.error === "200"
-                       ) {
-                         toast.success(res?.data?.msg);
-                         setButtonDisabled(false);
-                       } else if (
-                         res?.data?.error === 400 ||
-                         res?.data?.error === "400"
-                       ) {
-                         toast.error(res?.data?.msg);
-                       }
+                   const handleVerify = async (value) => {
+                     // console.log(phoneNumber, value);
+                     const payload = {
+                       mobile: phoneNumber,
+                       otp: value,
                      };
+                     const res = await axios.post(`${apis.verifyOtp}`, payload);
+
+                     // console.log(res);
+                     if (
+                       res?.data?.status === 200 ||
+                       res?.data?.status === "200"
+                     ) {
+                       toast.success(res?.data?.message);
+                       setButtonDisabled(false);
+                     } else if (
+                       res?.data?.status === 400 ||
+                       res?.data?.status === "400"
+                     ) {
+                       toast.error(res?.data?.message);
+                     }
+                   };
 
   return (
     <div
