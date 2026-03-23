@@ -194,8 +194,8 @@ const handleGameOpen = async (id, name) => {
         const url = res?.data?.game_url;
         if (url) {
           // ✅ Open in same tab (with header for desktop, direct for mobile)
-          // navigate(`/playgame?url=${encodeURIComponent(url)}`);
-          window.location.assign(url);
+          navigate(`/playgame?url=${encodeURIComponent(url)}`);
+          // window.location.assign(url);
         } else {
           toast.error("Game URL not found");
         }
@@ -226,8 +226,8 @@ const handleGameOpen = async (id, name) => {
       const url = res?.data?.game_url;
       if (url) {
         // ✅ Open in same tab (with header for desktop, direct for mobile)
-        // navigate(`/playgame?url=${encodeURIComponent(url)}`);
-        window.location.assign(url);
+        navigate(`/playgame?url=${encodeURIComponent(url)}`);
+        // window.location.assign(url);
       } else {
         toast.error("Game URL not found");
       }

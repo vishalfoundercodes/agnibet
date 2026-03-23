@@ -344,9 +344,9 @@ export default function Game() {
          console.log("urlll",url);
          if (url) {
            // ✅ Open in same tab (with header for desktop, direct for mobile)
-          //  navigate(`/playgame?url=${encodeURIComponent(url)}`);
+           navigate(`/playgame?url=${encodeURIComponent(url)}`);
           // navigate(url, { replace: true });
-          window.location.assign(url);
+          // window.location.assign(url);
 
 
            //  navigate(`/playgame`,{state:{url:url}});
@@ -384,9 +384,9 @@ export default function Game() {
         const url = res?.data?.game_url;
          if (url) {
            // ✅ Open in same tab (with header for desktop, direct for mobile)
-          //  navigate(`/playgame?url=${encodeURIComponent(url)}`);
+           navigate(`/playgame?url=${encodeURIComponent(url)}`);
           //  navigate(url, { replace: true });
-          window.location.assign(url);
+          // window.location.assign(url);
 
          } else {
            toast.error("Game URL not found");

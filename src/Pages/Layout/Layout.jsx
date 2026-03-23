@@ -449,8 +449,8 @@ export default function Layout({ children }) {
                   <div className="fixed inset-0 pointer-events-none z-50 lg2:hidden">
                     {/* WhatsApp Image */}
                     {/* <img
-                      // src={whatsapp}
-                      src={telegram}
+                      src={whatsapp}
+                      // src={telegram}
                       // alt="WhatsApp"
                       alt="telegram"
                       className="w-20 h-32  cursor-grab active:cursor-grabbing pointer-events-auto"
@@ -469,14 +469,16 @@ export default function Layout({ children }) {
                     {/* Telegram Image */}
                     <img
                       // src="https://static.vecteezy.com/system/resources/previews/016/716/472/non_2x/telegram-icon-free-png.png"
-                      src={telegram}
+                      // src={telegram}
+                      src={whatsapp}
                       alt="Telegram"
-                      className="w-20 h-32 cursor-grab active:cursor-grabbing pointer-events-auto"
+                      className="w-24 h-36 cursor-grab active:cursor-grabbing pointer-events-auto"
                       // onMouseDown={(e) => handleMouseDown(e, "right")}
                       // onTouchStart={(e) => handleTouchStart(e, "right")}
                       onClick={()=>{
                         console.log("contact teli:",contact)
-                        window.open(contact?.telegram_link,"_self");
+                        // window.open(contact?.telegram_link,"_self");
+                        window.open(contact?.whatsapp_link, "_self");
                       }}
                       style={{
                         position: "fixed",

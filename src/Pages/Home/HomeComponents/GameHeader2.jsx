@@ -46,6 +46,11 @@ const GameHeader2 = () => {
           src={banners[0].image}
           alt="banner"
           className="rounded-[8px] lg2:w-[100%] h-[195px] xsm:h-full w-full lg2:h-[500px]"
+          onClick={()=>{console.log("baneer data:",banners[0])
+             if (banners[0].links != null) {
+               window.open(banners[0].links, "_blank");
+             }
+          }}
         />
       </div>
     );
@@ -67,6 +72,12 @@ const GameHeader2 = () => {
               src={item.image}
               alt={`banner-${index}`}
               className="rounded-[8px] lg2:w-[100%] h-[195px] xsm:h-full w-full lg2:h-[500px] object-fill"
+              onClick={() => {
+                console.log("banner clicked:",item)
+                if (item.links != null) {
+                  window.open(item.links, "_blank");
+                }
+              }}
             />
           </SwiperSlide>
         ))}
