@@ -101,6 +101,7 @@ const apis = {
   //wallet
   pay_modes: `${configModalWinBhai}get_qr_upi?user_id=`,
   withdraw_mode_show: `${configModalWinBhai}withdraw_mode_show`,
+  deposit_request: `${configModalWinBhai}deposit_request`,
   // https://root.betoo.app/api/crypto
   // https://root.betoo.app/api/game_subcat_sliders
 

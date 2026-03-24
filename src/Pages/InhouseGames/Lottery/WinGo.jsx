@@ -83,7 +83,7 @@ const WinGo = () => {
   const { fetchProfile } = useProfile();
 
   useEffect(() => {
-    setEventName("kuchbhi_wingo");
+    setEventName("agnibet_wingo");
   }, [setEventName]);
   useEffect(() => {
     const selectedTime =

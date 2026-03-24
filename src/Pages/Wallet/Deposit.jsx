@@ -2270,13 +2270,17 @@ export default function DepositPage() {
 
   const quickAmounts = [500, 1000, 5000, 10000, 25000, 50000];
 
+  // State add karo component mein
+const [selectedPayMode, setSelectedPayMode] = useState(0);
+
+
   // ✅ Fetch pay_modes data
   const fetchPayModes = async () => {
     try {
       setLoading(true);
       const user_id = localStorage.getItem("userId");
       const res = await axios.get(`${apis.pay_modes}${user_id}`);
-      // console.log("paymodess", res?.data);
+      console.log("paymodess", res?.data);
       // data is a single object: { agent_id, qr_image, upi_id }
       setPayModeData(res?.data?.data);
     } catch (error) {
@@ -2352,7 +2356,7 @@ export default function DepositPage() {
       });
 
       const res = await axios.post(
-        "https://adminagnibet.flywin.live/api/deposit_request",
+        apis?.deposit_request,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } },
       );
@@ -2382,6 +2386,10 @@ export default function DepositPage() {
       setLoading(false);
     }
   };
+
+  // payModeData ko array samjho — agar single object hai toh array mein wrap karo
+const payModes = Array.isArray(payModeData) ? payModeData : payModeData ? [payModeData] : [];
+const currentMode = payModes[selectedPayMode];
 
   return (
     <div className="min-h-screen flex justify-center items-start py-6 px-1 lg2:py-0">
@@ -2442,14 +2450,14 @@ export default function DepositPage() {
         </div>
 
         {/* ✅ Payment Details — QR center, UPI ID below, no Agent ID */}
-        {payModeData && (
+        {/* {payModeData && (
           <div className="bg-red rounded-[8px] shadow p-4">
             <h2 className="text-white font-semibold mb-4">
               {t("Payment_Details")}
             </h2>
 
             <div className="flex flex-col items-center gap-4">
-              {/* QR Code — centered */}
+         
               {payModeData.qr_image && (
                 <div className="flex flex-col items-center rounded-2xl p-4 border border-gray-700 bg-[#151d2d] w-full ">
                   <h3 className="text-white text-[14px] font-semibold mb-3">
@@ -2463,7 +2471,6 @@ export default function DepositPage() {
                 </div>
               )}
 
-              {/* UPI ID — below QR */}
               {payModeData.upi_id && (
                 <div className="bg-[#151d2d] rounded-2xl p-4 border border-gray-700 w-full ">
                   <div className="flex justify-between items-center mb-2">
@@ -2485,7 +2492,6 @@ export default function DepositPage() {
                 </div>
               )}
 
-              {/* Account Number — show if API returns it */}
               {payModeData.Account_Number && (
                 <div className="bg-[#151d2d] rounded-2xl p-4 border border-gray-700 w-full max-w-xs">
                   <div className="flex justify-between items-center mb-2">
@@ -2511,7 +2517,123 @@ export default function DepositPage() {
               )}
             </div>
           </div>
+        )} */}
+
+        {payModes.length > 0 && (
+  <div className="bg-red rounded-[8px] shadow p-4">
+    <h2 className="text-white font-semibold mb-4">
+      {t("Payment_Details")}
+    </h2>
+
+    {/* ✅ Option Tabs — sirf tab dikhao jab 2+ modes hon */}
+    {payModes.length >= 1 && (
+      <div className="flex gap-2 mb-4">
+        {payModes.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setSelectedPayMode(index)}
+            className={`px-4 py-2 rounded-lg text-sm font-semibold border cursor-pointer transition-all ${
+              selectedPayMode === index
+                ? "bg-white text-white border-white"
+                : "bg-transparent text-white border-gray-500 hover:border-white"
+            }`}
+          >
+            Option {index + 1}
+          </button>
+        ))}
+      </div>
+    )}
+
+    {/* ✅ Selected Mode ka Data */}
+    {currentMode && (
+      <div className="flex flex-col items-center gap-4">
+        
+        {/* QR Code */}
+        {currentMode.qr_image && (
+          <div className="flex flex-col items-center rounded-2xl p-4 border border-gray-700 bg-[#151d2d] w-full">
+            <h3 className="text-white text-[14px] font-semibold mb-3">
+              QR Code
+            </h3>
+            <img
+              src={currentMode.qr_image}
+              alt="QR Code"
+              className="w-44 h-44 object-contain"
+            />
+          </div>
         )}
+
+        {/* UPI ID */}
+        {currentMode.upi_id && (
+          <div className="bg-[#151d2d] rounded-2xl p-4 border border-gray-700 w-full">
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-white text-[14px] font-semibold">UPI ID</h3>
+              <button
+                onClick={() => copyToClipboard(currentMode.upi_id, "UPI ID")}
+                className="text-white hover:text-red-600 cursor-pointer"
+              >
+                <CopyIcon />
+              </button>
+            </div>
+            <p className="text-white font-semibold text-base mt-2 bg-[#131a2b] border border-gray-700 rounded-lg p-3 break-all text-center">
+              {currentMode.upi_id}
+            </p>
+          </div>
+        )}
+
+        {/* Account Number */}
+        {currentMode.Account_Number && (
+          <div className="bg-[#151d2d] rounded-2xl p-4 border border-gray-700 w-full">
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-white text-[14px] font-semibold">
+                Account Number
+              </h3>
+              <button
+                onClick={() => copyToClipboard(currentMode.Account_Number, "Account Number")}
+                className="text-white hover:text-red-600 cursor-pointer"
+              >
+                <CopyIcon />
+              </button>
+            </div>
+            <p className="text-white font-semibold text-base mt-2 bg-[#131a2b] border border-gray-700 rounded-lg p-3 text-center">
+              {currentMode.Account_Number}
+            </p>
+          </div>
+        )}
+
+        {/* IFSC Code */}
+        {currentMode.ifsc_code && (
+          <div className="bg-[#151d2d] rounded-2xl p-4 border border-gray-700 w-full">
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-white text-[14px] font-semibold">IFSC Code</h3>
+              <button
+                onClick={() => copyToClipboard(currentMode.ifsc_code, "IFSC Code")}
+                className="text-white hover:text-red-600 cursor-pointer"
+              >
+                <CopyIcon />
+              </button>
+            </div>
+            <p className="text-white font-semibold text-base mt-2 bg-[#131a2b] border border-gray-700 rounded-lg p-3 text-center">
+              {currentMode.ifsc_code}
+            </p>
+          </div>
+        )}
+
+        {/* Account Type */}
+        {currentMode.account_type && (
+          <div className="bg-[#151d2d] rounded-2xl p-4 border border-gray-700 w-full">
+            <h3 className="text-white text-[14px] font-semibold mb-2">
+              Account Type
+            </h3>
+            <p className="text-white font-semibold text-base bg-[#131a2b] border border-gray-700 rounded-lg p-3 text-center">
+              {currentMode.account_type}
+            </p>
+          </div>
+        )}
+
+      </div>
+    )}
+  </div>
+)}
 
         {/* ✅ Amount Section */}
         <div className="rounded-[8px] shadow p-4 lg2:px-6 bg-red">

@@ -75,8 +75,8 @@ function AviatorHeader({
       setHotAirData(q);
     };
 
-    socket.on("kuchbhi_aviator", handleSocket);
-    return () => socket.off("kuchbhi_aviator", handleSocket);
+    socket.on("agnibet_aviator", handleSocket);
+    return () => socket.off("agnibet_aviator", handleSocket);
   }, []);
   const [isOpen, setIsOpen] = useState(false);
   // const [isSoundOn, setIsSoundOn] = useState(true);
