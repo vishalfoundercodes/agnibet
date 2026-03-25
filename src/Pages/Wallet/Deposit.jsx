@@ -2262,6 +2262,10 @@ export default function DepositPage() {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("");
   const [utrNumber, setUtrNumber] = useState("");
+  // State declarations (top pe)
+const [accountDetails, setAccountDetails] = useState([]);
+const [upiDetails, setUpiDetails] = useState(null);
+const [selectedTab, setSelectedTab] = useState(0);
 
   const minAmount = profileDetails?.minimum_withdraw;
   const maxAmount = profileDetails?.maximum_deposit;
@@ -2273,26 +2277,45 @@ export default function DepositPage() {
   // State add karo component mein
 const [selectedPayMode, setSelectedPayMode] = useState(0);
 
+// ✅ Yeh line add karo - tabs array yahan define hoga
+const tabs = [
+  ...accountDetails.map((_, i) => `Option ${i + 1}`),
+  ...(upiDetails ? ["UPI"] : []),
+];
+
+// Yeh bhi define karo
+const isUpiTab = selectedTab === accountDetails.length;
+const currentAccount = !isUpiTab ? accountDetails[selectedTab] : null;
 
   // ✅ Fetch pay_modes data
-  const fetchPayModes = async () => {
-    try {
-      setLoading(true);
-      const user_id = localStorage.getItem("userId");
-      const res = await axios.get(`${apis.pay_modes}${user_id}`);
-      console.log("paymodess", res?.data);
-      // data is a single object: { agent_id, qr_image, upi_id }
-      setPayModeData(res?.data?.data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+const fetchPayModes = async () => {
+  try {
+    setLoading(true);
+    const user_id = localStorage.getItem("userId");
+    const res = await axios.get(`${apis.pay_modes}${user_id}`);
+    console.log("paymodess", res?.data);
 
-  useEffect(() => {
-    fetchPayModes();
-  }, []);
+    const data = res?.data?.data;
+
+    // Account details array set karo
+    setAccountDetails(data?.account_details || []);
+
+    // UPI details object set karo
+    setUpiDetails(data?.upi_details || null);
+
+    // Tab reset karo jab bhi fresh data aaye
+    setSelectedTab(0);
+
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+useEffect(() => {
+  fetchPayModes();
+}, []);;
 
   // ✅ File handler — store actual File object (not base64)
   const handleFileChange = (e) => {
@@ -2519,119 +2542,121 @@ const currentMode = payModes[selectedPayMode];
           </div>
         )} */}
 
-        {payModes.length > 0 && (
+{tabs.length > 0 && (
   <div className="bg-red rounded-[8px] shadow p-4">
     <h2 className="text-white font-semibold mb-4">
       {t("Payment_Details")}
     </h2>
 
-    {/* ✅ Option Tabs — sirf tab dikhao jab 2+ modes hon */}
-    {payModes.length >= 1 && (
-      <div className="flex gap-2 mb-4">
-        {payModes.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setSelectedPayMode(index)}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold border cursor-pointer transition-all ${
-              selectedPayMode === index
-                ? "bg-white text-white border-white"
-                : "bg-transparent text-white border-gray-500 hover:border-white"
-            }`}
-          >
-            Option {index + 1}
-          </button>
-        ))}
+    {/* Option Tabs */}
+    <div className="flex gap-2 mb-4 flex-wrap">
+      {tabs.map((label, index) => (
+        <button
+          key={index}
+          onClick={() => setSelectedTab(index)}
+          className={`px-4 py-2 rounded-lg text-sm font-semibold border cursor-pointer transition-all ${
+            selectedTab === index
+              ? "bg-white text-[#1a2235] border-white"
+              : "bg-transparent text-white border-gray-500 hover:border-white"
+          }`}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+
+    <div className="flex flex-col items-center gap-4">
+
+      {/* Account Details Tab */}
+     {/* Account Details Tab */}
+{currentAccount && (
+  <div className="bg-[#151d2d] rounded-2xl p-4 border border-gray-700 w-full">
+    <h3 className="text-white text-[14px] font-semibold mb-3">Account Details</h3>
+    
+    <div className="flex flex-col gap-2">
+      
+      {/* Account Holder */}
+      <div className="flex justify-between items-center border-b border-gray-700 pb-2">
+        <span className="text-gray-400 text-sm">Account Holder</span>
+        <span className="text-white text-sm font-semibold">{currentAccount.name}</span>
       </div>
-    )}
 
-    {/* ✅ Selected Mode ka Data */}
-    {currentMode && (
-      <div className="flex flex-col items-center gap-4">
-        
-        {/* QR Code */}
-        {currentMode.qr_image && (
-          <div className="flex flex-col items-center rounded-2xl p-4 border border-gray-700 bg-[#151d2d] w-full">
-            <h3 className="text-white text-[14px] font-semibold mb-3">
-              QR Code
-            </h3>
-            <img
-              src={currentMode.qr_image}
-              alt="QR Code"
-              className="w-44 h-44 object-contain"
-            />
-          </div>
-        )}
+      {/* Bank Name */}
+      <div className="flex justify-between items-center border-b border-gray-700 pb-2">
+        <span className="text-gray-400 text-sm">Bank Name</span>
+        <span className="text-white text-sm font-semibold">{currentAccount.bank_name}</span>
+      </div>
 
-        {/* UPI ID */}
-        {currentMode.upi_id && (
+      {/* Account Number */}
+      <div className="flex justify-between items-center border-b border-gray-700 pb-2">
+        <span className="text-gray-400 text-sm">Account Number</span>
+        <div className="flex items-center gap-2">
+          <span className="text-white text-sm font-semibold">{currentAccount.account_number}</span>
+          <button
+            onClick={() => copyToClipboard(currentAccount.account_number, "Account Number")}
+            className="text-gray-400 hover:text-white cursor-pointer"
+          >
+            <CopyIcon />
+          </button>
+        </div>
+      </div>
+
+      {/* IFSC Code */}
+      <div className="flex justify-between items-center border-b border-gray-700 pb-2">
+        <span className="text-gray-400 text-sm">IFSC Code</span>
+        <div className="flex items-center gap-2">
+          <span className="text-white text-sm font-semibold">{currentAccount.ifsc_code}</span>
+          <button
+            onClick={() => copyToClipboard(currentAccount.ifsc_code, "IFSC Code")}
+            className="text-gray-400 hover:text-white cursor-pointer"
+          >
+            <CopyIcon />
+          </button>
+        </div>
+      </div>
+
+      {/* Branch */}
+      <div className="flex justify-between items-center pt-1">
+        <span className="text-gray-400 text-sm">Branch</span>
+        <span className="text-white text-sm font-semibold">{currentAccount.branch}</span>
+      </div>
+
+    </div>
+  </div>
+)}
+
+      {/* UPI Tab */}
+      {isUpiTab && upiDetails && (
+        <>
+          {upiDetails.qr_image && (
+            <div className="flex flex-col items-center rounded-2xl p-4 border border-gray-700 bg-[#151d2d] w-full">
+              <h3 className="text-white text-[14px] font-semibold mb-3">QR Code</h3>
+              <img
+                src={upiDetails.qr_image}
+                alt="QR Code"
+                className="w-44 h-44 object-contain"
+              />
+            </div>
+          )}
+
           <div className="bg-[#151d2d] rounded-2xl p-4 border border-gray-700 w-full">
             <div className="flex justify-between items-center mb-2">
               <h3 className="text-white text-[14px] font-semibold">UPI ID</h3>
               <button
-                onClick={() => copyToClipboard(currentMode.upi_id, "UPI ID")}
+                onClick={() => copyToClipboard(upiDetails.upi_id, "UPI ID")}
                 className="text-white hover:text-red-600 cursor-pointer"
               >
                 <CopyIcon />
               </button>
             </div>
             <p className="text-white font-semibold text-base mt-2 bg-[#131a2b] border border-gray-700 rounded-lg p-3 break-all text-center">
-              {currentMode.upi_id}
+              {upiDetails.upi_id}
             </p>
           </div>
-        )}
+        </>
+      )}
 
-        {/* Account Number */}
-        {currentMode.Account_Number && (
-          <div className="bg-[#151d2d] rounded-2xl p-4 border border-gray-700 w-full">
-            <div className="flex justify-between items-center mb-2">
-              <h3 className="text-white text-[14px] font-semibold">
-                Account Number
-              </h3>
-              <button
-                onClick={() => copyToClipboard(currentMode.Account_Number, "Account Number")}
-                className="text-white hover:text-red-600 cursor-pointer"
-              >
-                <CopyIcon />
-              </button>
-            </div>
-            <p className="text-white font-semibold text-base mt-2 bg-[#131a2b] border border-gray-700 rounded-lg p-3 text-center">
-              {currentMode.Account_Number}
-            </p>
-          </div>
-        )}
-
-        {/* IFSC Code */}
-        {currentMode.ifsc_code && (
-          <div className="bg-[#151d2d] rounded-2xl p-4 border border-gray-700 w-full">
-            <div className="flex justify-between items-center mb-2">
-              <h3 className="text-white text-[14px] font-semibold">IFSC Code</h3>
-              <button
-                onClick={() => copyToClipboard(currentMode.ifsc_code, "IFSC Code")}
-                className="text-white hover:text-red-600 cursor-pointer"
-              >
-                <CopyIcon />
-              </button>
-            </div>
-            <p className="text-white font-semibold text-base mt-2 bg-[#131a2b] border border-gray-700 rounded-lg p-3 text-center">
-              {currentMode.ifsc_code}
-            </p>
-          </div>
-        )}
-
-        {/* Account Type */}
-        {currentMode.account_type && (
-          <div className="bg-[#151d2d] rounded-2xl p-4 border border-gray-700 w-full">
-            <h3 className="text-white text-[14px] font-semibold mb-2">
-              Account Type
-            </h3>
-            <p className="text-white font-semibold text-base bg-[#131a2b] border border-gray-700 rounded-lg p-3 text-center">
-              {currentMode.account_type}
-            </p>
-          </div>
-        )}
-
-      </div>
-    )}
+    </div>
   </div>
 )}
 
