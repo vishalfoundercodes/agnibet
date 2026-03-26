@@ -401,7 +401,7 @@ export default function DepositHistory() {
                     </span>
                     <p className=" font-bold">
                       <span className="text-grayBg">{Currency}</span>{" "}
-                      {deposit.cash}
+                      {deposit.amount}
                     </p>
                   </div>
                 </div>

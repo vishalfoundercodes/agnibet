@@ -2318,13 +2318,32 @@ useEffect(() => {
 }, []);;
 
   // ✅ File handler — store actual File object (not base64)
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (!selectedFile) return;
-    setFileName(selectedFile.name);
-    setFile(selectedFile); // ✅ actual File object for multipart upload
-  };
+  // const handleFileChange = (e) => {
+  //   // e.preventDefault()
+  //   console.log("files:",e.target.files[0])
+  //   const selectedFile = e.target.files[0];
+  //   if (!selectedFile) return;
+  //   setFileName(selectedFile.name);
+  //   setFile(selectedFile); // ✅ actual File object for multipart upload
+  // };
 
+// Add this ref at the top of your component with other state
+const fileRef = useRef(null);
+// Add this ref too
+const inputRef = useRef(null);
+
+const handleFileChange = (e) => {
+  const selectedFile = e.target.files?.[0];
+  console.log("files:", selectedFile);
+  if (!selectedFile) return;
+  
+  // Store in ref immediately (synchronous, no re-render issues)
+  fileRef.current = selectedFile;
+  
+  // Update state for UI display
+  setFileName(selectedFile.name);
+  setFile(selectedFile);
+};
   // ✅ Copy to clipboard
   const copyToClipboard = (text, label) => {
     navigator.clipboard.writeText(text);
@@ -2696,7 +2715,7 @@ const currentMode = payModes[selectedPayMode];
         </div>
 
         {/* ✅ Upload Payment Slip */}
-        <div className="bg-red rounded-[8px] shadow p-4">
+        {/* <div className="bg-red rounded-[8px] shadow p-4">
           <label className="block font-medium text-white mb-2 text-sm">
             {t("Upload_your_payment_slip_below")}
             <span className="text-red-500">*</span>
@@ -2725,18 +2744,57 @@ const currentMode = payModes[selectedPayMode];
               type="file"
               id="paymentSlipInput"
               className="hidden"
-              onChange={handleFileChange}
+                                onChange={(e) => {
+                    console.log("file changed");
+                    handleFileChange(e);
+                  }}
+                  onClick={(e) => e.stopPropagation()}
             />
           </div>
-        </div>
+        </div> */}
+        {/* ✅ OUTER label is just a <p> or <div> — NOT a label tag */}
 
+
+{/* Upload Section */}
+<div className="bg-red rounded-[8px] shadow p-4">
+  <p className="block font-medium text-white mb-2 text-sm">
+    {t("Upload_your_payment_slip_below")}
+    <span className="text-red-500">*</span>
+  </p>
+
+  {/* ✅ div with onClick using ref — no label/id linking needed */}
+  <div
+    className="border-2 border-dashed border-darkGray rounded-[8px] px-3 py-3 flex items-center text-white cursor-pointer hover:border-lightMain transition gap-2"
+    onClick={() => inputRef.current?.click()}
+  >
+    <svg className="shrink-0" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M23.625 4.375H4.375C3.91087 4.375 3.46575 4.55937 3.13756 4.88756C2.80937 5.21575 2.625 5.66087 2.625 6.125V21.875C2.625 22.3391 2.80937 22.7842 3.13756 23.1124C3.46575 23.4406 3.91087 23.625 4.375 23.625H23.625C24.0891 23.625 24.5342 23.4406 24.8624 23.1124C25.1906 22.7842 25.375 22.3391 25.375 21.875V6.125C25.375 5.66087 25.1906 5.21575 24.8624 4.88756C24.5342 4.55937 24.0891 4.375 23.625 4.375ZM17.0625 9.625C17.3221 9.625 17.5758 9.70198 17.7917 9.8462C18.0075 9.99042 18.1758 10.1954 18.2751 10.4352C18.3744 10.6751 18.4004 10.939 18.3498 11.1936C18.2991 11.4482 18.1741 11.682 17.9906 11.8656C17.807 12.0491 17.5732 12.1741 17.3186 12.2248C17.064 12.2754 16.8001 12.2494 16.5602 12.1501C16.3204 12.0508 16.1154 11.8825 15.9712 11.6667C15.827 11.4508 15.75 11.1971 15.75 10.9375C15.75 10.5894 15.8883 10.2556 16.1344 10.0094C16.3806 9.76328 16.7144 9.625 17.0625 9.625ZM23.625 21.875H4.375V17.5755L9.44344 12.5059C9.5247 12.4246 9.6212 12.36 9.72743 12.316C9.83365 12.272 9.94751 12.2493 10.0625 12.2493C10.1775 12.2493 10.2913 12.272 10.3976 12.316C10.5038 12.36 10.6003 12.4246 10.6816 12.5059L18.0469 19.8691C18.2111 20.0332 18.4337 20.1255 18.6659 20.1255C18.8981 20.1255 19.1208 20.0332 19.285 19.8691C19.4492 19.7049 19.5414 19.4822 19.5414 19.25C19.5414 19.0178 19.4492 18.7951 19.285 18.6309L17.3534 16.7005L18.9219 15.1309C19.086 14.967 19.3084 14.8749 19.5404 14.8749C19.7724 14.8749 19.9948 14.967 20.1589 15.1309L23.625 18.6014V21.875Z" fill="#636774"/>
+    </svg>
+
+    <p className="text-ssm font-medium text-darkGray break-all flex-1">
+      {fileName || fileRef.current?.name || "Upload or drop a file right here"}
+    </p>
+
+    {/* ✅ Input uses ref directly — completely bypasses id/label linking */}
+    <input
+      ref={inputRef}
+      type="file"
+      accept="image/*,application/pdf"
+      className="hidden"
+      onChange={handleFileChange}
+    />
+  </div>
+
+  {/* ✅ File selected confirmation */}
+
+</div>
         {/* ✅ UTR Number */}
         <div className="bg-red rounded-[8px] shadow p-4">
           <label className="block font-medium text-white mb-2">
             {t("UTR_Number")}
           </label>
           <input
-            type="text"
+            type="number"
             placeholder="Enter Transaction ID"
             value={utrNumber}
             onChange={(e) => setUtrNumber(e.target.value)}

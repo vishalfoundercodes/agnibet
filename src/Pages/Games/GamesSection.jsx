@@ -12,7 +12,7 @@ import { t } from "i18next";
 import { useTranslation } from "react-i18next";
 
 const GameSection = ({ title, games, icon, brand,  sectionRef, gamesDetails }) => {
-  console.log("title:",title)
+  // console.log("title:",brand)
   const { profileDetails, setprofileDetails } = useProfile();
   const {t}=useTranslation()
   // const { registerSection } = useScroll();
@@ -20,52 +20,9 @@ const GameSection = ({ title, games, icon, brand,  sectionRef, gamesDetails }) =
   const [expanded, setExpanded] = useState(false);
   const [loading, setloading] = useState(false);
   const account_type=localStorage.getItem("account_type");
-  // const sectionElement = useRef(null);
-  //  const sectionBrandId =
-  //    brand?.brand_id || title?.toLowerCase().replace(/\s+/g, "-");
-  // if(brand){
-  //   console.log("Get brand:", brand.brand_title);
-  //   console.log("Get Brand id:", brand.brand_id);
-  // }
-  // console.log("games in section:", gamesDetails);
-  // console.log("brand in section:", brand);
-  //  useEffect(() => {
-  //    if (brand?.brand_id && sectionElement.current) {
-  //      registerSection(brand.brand_id, sectionElement.current);
-  //    }
-  //  }, [brand?.brand_id, registerSection]);
-  // ✅ FIX: Proper registration with effect cleanup
-  // useEffect(() => {
-  //   const brandId = brand?.brand_id || gamesDetails?.brand_id;
-
-  //   if (brandId && sectionElement.current) {
-  //     // console.log(
-  //     //   "🔗 Registering GameSection:",
-  //     //   brandId,
-  //     //   sectionElement.current
-  //     // );
-  //     registerSection(brandId, sectionElement.current);
-
-  //     // ✅ Pass ref to parent if provided
-  //     if (sectionRef && typeof sectionRef === "function") {
-  //       sectionRef(sectionElement.current);
-  //     }
-  //   }
-
-  // }, [brand?.brand_id, gamesDetails?.brand_id, registerSection, sectionRef]);
-
-  // Register on mount
-  // const sectionBrandId =
-  //   brand?.brand_id || title?.toLowerCase().replace(/\s+/g, "-");
-  // const sectionElement = useRef(null);
-  // const { registerSection } = useScroll();
-
-  // Determine device type at render time
-  // const isMobile = window.innerWidth <= 768;
-  // const deviceType = isMobile ? "mobile" : "desktop";
 
  const sectionBrandId =
-   brand?.brand_id || title?.toLowerCase().replace(/\s+/g, "-");
+   brand?.id || title?.toLowerCase().replace(/\s+/g, "-");
  const sectionElement = useRef(null);
  const { registerSection } = useScroll();
 

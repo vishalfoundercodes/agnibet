@@ -78,6 +78,8 @@ export default function PlayGame({
     setDinoLandedIndex(null);
   }, [resetCoinsTrigger]);
 
+  console.log("difficulty:", difficulty[activeDifficulty]);
+
   const vw = window.innerWidth / 100;
   const fragmentWidth = fragmentWidthVW * vw;
   const frequency =

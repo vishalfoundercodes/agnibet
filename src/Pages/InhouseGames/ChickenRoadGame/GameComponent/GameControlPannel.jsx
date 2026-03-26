@@ -134,6 +134,7 @@ const navigate = useNavigate();
   };
 
   const handleDifficultyChange = (level) => {
+    console.log("level:",level)
     setActiveTab(level);
     setDifficultyArray(level);
     setActiveDifficulty(level?.type);
@@ -357,12 +358,14 @@ const navigate = useNavigate();
             <p>Chance of Collision</p>
           </div>
           <div className="hidden md:flex bg-[#4F5163] rounded-lg overflow-hidden p-1 py-0">
-            {difficulty2?.length > 0 &&
-              difficulty2.map((level) => (
+            {difficulty?.length > 0 &&
+              difficulty.map((level) => (
                 <button
                   key={level?.type}
                   disabled={gameStarted}
-                  onClick={() => handleDifficultyChange(level)}
+                  onClick={() => {
+                    (console.log("first call"), handleDifficultyChange(level));
+                  }}
                   className={`w-full py-1 text-sm font-semibold transition-colors rounded-md ${
                     activeTab?.type === level?.type
                       ? "text-white bg-[#5F6171]"
@@ -372,12 +375,12 @@ const navigate = useNavigate();
                   {level?.type === 1
                     ? "Easy"
                     : level?.type === 2
-                    ? "Medium"
-                    : level?.type === 3
-                    ? "Hard"
-                    : level?.type === 4
-                    ? "Hardcore"
-                    : ""}
+                      ? "Medium"
+                      : level?.type === 3
+                        ? "Hard"
+                        : level?.type === 4
+                          ? "Hardcore"
+                          : ""}
                 </button>
               ))}
           </div>
@@ -387,7 +390,6 @@ const navigate = useNavigate();
               style={modalStyle}
               className="bg-[#4F5163] -mt-32 rounded-lg overflow-hidden p-1 shadow-lg"
             >
-             
               <div className="flex flex-col gap-2">
                 {difficulty?.length > 0 &&
                   difficulty?.map((level) => (
@@ -395,6 +397,7 @@ const navigate = useNavigate();
                       key={level}
                       disabled={gameStarted}
                       onClick={() => {
+                        console.log("second call");
                         handleDifficultyChange(level);
                         setShowModal(false);
                       }}
@@ -407,12 +410,12 @@ const navigate = useNavigate();
                       {level?.type === 1
                         ? "Easy"
                         : level?.type === 2
-                        ? "Medium"
-                        : level?.type === 3
-                        ? "Hard"
-                        : level?.type === 4
-                        ? "Hardcore"
-                        : ""}
+                          ? "Medium"
+                          : level?.type === 3
+                            ? "Hard"
+                            : level?.type === 4
+                              ? "Hardcore"
+                              : ""}
                     </button>
                   ))}
               </div>
@@ -428,12 +431,12 @@ const navigate = useNavigate();
               {activeTab?.type === 1
                 ? "Easy"
                 : activeTab?.type === 2
-                ? "Medium"
-                : activeTab?.type === 3
-                ? "Hard"
-                : activeTab?.type === 4
-                ? "Hardcore"
-                : ""}
+                  ? "Medium"
+                  : activeTab?.type === 3
+                    ? "Hard"
+                    : activeTab?.type === 4
+                      ? "Hardcore"
+                      : ""}
             </p>
             <p>
               <IoIosArrowDown />
