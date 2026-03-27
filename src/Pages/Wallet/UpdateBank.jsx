@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import { data, useLocation,useNavigate } from "react-router-dom";
 import apis from '../../utils/apis';
 import { toast } from 'react-toastify';
@@ -7,82 +7,163 @@ import { t } from 'i18next';
 import { useTranslation } from 'react-i18next';
 
 export default function UpdateBankAccount() {
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   const location = useLocation();
-  const navigate =useNavigate()
-  const mode = location.state?.mode || "update"; // default update
-const [selectedPayment, setSelectedPayment] = useState(null);
+  const navigate = useNavigate();
+  const mode = location.state?.mode || "update";
+  const data = location.state?.data || null;; // default update
+  const [selectedPayment, setSelectedPayment] = useState(null);
   const headingText =
     mode === "add" ? t("Add_Bank_Account") : t("Update_Bank_Account");
 
-    const [formData, setFormData] = useState({
-      user_id: "", // example static user id (you can set dynamically)
-      name: "",
-      account_number: "",
-      confirm_account_number: "",
-      ifsc_code: "",
-      bank_name: "", //naya
-      branch: "", // naya
-      upi_id: "",
-    });
+  const [formData, setFormData] = useState({
+    user_id: "", // example static user id (you can set dynamically)
+    name: "",
+    account_number: "",
+    confirm_account_number: "",
+    ifsc_code: "",
+    bank_name: "", //naya
+    branch: "", // naya
+    upi_id: "",
+  });
 
-    const [errors, setErrors] = useState({});
-    const [submittedPayload, setSubmittedPayload] = useState(null);
+  const [errors, setErrors] = useState({});
+  const [submittedPayload, setSubmittedPayload] = useState(null);
 
-    // ✅ Handle input change
-    const handleChange = (e) => {
-      const { name, value } = e.target;
+  // ✅ Auto-fill form when mode is "update"
+  useEffect(() => {
+    if (mode === "update" && data) {
+      console.log("update data:", data);
       setFormData((prev) => ({
         ...prev,
-        [name]: value,
+        name: data.name || "",
+        account_number: data.account || data.account_number || "",
+        confirm_account_number: data.account || data.account_number || "",
+        ifsc_code: data.ifsc || data.ifsc_code || "",
+        upi_id: data.upi_id || "",
       }));
-    };
+    }
+  }, [mode, data]);
 
-    // ✅ Validate fields
-    const validateForm = () => {
-      let newErrors = {};
+  // ✅ Handle input change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-      if (!formData.name.trim()) {
-        newErrors.name = "Account holder name is required";
-      }
+  // ✅ Validate fields
+  const validateForm = () => {
+    let newErrors = {};
 
-      if (!formData.account_number.trim()) {
-        newErrors.account_number = "Account number is required";
-      } else if (!/^\d{9,18}$/.test(formData.account_number)) {
-        newErrors.account_number =
-          "Account number must be between 9 to 18 digits";
-      }
+    if (!formData.name.trim()) {
+      newErrors.name = "Account holder name is required";
+    }
 
-      if (!formData.confirm_account_number.trim()) {
-        newErrors.confirm_account_number = "Please confirm your account number";
-      } else if (formData.confirm_account_number !== formData.account_number) {
-        newErrors.confirm_account_number = "Account numbers do not match";
-      }
+    if (!formData.account_number.trim()) {
+      newErrors.account_number = "Account number is required";
+    } else if (!/^\d{9,18}$/.test(formData.account_number)) {
+      newErrors.account_number =
+        "Account number must be between 9 to 18 digits";
+    }
 
-      if (!formData.ifsc_code.trim()) {
-        newErrors.ifsc_code = "IFSC code is required";
-      } else if (!/^[A-Z]{4}0[A-Z0-9]{6}$/i.test(formData.ifsc_code)) {
-        newErrors.ifsc_code = "Enter a valid IFSC code";
-      }
+    if (!formData.confirm_account_number.trim()) {
+      newErrors.confirm_account_number = "Please confirm your account number";
+    } else if (formData.confirm_account_number !== formData.account_number) {
+      newErrors.confirm_account_number = "Account numbers do not match";
+    }
 
-      if (!formData.bank_name.trim()) {
-        newErrors.bank_name = "Bank name is required";
-      }
+    if (!formData.ifsc_code.trim()) {
+      newErrors.ifsc_code = "IFSC code is required";
+    } else if (!/^[A-Z]{4}0[A-Z0-9]{6}$/i.test(formData.ifsc_code)) {
+      newErrors.ifsc_code = "Enter a valid IFSC code";
+    }
 
-      if (!formData.branch.trim()) {
-        newErrors.branch = "Branch is required";
-      }
+    if (!formData.bank_name.trim()) {
+      newErrors.bank_name = "Bank name is required";
+    }
 
+    if (!formData.branch.trim()) {
+      newErrors.branch = "Branch is required";
+    }
 
-      setErrors(newErrors);
-      return Object.keys(newErrors).length === 0;
-    };
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
-    // ✅ Handle form submit
-    const handleSubmit = async(e) => {
-      e.preventDefault();
-      if (validateForm()) {
-        const payload = {
+  // ✅ Handle form submit
+  // const handleSubmit = async(e) => {
+  //   e.preventDefault();
+  //   if (validateForm()) {
+  //     const payload = {
+  //       user_id: localStorage.getItem("userId"),
+  //       name: formData.name.trim(),
+  //       account_number: formData.account_number.trim(),
+        // ifsc_code: formData.ifsc_code.trim(),
+        // bank_name: formData.bank_name.trim(), // naya
+        // branch: formData.branch.trim(), // naya
+        // upi_id: formData.upi_id.trim(),
+  //     };
+
+  //     console.log("✅ Payload:", payload);
+  //     try {
+  //       const res = await axios.post(apis.add_account,payload);
+  //       console.log("res",res)
+  //       if(res?.data?.status===200){
+  //         toast.success(res?.data?.message)
+  //            setFormData({
+  //              user_id: "", // keep user id
+  //              wallet_address: "",
+  //              wallet_type: "",
+  //              phone_no: "",
+  //              otp: "",
+  //            });
+  //            navigate(-1);
+  //       }
+  //     } catch (error) {
+  //       console.log(error)
+  //       toast.error(error?.response?.data?.message)
+  //     }
+  //     setSubmittedPayload(payload);
+  //   }
+  // };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // if (validateForm())
+    //  {
+    try {
+      if (mode === "update") {
+        // ✅ UPDATE payload & API
+        const updatePayload = {
+          userId: localStorage.getItem("userId"),
+          id: data?.account_id || data?.id,
+          name: formData.name.trim(),
+          account_number: formData.account_number.trim(),
+          ifsc_code: formData.ifsc_code.trim(),
+          bank_name: formData.bank_name.trim(), // naya
+          branch: formData.branch.trim(), // naya
+          upi_id: formData.upi_id.trim(),
+        };
+
+        console.log("✅ Update Payload:", updatePayload);
+
+        const res = await axios.post(apis.account_update, updatePayload);
+
+        console.log("update res:", res);
+
+        if (res?.data?.status === 200 || res?.data?.status===true) {
+          toast.success(res?.data?.message || "Account updated successfully");
+          navigate(-1);
+        } else {
+          toast.error(res?.data?.message || "Update failed");
+        }
+      } else {
+        // ✅ ADD payload & API
+        const addPayload = {
           user_id: localStorage.getItem("userId"),
           name: formData.name.trim(),
           account_number: formData.account_number.trim(),
@@ -92,28 +173,33 @@ const [selectedPayment, setSelectedPayment] = useState(null);
           upi_id: formData.upi_id.trim(),
         };
 
-        console.log("✅ Payload:", payload);
-        try {
-          const res = await axios.post(apis.add_account,payload);
-          console.log("res",res)
-          if(res?.data?.status===200){
-            toast.success(res?.data?.message)
-               setFormData({
-                 user_id: "", // keep user id
-                 wallet_address: "",
-                 wallet_type: "",
-                 phone_no: "",
-                 otp: "",
-               });
-               navigate(-1);
-          }
-        } catch (error) {
-          console.log(error)
-          toast.error(error?.response?.data?.message)
+        console.log("✅ Add Payload:", addPayload);
+
+        const res = await axios.post(apis.add_account, addPayload);
+
+        console.log("add res:", res);
+
+        if (res?.data?.status === 200) {
+          toast.success(res?.data?.message);
+          setFormData({
+            user_id: "",
+            name: "",
+            account_number: "",
+            confirm_account_number: "",
+            ifsc_code: "",
+            upi_id: "",
+          });
+          setSubmittedPayload(null);
+          navigate(-1);
         }
-        setSubmittedPayload(payload);
       }
-    };
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.response?.data?.message);
+    }
+    // }
+  };
+
   return (
     <div
       className="min-h-screen px-5 py-6  lg2:py-0 lg2:px-4 rounded-md "

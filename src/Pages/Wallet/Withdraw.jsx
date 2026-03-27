@@ -294,6 +294,22 @@ const defaultImages = [image1, image2, image3];
     }
   }
 
+     const handleDeleteAccount = async (id) => {
+       try {
+         const payload = {
+           user_id: localStorage.getItem("userId"),
+           id: id,
+         };
+         const res = await axios.post(apis.account_delete, payload);
+         console.log("res", res?.data);
+         toast.success(res?.data?.message); 
+         fetchaccount();
+       } catch (error) {
+         console.error(error);
+         toast.warn(error?.response?.data?.message);
+       }
+     };
+
   const cards = accounts.map((acc, index) => ({
     ifsc: acc.ifsc_code || acc.wallet_type,
     account: acc.account_number || acc.wallet_address,
@@ -589,14 +605,17 @@ const defaultImages = [image1, image2, image3];
                           {card.ifsc}
                         </p>
                         <div className="flex gap-2">
-                          <button className="p-1 bg-red rounded shadow hover:bg-gray-100 cursor-pointer">
+                          <button
+                            className="p-1 bg-red rounded shadow hover:bg-gray-100 cursor-pointer"
+                            onClick={() => handleDeleteAccount(card.id)}
+                          >
                             <Trash2 className="w-4 h-4 text-gray-600" />
                           </button>
                           <button
                             className="p-1 bg-red rounded shadow hover:bg-gray-100 cursor-pointer"
                             onClick={() =>
                               navigate("/updateAccount", {
-                                state: { mode: "update" },
+                                state: { mode: "update", data: card },
                               })
                             }
                           >
@@ -664,7 +683,10 @@ const defaultImages = [image1, image2, image3];
                           {card.ifsc || card.wallet_type}
                         </p>
                         <div className="flex gap-2">
-                          <button className="p-1 bg-red rounded shadow hover:bg-gray-100 cursor-pointer">
+                          <button
+                            className="p-1 bg-red rounded shadow hover:bg-gray-100 cursor-pointer"
+                            onClick={() => handleDeleteAccount(card.id)}
+                          >
                             <Trash2 className="w-4 h-4 text-gray-600" />
                           </button>
                           <button

@@ -299,14 +299,14 @@ export default function PendingBetsTable({ data }) {
       </div>
 
       {/* Buttons */}
-      <div className="flex justify-between lg2:justify-end lg2:gap-2 mt-4 mb-4 mx-4 text-ssm">
+      {/* <div className="flex justify-between lg2:justify-end lg2:gap-2 mt-4 mb-4 mx-4 text-ssm">
         <button className="px-3 py-2 rounded-md border border-red text-red font-medium hover:bg-red-50">
           {t(`Confirm_Pending_Bets`)}
         </button>
         <button className="px-3 py-2 rounded-md bg-red text-white font-medium hover:bg-red">
           {t(`Confirm_Pending_Bets`)}
         </button>
-      </div>
+      </div>*/}
     </div>
   );
 }

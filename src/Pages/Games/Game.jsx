@@ -69,17 +69,16 @@ import { useTranslation } from "react-i18next";
 const BRAND_DATA_PREFIX = "brand_data_";
 
 export default function Game() {
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   const location = useLocation();
   const { tabName } = useParams();
   const [games, setGames] = useState([]);
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [subCategories, setSubCategories] = useState([]);
-    const [isAllCategory, setIsAllCategory] = useState(false); 
-    const [sponserImage,setSponserImage]=useState([])
-    const [originalGames, setOriginalGames] = useState([]);
-
+  const [isAllCategory, setIsAllCategory] = useState(false);
+  const [sponserImage, setSponserImage] = useState([]);
+  const [originalGames, setOriginalGames] = useState([]);
 
   const navigate = useNavigate();
   const { profileDetails } = useProfile();
@@ -163,28 +162,29 @@ export default function Game() {
   // console.log("tab name:", tabName);
   // console.log("cat name:", subCategories[0]?.cat_name);
   // Get current tab config
-  const currentTab =
-    tabConfig[subCategories[0]?.cat_name] ||
-    tabConfig[tabName] ||
-    tabConfig.home;
+  // const currentTab =
+  //   tabConfig[subCategories[0]?.cat_name] ||
+  //   tabConfig[tabName] ||
+  //   tabConfig.home;
+  // const selectedTab = currentTab.label;
+  // const brandId = currentTab?.brand_id;
+
+  // Get current tab config - FIXED: only use tabName, not subCategories
+  const currentTab = tabConfig[tabName] || tabConfig.home;
   const selectedTab = currentTab.label;
   const brandId = currentTab?.brand_id;
-
 
   // Find selected category for icon
   const selected =
     categories.find(
-      (c) => c.id.toLowerCase() === (tabName || "").toLowerCase()
+      (c) => c.id.toLowerCase() === (tabName || "").toLowerCase(),
     ) || categories[0];
   const IconComp = selected.icon;
 
   // 🔥 NEW FUNCTION: Load ALL games from localStorage
   const loadAllGames = () => {
     const allGames = [];
-    const brandIds = [
-  "3",
-    "6","5","25","22","21","20","19","12"
-    ]; // Add all your brand IDs here
+    const brandIds = ["3", "6", "5", "25", "22", "21", "20", "19", "12"]; // Add all your brand IDs here
 
     brandIds.forEach((id) => {
       const brandStorageKey = `${BRAND_DATA_PREFIX}${id}`;
@@ -204,23 +204,20 @@ export default function Game() {
   };
 
   //sponser image api
-  const sponnserImage=async()=>{
+  const sponnserImage = async () => {
     try {
       const res = await axios.get(apis.game_subcat_sliders);
-      console.log("sponser image on game page:",res?.data?.data)
-       setSponserImage(res?.data?.data);
+      console.log("sponser image on game page:", res?.data?.data);
+      setSponserImage(res?.data?.data);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
-
+  };
 
   // Load games from localStorage based on brand_id
   useEffect(() => {
     const loadGamesFromLocalStorage = () => {
       setLoading(true);
-
-   
 
       // 🔥 NEW: Check if "All" category is selected
       if (brandId === "all" || tabName?.toLowerCase() === "all") {
@@ -235,13 +232,13 @@ export default function Game() {
       }
       setIsAllCategory(false);
 
-         if (!brandId) {
-           // If no brand_id, show empty or default
-           setGames([]);
-           setCategory([]);
-           setLoading(false);
-           return;
-         }
+      if (!brandId) {
+        // If no brand_id, show empty or default
+        setGames([]);
+        setCategory([]);
+        setLoading(false);
+        return;
+      }
 
       try {
         const brandStorageKey = `${BRAND_DATA_PREFIX}${brandId}`;
@@ -251,7 +248,7 @@ export default function Game() {
         // console.log("stored data",storedData)
         console.log(
           "start try to fetch data cat name ....",
-          subCategories[0]?.cat_name
+          subCategories[0]?.cat_name,
         );
         if (storedData) {
           const { games: brandGames } = JSON.parse(storedData);
@@ -259,7 +256,7 @@ export default function Game() {
           //   `📦 Loaded ${brandGames.length} games for brand ${brandId}`
           // );
 
-          console.log(`games brand :`,brandGames)
+          console.log(`games brand :`, brandGames);
           // Filter based on specific requirements
           let filteredGames = brandGames;
           let filteredCategory = brandGames;
@@ -291,16 +288,18 @@ export default function Game() {
           // For brand 52 - only chess
           if (brandId === "52") {
             filteredGames = brandGames.filter(
-              (game) => game.category === "chess"
+              (game) => game.category === "chess",
             );
           }
           console.log("end fetch data ....");
-          console.log("all games",filterGames)
+          console.log("all games", filterGames);
           setGames(filteredGames);
           setOriginalGames(filteredGames);
           setCategory(filteredCategory);
         } else {
-          console.error(`⚠️ No data found for brand ${brandId} in localStorage`);
+          console.error(
+            `⚠️ No data found for brand ${brandId} in localStorage`,
+          );
           setGames([]);
           setCategory([]);
         }
@@ -316,101 +315,99 @@ export default function Game() {
     loadGamesFromLocalStorage();
   }, [tabName, brandId]);
 
- const handleGameOpen = async (id, name) => {
-   const userId = localStorage.getItem("userId");
-   if (!userId) {
-     toast.error("Please login first.");
-     return; // stop further execution
-   }
-   const account_type = localStorage.getItem("account_type");
-   if (account_type === "1") {
-     // toast.warn("Please login with your real account.");
-     try {
-       setLoading(true);
-       const payload = {
-         user_id: userId,
-         amount: profileDetails?.wallet || 0,
+  const handleGameOpen = async (id, name) => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      toast.error("Please login first.");
+      return; // stop further execution
+    }
+    const account_type = localStorage.getItem("account_type");
+    if (account_type === "1") {
+      // toast.warn("Please login with your real account.");
+      try {
+        setLoading(true);
+        const payload = {
+          user_id: userId,
+          amount: profileDetails?.wallet || 0,
+          //  game_id: id,
+          game_uid: id,
+          game_name: name,
+        };
+        console.log("payload:", payload);
+        console.log("response from game api:", apis.openGame);
+        const res = await axios.post(apis.openGame, payload);
+        console.log("game launch:", res?.data);
+        if (res?.data?.status === 200 || res?.data?.status === true) {
+          //  const url = res?.data?.launchUrl;
+          const url = res?.data?.game_url;
+          console.log("urlll", url);
+          if (url) {
+            // ✅ Open in same tab (with header for desktop, direct for mobile)
+            navigate(`/playgame?url=${encodeURIComponent(url)}`);
+            // navigate(url, { replace: true });
+            // window.location.assign(url);
+
+            //  navigate(`/playgame`,{state:{url:url}});
+            // window.location.href = res?.data?.apiResponse?.data?.url;
+          } else {
+            toast.error("Game URL not found");
+          }
+        }
+      } catch (error) {
+        toast.error(error?.response?.data?.message || "Something went wrong");
+      } finally {
+        setLoading(false);
+      }
+      return;
+    }
+    try {
+      setLoading(true);
+      const userId = localStorage.getItem("userId");
+      const payload = {
+        user_id: userId,
+        amount: profileDetails?.wallet || 0,
+        // amount: 10,
+        game_uid: id,
         //  game_id: id,
-         game_uid: id,
-         game_name: name,
-       };
-       console.log("payload:", payload);
-       console.log("response from game api:", apis.openGame);
-       const res = await axios.post(apis.openGame, payload);
-       console.log("game launch:", res?.data);
-       if (res?.data?.status === 200 || res?.data?.status === true) {
-        //  const url = res?.data?.launchUrl;
-        const url = res?.data?.game_url;
-         console.log("urlll",url);
-         if (url) {
-           // ✅ Open in same tab (with header for desktop, direct for mobile)
-           navigate(`/playgame?url=${encodeURIComponent(url)}`);
-          // navigate(url, { replace: true });
-          // window.location.assign(url);
-
-
-           //  navigate(`/playgame`,{state:{url:url}});
-           // window.location.href = res?.data?.apiResponse?.data?.url;
-         } else {
-           toast.error("Game URL not found");
-         }
-       }
-     } catch (error) {
-       toast.error(error?.response?.data?.message || "Something went wrong");
-     } finally {
-       setLoading(false);
-     }
-     return;
-   }
-   try {
-     setLoading(true);
-     const userId = localStorage.getItem("userId");
-     const payload = {
-       user_id: userId,
-       amount: profileDetails?.wallet || 0,
-       // amount: 10,
-       game_uid: id,
-      //  game_id: id,
-       game_name: name,
-     };
-     console.log("payload", payload);
-     const res = await axios.post(apis.openGame, payload);
-     console.log("response from game api:", apis.openGame);
-     console.log("game launch:", res?.data);
-     if (res?.data?.status === 200 ||res?.data?.status === true) {
-       if (res?.data?.game_url) {
-         // window.location.href = res?.data?.apiResponse?.data?.url;
-        //  const url = res?.data?.launchUrl;
-        const url = res?.data?.game_url;
-         if (url) {
-           // ✅ Open in same tab (with header for desktop, direct for mobile)
-           navigate(`/playgame?url=${encodeURIComponent(url)}`);
-          //  navigate(url, { replace: true });
-          // window.location.assign(url);
-
-         } else {
-           toast.error("Game URL not found");
-         }
-       } else {
-         toast.error(res?.data?.apiResponse?.error);
-       }
-     }
-   } catch (error) {
-     console.error(error);
-     toast.error(error?.response?.data?.message);
-   } finally {
-     setLoading(false);
-   }
- };
+        game_name: name,
+      };
+      console.log("payload", payload);
+      const res = await axios.post(apis.openGame, payload);
+      console.log("response from game api:", apis.openGame);
+      console.log("game launch:", res?.data);
+      if (res?.data?.status === 200 || res?.data?.status === true) {
+        if (res?.data?.game_url) {
+          // window.location.href = res?.data?.apiResponse?.data?.url;
+          //  const url = res?.data?.launchUrl;
+          const url = res?.data?.game_url;
+          if (url) {
+            // ✅ Open in same tab (with header for desktop, direct for mobile)
+            navigate(`/playgame?url=${encodeURIComponent(url)}`);
+            //  navigate(url, { replace: true });
+            // window.location.assign(url);
+          } else {
+            toast.error("Game URL not found");
+          }
+        } else {
+          toast.error(res?.data?.apiResponse?.error);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error?.response?.data?.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getSubCategory = async (id) => {
     try {
       const payload = { cat_id: id };
       console.log("payload for sub cate", payload);
       const res = await axios.post(apis?.subcategories_by_cat, payload);
-      console.log("sub cate list: ", res?.data?.data);
+      // console.log("sub cate list: ", res?.data?.data);
 
-      setSubCategories(res.data?.data || []); 
+      setSubCategories(res.data?.data || []);
     } catch (error) {
       console.error(error);
     }
@@ -430,19 +427,20 @@ export default function Game() {
     // console.log("Received Category from Tabs:", passedCategory);
     // getSubCategory(passedCategory.id);
     // console.log("tabname", tabName);
-    // console.log("tabname id", tabConfig[tabName]);
+    console.log("tabname id", tabConfig[tabName]);
     getSubCategory(passedCategory?.cat_id || tabName);
     // 🔥 NEW: Check if passed category is "All"
     if (passedCategory?.cat_id === 1 || passedCategory?.id === "all") {
       setIsAllCategory(true);
       const allGames = loadAllGames();
+      console.log("all games:", allGames);
       setGames(allGames);
       setOriginalGames(allGames);
       setCategory(allGames);
     } else {
       getSubCategory(passedCategory?.cat_id || tabName);
     }
-    sponnserImage()
+    sponnserImage();
   }, []);
 
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
@@ -454,7 +452,6 @@ export default function Game() {
     // filterGames(sub);
     filterGames(sub, selectedCategory);
     // filterGames(sub, selectedCategory || passedCategoryFromTabs);
-
   };
 
   const handleSearch = (text) => {
@@ -476,14 +473,12 @@ export default function Game() {
         name1.includes(search) ||
         name2.includes(search) ||
         name3.includes(search) ||
-        eventName.includes(search) 
-        
+        eventName.includes(search)
       );
     });
 
     setGames(filtered);
   };
-
 
   const filterGames = (sub, category) => {
     if (!sub) return;
@@ -506,10 +501,10 @@ export default function Game() {
         const name2 = game.gameNameEn?.toLowerCase() || "";
         const name3 = game.category?.toLowerCase() || "";
         return wordList.some(
-          (w) => name1.includes(w) || name2.includes(w) || name3.includes(w)
+          (w) => name1.includes(w) || name2.includes(w) || name3.includes(w),
         );
       });
-setOriginalGames(filteredGames);
+      setOriginalGames(filteredGames);
       setGames(filteredGames);
       return;
     }
@@ -565,7 +560,7 @@ setOriginalGames(filteredGames);
       const name2 = game.gameNameEn?.toLowerCase() || "";
       const name3 = game.category?.toLowerCase() || "";
       return wordList.some(
-        (w) => name1.includes(w) || name2.includes(w) || name3.includes(w)
+        (w) => name1.includes(w) || name2.includes(w) || name3.includes(w),
       );
     });
 

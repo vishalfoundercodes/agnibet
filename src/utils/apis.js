@@ -115,6 +115,8 @@ const apis = {
   withdraw: `${configModalWinBhai}withdraw`,
   usdt_payin: `${configModalWinBhai}usdt_payin`,
   usdtwithdraw: `${configModalWinBhai}usdtwithdraw`,
+  account_delete: `${configModalWinBhai}delete_account`,
+  account_update: `${configModalWinBhai}update_account`,
 
   // https://root.betoo.app/public/api/gift_redeem_list?userid=40
   gift_redeem_list: `${configModalWinBhai}gift_redeem_list?userid=`,

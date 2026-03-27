@@ -368,7 +368,7 @@ const categories = [
 
   // { id: "recent", label: "Recent", type: "text" },
 
-  { id: "Mac88", label: "Mac88", type: "custom", icon: Mac88, cat_id: 2 },
+  { id: "Mac88", label: "Mac 88", type: "custom", icon: Mac88, cat_id: 2 },
   {
     id: "Macexcite",
     label: "Mac_Excite",
