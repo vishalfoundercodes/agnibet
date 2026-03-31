@@ -298,15 +298,15 @@ const [openLangDropdown, setOpenLangDropdown] = useState(false);
     }, []);
 
    const games = [
-     { id: 1, name: "sports", image: Cricket, brandId: "3", route: "" },
+     { id: 1, name: "sports", image: Cricket, brandId: "46", route: "" },
      { id: 2, name: "Aviator", image: aviator, route: "", brandId: "2" },
-     { id: 3, name: "Card_Games", image: CardGames, route: "", brandId: "20" },
+     { id: 3, name: "Card_Games", image: CardGames, route: "", brandId: "78" },
      {
        id: 4,
        name: "live_casino",
        image: LiveCassino,
        route: "",
-       brandId: "21",
+       brandId: "58",
      },
      {
        id: 5,
@@ -315,7 +315,7 @@ const [openLangDropdown, setOpenLangDropdown] = useState(false);
        route: "",
        brandId: "2",
      },
-     { id: 8, name: "slot_games", image: SlotGames, route: "", brandId: "5" },
+     { id: 8, name: "slot_games", image: SlotGames, route: "", brandId: "49" },
      { id: 9, name: "affiliate", image: Affiliate, route: "/affilation" },
      { id: 10, name: "profile", image: Profile, route: "/Info" },
     //  { id: 11, name: "Language Change", image: LanguageChange, route: "" },
@@ -374,7 +374,7 @@ const [openLangDropdown, setOpenLangDropdown] = useState(false);
       >
         {/* Header */}
         <div className="bg-red flex justify-between items-center px-4 py-3 text-white sticky top-0">
-          <h2 className="font-bold text-lg">Betoo</h2>
+          <h2 className="font-bold text-lg">AgniBet</h2>
           <button onClick={onClose} className="text-xl">
             <FaTimes />
           </button>

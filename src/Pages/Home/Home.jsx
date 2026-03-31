@@ -158,56 +158,56 @@ export default function Home() {
 
   const userId = localStorage.getItem("userId");
 
-  const allowed_games = [
-    "3",
-    "6","5","25","22","21","20","19","12"
-    // "112",
-    // "49",
-    // "52",
-    // "50",
-    // "123",
-    // "58",
-    // "57",
-    // "107",
-    // "104",
-    // "89",
-    // "82",
-    // "72",
-    // "46",
-    // "100",
-    // "78",
-    // "59",
-    // "51",
-    // "80",
-    // "53",
-    // "88",
-    // "65"
-  ];
+  // const allowed_games = [
+  //   "3",
+  //   "6","5","25","22","21","20","19","12"
+  //   // "112",
+  //   // "49",
+  //   // "52",
+  //   // "50",
+  //   // "123",
+  //   // "58",
+  //   // "57",
+  //   // "107",
+  //   // "104",
+  //   // "89",
+  //   // "82",
+  //   // "72",
+  //   // "46",
+  //   // "100",
+  //   // "78",
+  //   // "59",
+  //   // "51",
+  //   // "80",
+  //   // "53",
+  //   // "88",
+  //   // "65"
+  // ];
 
   
-  // const allowed_games = [
-  //   "112",
-  //   "49",
-  //   "65",
-  //   "52",
-  //   "50",
-  //   "123",
-  //   "58",
-  //   "57",
-  //   "107",
-  //   "104",
-  //   "89",
-  //   "82",
-  //   "72",
-  //   "46",
-  //   "100",
-  //   "78",
-  //   "59",
-  //   "51",
-  //   "80",
-  //   "53",
-  //   "88",
-  // ];
+  const allowed_games = [
+    "112",
+    "49",
+    "65",
+    "52",
+    "50",
+    "123",
+    "58",
+    "57",
+    "107",
+    "104",
+    "89",
+    "82",
+    "72",
+    "46",
+    "100",
+    "78",
+    "59",
+    "51",
+    "80",
+    "53",
+    "88",
+  ];
 
   const slotDetails = { brand_id: "1" };
   const trendingDetails = { brand_id: "2" };
@@ -342,22 +342,22 @@ export default function Home() {
         console.log("🆕 First time load - Fetching from API...");
 
         // Step 1: Fetch the list of brands
-        // const brandRes = await axios.get(`${apis.all_game_list}`);
-        const brandRes = await axios.get(`${apis.game_categories}`);
+        const brandRes = await axios.get(`${apis.all_game_list}`);
+        // const brandRes = await axios.get(`${apis.game_categories}`);
         console.log("brandRes",brandRes);
-        // const brands = brandRes?.data?.games || [];
-        const brands = brandRes?.data?.data || [];
+        const brands = brandRes?.data?.games || [];
+        // const brands = brandRes?.data?.data || [];
         console.log("Brands:", brands);
 
         // Filter the brands to only include those with allowed `brand_id`
-        // const filteredBrands = brands.filter((brand) =>
-        //   allowed_games.includes(brand.id)
-        // );
-        const filteredBrands= brands;
-      console.log("filteredBrands",filteredBrands);
-        console.log(
-          `📋 Processing ${filteredBrands.length} brands sequentially...`
+        const filteredBrands = brands.filter((brand) =>
+          allowed_games.includes(brand.id)
         );
+      //   const filteredBrands= brands;
+      // console.log("filteredBrands",filteredBrands);
+      //   console.log(
+      //     `📋 Processing ${filteredBrands.length} brands sequentially...`
+      //   );
 
         // Step 2: Fetch games for each allowed brand SEQUENTIALLY
         const brandGamesData = [];
@@ -366,6 +366,11 @@ export default function Home() {
         for (let i = 0; i < brands.length; i++) {
           // const brand = filteredBrands[i];
           const brand = brands[i];
+
+            if (!allowed_games.includes(String(brand.brand_id))) {
+    console.log(`⏭️ Skipping brand ${brand.brand_id} - not in allowed list`);
+    continue; // Skip kar do baaki ka loop
+  }
           let retryCount = 0;
           const maxRetries = 3;
           const delayMs = 800;
@@ -381,10 +386,35 @@ export default function Home() {
               );
 
               const gameRes = await axios.get(
-                // `${configModalWinBhai}brand-details/${brand.brand_id}`
-                `${configModalWinBhai}games-by-category?cat_id=${brand.id}`
+                `${configModalWinBhai}brand-details/${brand.brand_id}`,
+                // `${configModalWinBhai}games-by-category?cat_id=${brand.id}`
               );
-              console.log("Game Data for Brand ID:", brand.id);
+
+        // const brandGamesData = [];
+
+        // for (let i = 0; i < brands.length; i++) {
+        //   const brand = brands[i];
+
+        //   // ✅ Check if brand.id is in allowed_games before hitting API
+        //   if (!allowed_games.includes(String(brand.id))) {
+        //     console.log(`⏭️ Skipping brand ${brand.id} - not in allowed list`);
+        //     continue; // Skip this brand
+        //   }
+
+        //   let retryCount = 0;
+        //   const maxRetries = 3;
+        //   const delayMs = 800;
+
+        //   while (retryCount < maxRetries) {
+        //     try {
+        //       console.log(
+        //         `Fetching games for brand ${brand.id} (${i + 1}/${brands.length})`,
+        //       );
+
+        //       const gameRes = await axios.get(
+        //         `${configModalWinBhai}brand-details/${brand.id}`, // ✅ use brand.id not brand.brand_id
+        //       );
+              console.log("Game Data for Brand ID:", brand.brand_id);
               console.log("Games------:", gameRes);
               // console.log("Games:", gameRes?.data?.data?.games);
 
@@ -392,9 +422,9 @@ export default function Home() {
               const games = gameRes?.data?.data || [];
 
               // Brand ID 57 - Casino Table games
-              if (brand.id === "57") {
+              if (brand.brand_id === "57") {
                 const hotGamesFiltered = games.filter(
-                  (game) => game.category === "CasinoTable"
+                  (game) => game.category === "CasinoTable",
                 );
                 setHotGames((prevHotGames) => [
                   ...prevHotGames,
@@ -403,9 +433,9 @@ export default function Home() {
               }
 
               // Brand ID 52 - Chess games
-              if (brand.id === "52") {
+              if (brand.brand_id === "52") {
                 const hotGamesFiltered = games.filter(
-                  (game) => game.category === "chess"
+                  (game) => game.category === "chess",
                 );
                 setHotGames((prevHotGames) => [
                   ...prevHotGames,
@@ -414,15 +444,15 @@ export default function Home() {
               }
 
               // Filter out "slot" category games for brand_id 49
-              if (brand.id === "49") {
+              if (brand.brand_id === "49") {
                 const slotCategoryGames = games.filter(
-                  (game) => game.category == "Slots"
+                  (game) => game.category == "Slots",
                 );
                 const hotGamesFiltered = games.filter(
-                  (game) => game.category === "fish"
+                  (game) => game.category === "fish",
                 );
                 const nonSlotGames = games.filter(
-                  (game) => game.category != "Slots"
+                  (game) => game.category != "Slots",
                 );
 
                 setSlotGames((prevSlotGames) => [
@@ -444,7 +474,7 @@ export default function Home() {
               }
 
               // ✅ Brand ka data localStorage mein store karo
-              const brandStorageKey = `${BRAND_DATA_PREFIX}${brand.id}`;
+              const brandStorageKey = `${BRAND_DATA_PREFIX}${brand.brand_id}`;
               const brandDataToStore = {
                 brand,
                 games,
@@ -452,7 +482,7 @@ export default function Home() {
               };
               localStorage.setItem(
                 brandStorageKey,
-                JSON.stringify(brandDataToStore)
+                JSON.stringify(brandDataToStore),
               );
               // console.log(
               //   `💾 Brand ${brand.brand_id} data stored in localStorage ✅`
@@ -474,8 +504,8 @@ export default function Home() {
                 await delay(retryDelay);
               } else {
                 console.error(
-                  `Error fetching games for ${brand.id}:`,
-                  err
+                  `Error fetching games for ${brand.brand_id}:`,
+                  err,
                 );
 
                 if (retryCount >= maxRetries) {
@@ -759,11 +789,11 @@ export default function Home() {
               brandGames.map(({ brand, games }) => {
                 return (
                   <GameSection
-                    key={`mobile-${brand.id}`} // ✅ Unique key with prefix
-                    title={brand.cat_name}
+                    key={`mobile-${brand.brand_id}`} // ✅ Unique key with prefix
+                    title={brand.brand_title}
                     icon={
                       <img
-                        src={brand.img}
+                        src={brand.logo}
                         alt={brand.name}
                         width={24}
                         height={24}
@@ -958,27 +988,27 @@ export default function Home() {
                 {brandGames.length > 0 ? (
                   !isMobile &&
                   brandGames.map(({ brand, games }) => {
-                    if (!brand || !brand.cat_name) {
+                    if (!brand || !brand.brand_title) {
                       console.error("Invalid brand data", brand);
                       return null;
                     }
 
                     return (
                       <GameSection
-                        key={brand.id}
-                        title={brand.cat_name}
+                        key={brand.brand_id}
+                        title={brand.brand_title}
                         brand={brand} // ✅ Pass full brand object
                         icon={
                           <img
-                            src={brand.img}
-                            alt={brand.cat_name}
+                            src={brand.logo}
+                            alt={brand.brand_title}
                             width={24}
                             height={24}
                           />
                         }
                         games={games}
                         onSeeAll={() =>
-                          alert(`See all games for ${brand.name}`)
+                          alert(`See all games for ${brand.brand_title}`)
                         }
                         sectionRef={(el) => {
                           if (el) {

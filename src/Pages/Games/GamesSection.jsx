@@ -12,7 +12,7 @@ import { t } from "i18next";
 import { useTranslation } from "react-i18next";
 
 const GameSection = ({ title, games, icon, brand,  sectionRef, gamesDetails }) => {
-  // console.log("title:",brand)
+  // console.log("title games:", games);
   const { profileDetails, setprofileDetails } = useProfile();
   const {t}=useTranslation()
   // const { registerSection } = useScroll();
@@ -22,7 +22,7 @@ const GameSection = ({ title, games, icon, brand,  sectionRef, gamesDetails }) =
   const account_type=localStorage.getItem("account_type");
 
  const sectionBrandId =
-   brand?.id || title?.toLowerCase().replace(/\s+/g, "-");
+   brand?.brand_id || brand?.id || title?.toLowerCase().replace(/\s+/g, "-");
  const sectionElement = useRef(null);
  const { registerSection } = useScroll();
 
@@ -56,7 +56,8 @@ const GameSection = ({ title, games, icon, brand,  sectionRef, gamesDetails }) =
   };
 
   // ✅ Use all games passed as props - no filtering needed
-  const filteredGames = games;
+  // const filteredGames = games;
+  const filteredGames = Array.isArray(games?.games) ? games.games : [];
 
   // ✅ Check if current title should NOT show second row
   const noSecondRowTitles = [
@@ -87,28 +88,35 @@ const GameSection = ({ title, games, icon, brand,  sectionRef, gamesDetails }) =
     >
       {items.map((game) => (
         <div
-          key={game.id}
+          key={game.brand_id || game.id || game.gmId || game.game_code}
           // className="min-w-[80px] min-h-[100px] xsm3:min-w-[105px] xsm3:h-[125px] lg2:min-w-[135px] lg2:min-h-[150px] rounded-[12px]  cursor-pointer"
-            className={`
+          className={`
             rounded-[12px] cursor-pointer flex-shrink-0
             ${
               // Fixed width for collapsed state
-              expanded 
+              expanded
                 ? "min-w-[85px] h-[115px] xsm3:min-w-[100px] lg2:w-[150px] xsm3:h-[125px] lg2:h-[150px]"
                 : "w-[80px] h-[115px] xsm3:w-[100px] xsm3:h-[110px] lg2:w-[135px] lg2:h-[150px]"
             }
           `}
+          // onClick={() => {
+          //   console.log("navigating to game:", game);
+          //   navigate(game.route || "#");
+          //   // handleGameOpen(game.gameID, game.game_name);
+          //   handleGameOpen(game.gmId, game.name);
+          // }}
           onClick={() => {
-            console.log("navigating to game:", game);
             navigate(game.route || "#");
-            // handleGameOpen(game.gameID, game.game_name);
-            handleGameOpen(game.gmId, game.name);
+            handleGameOpen(
+              game.gameID || game.game_code,
+              game.game_name || game.name,
+            );
           }}
         >
           {game.image || game.imgUrl || game.img || game.game_img ? (
             <>
               <img
-                src={game.image || game.img || game.imgUrl || game.game_img}
+                src={game.game_img || game.img || game.image || game.imgUrl}
                 alt={game.name}
                 className="w-full h-full object-cover rounded-[8px] "
               />
@@ -138,8 +146,8 @@ const handleGameOpen = async (id, name) => {
       const payload = {
         user_id: userId,
         amount: profileDetails?.wallet || 0,
-        // game_id: id,
-        game_uid: id,
+        game_id: id,
+        // game_uid: id,
         game_name: name,
       };
       console.log("payload:", payload);
@@ -171,16 +179,16 @@ const handleGameOpen = async (id, name) => {
     const payload = {
       user_id: userId,
       amount: profileDetails?.wallet || 0,
-      // game_id: id,
-      game_uid: id,
+      game_id: id,
+      // game_uid: id,
       game_name: name,
     };
     console.log("payload:", payload);
     const res = await axios.post(apis.openGame, payload);
     console.log("response:", res);
-    if (res?.data?.status === true) {
-      // const url = res?.data?.launchUrl;
-      const url = res?.data?.game_url;
+    if (res?.data?.status === true || res?.data?.status === 200) {
+      const url = res?.data?.launchUrl;
+      // const url = res?.data?.game_url;
       if (url) {
         // ✅ Open in same tab (with header for desktop, direct for mobile)
         navigate(`/playgame?url=${encodeURIComponent(url)}`);
@@ -282,19 +290,30 @@ const handleGameOpen = async (id, name) => {
       >
         {expanded ? (
           // When expanded, show all games in grid format
-          filteredGames.map((game) => (
+          filteredGames.map((game, index) => (
             <div
-              key={game.id}
+              key={game.id || game.gmId || index}
               className="min-w-[85px] h-[120px] xsm3:min-w-[100px] lg2:w-[135px] xsm3:h-[110px] lg2:h-[150px] rounded-[12px]  cursor-pointer"
+              // onClick={() => {
+              //   console.log("navigating to game 1:", game);
+              //   navigate(game.route || "#");
+              //   handleGameOpen(game.gameID, game.game_name);
+              // }}
               onClick={() => {
-                console.log("navigating to game 1:", game);
                 navigate(game.route || "#");
-                handleGameOpen(game.gameID, game.game_name);
+                handleGameOpen(
+                  game.gameID || game.game_code,
+                  game.game_name || game.name,
+                );
               }}
             >
-              {game.image || game.imgUrl || game.img || game.game_img ? (
+              {game.image ||
+              game.imgUrl ||
+              game.img ||
+              game.game_img ||
+              game.game_img ? (
                 <img
-                  src={game.image || game.imgUrl || game.img || game.game_img}
+                  src={game.game_img || game.img || game.image || game.imgUrl}
                   alt={game.name}
                   className="w-full h-full object-cover lg2:object-cover rounded-[8px] "
                 />

@@ -89,8 +89,8 @@ const apis = {
   game_categories: `${configModalWinBhai}game-categories`,
   all_jilli_game_list: `https://softapi.gt.tc/brands.php?brand_id=49`,
   jilliGame: `${configModalWinBhai}jilliGame`,
-  // openGame: `${configModalWinBhai}openGame`,
-  openGame: `${configModalWinBhai}launchGame`,
+  openGame: `${configModalWinBhai}openGame`,
+  // openGame: `${configModalWinBhai}launchGame`,
 
   // general apis
   profile_winbhai: `${configModalWinBhai}profile?id=`,
@@ -121,7 +121,7 @@ const apis = {
   // https://root.betoo.app/public/api/gift_redeem_list?userid=40
   gift_redeem_list: `${configModalWinBhai}gift_redeem_list?userid=`,
   // https://root.betoo.app/api/bonus_info
-  bonus_info: `${configModalWinBhai}bonus_info`,
+  bonus_info: `${configModalWinBhai}gift_cart_apply`,
   contact_info: `${configModalWinBhai}contact_info`,
   // https://root.betoo.app/api/contact_info
 };

@@ -1,7 +1,7 @@
 
 
 import { useParams, useNavigate,useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import SlidingTabs from "../Home/HomeComponents/SlidingTabs";
 import sponser from "../../assets/Company/sponser.jpg";
 import SlidingCompany from "../Home/HomeComponents/SlidingCompany";
@@ -79,6 +79,7 @@ export default function Game() {
   const [isAllCategory, setIsAllCategory] = useState(false);
   const [sponserImage, setSponserImage] = useState([]);
   const [originalGames, setOriginalGames] = useState([]);
+  const isAllCategoryRef = useRef(false);
 
   const navigate = useNavigate();
   const { profileDetails } = useProfile();
@@ -88,7 +89,7 @@ export default function Game() {
     home: { label: "Home", brand_id: null },
     all: { label: "all", brand_id: "all" },
     All: { label: "All", brand_id: "all" },
-    sports: { label: "Sports", brand_id: "78" },
+    sports: { label: "Sports", brand_id: "46" },
     maincassino: { label: "Cassino", brand_id: "78" },
     casino: { label: "Casino", brand_id: "78" },
     SlotGames: { label: "SlotGames", brand_id: "49" },
@@ -101,12 +102,12 @@ export default function Game() {
     Cricket: { label: "Cricket", brand_id: "46" },
     Football: { label: "Football", brand_id: "46" },
     Tennis: { label: "Tennis", brand_id: "65" },
-    Evolution: { label: "Evolution", brand_id: "21" },
-    evolution: { label: "Evolution", brand_id: "21" },
+    Evolution: { label: "Evolution", brand_id: "58" },
+    evolution: { label: "Evolution", brand_id: "58" },
     TurboGames: { label: "Turbo", brand_id: "100" },
     turbogames: { label: "Turbo", brand_id: "100" },
-    SportsBook: { label: "Sports Book", brand_id: "68" },
-    sportsbook: { label: "Sports Book", brand_id: "68" },
+    SportsBook: { label: "Sports Book", brand_id: "46" },
+    sportsbook: { label: "Sports Book", brand_id: "46" },
     LivePrediction: { label: "Live Prediction", brand_id: "69" },
     FishingGames: { label: "Fishing", brand_id: "70" },
     fishing: { label: "Fishing", brand_id: "49" },
@@ -125,20 +126,20 @@ export default function Game() {
     inout: { label: "Spribe", brand_id: "112" },
     CQ9: { label: "Spribe", brand_id: "25" },
     cq9: { label: "Spribe", brand_id: "25" },
-    JDB: { label: "Spribe", brand_id: "6" },
-    jdb: { label: "Spribe", brand_id: "6" },
+    JDB: { label: "Spribe", brand_id: "50" },
+    jdb: { label: "Spribe", brand_id: "50" },
     PGsGaming: { label: "PGsGaming", brand_id: "123" },
     pgsGames: { label: "PGsGaming", brand_id: "123" },
     MiniGames: { label: "MiniGames", brand_id: "104" },
     miniGames: { label: "MiniGames", brand_id: "104" },
-    SAGaming: { label: "SAGaming", brand_id: "3" },
-    sag: { label: "SAGaming", brand_id: "46" },
+    SAGaming: { label: "SAGaming", brand_id: "89" },
+    sag: { label: "SAGaming", brand_id: "89" },
     SmartSoft: { label: "SmartSoft", brand_id: "107" },
     smartSoft: { label: "SmartSoft", brand_id: "107" },
-    Playtech: { label: "Playtech", brand_id: "12" },
-    playTech: { label: "Playtech", brand_id: "12" },
-    ezugi: { label: "Ezugi", brand_id: "20" },
-    Ezugi: { label: "Ezugi", brand_id: "20" },
+    Playtech: { label: "Playtech", brand_id: "72" },
+    playTech: { label: "Playtech", brand_id: "72" },
+    ezugi: { label: "Ezugi", brand_id: "78" },
+    Ezugi: { label: "Ezugi", brand_id: "78" },
     Mac88: { label: "Mac87", brand_id: "" },
     mac88: { label: "Mac87", brand_id: "" },
     Bgaming: { label: "Bgaming", brand_id: "65" },
@@ -162,17 +163,14 @@ export default function Game() {
   // console.log("tab name:", tabName);
   // console.log("cat name:", subCategories[0]?.cat_name);
   // Get current tab config
-  // const currentTab =
-  //   tabConfig[subCategories[0]?.cat_name] ||
-  //   tabConfig[tabName] ||
-  //   tabConfig.home;
-  // const selectedTab = currentTab.label;
-  // const brandId = currentTab?.brand_id;
-
-  // Get current tab config - FIXED: only use tabName, not subCategories
   const currentTab = tabConfig[tabName] || tabConfig.home;
   const selectedTab = currentTab.label;
   const brandId = currentTab?.brand_id;
+
+  // Get current tab config - FIXED: only use tabName, not subCategories
+  // const currentTab = tabConfig[tabName] || tabConfig.home;
+  // const selectedTab = currentTab.label;
+  // const brandId = currentTab?.brand_id;
 
   // Find selected category for icon
   const selected =
@@ -184,20 +182,54 @@ export default function Game() {
   // 🔥 NEW FUNCTION: Load ALL games from localStorage
   const loadAllGames = () => {
     const allGames = [];
-    const brandIds = ["3", "6", "5", "25", "22", "21", "20", "19", "12"]; // Add all your brand IDs here
+    const brandIds = [
+      "112",
+      "49",
+      "65",
+      "52",
+      "50",
+      "123",
+      "58",
+      "57",
+      "107",
+      "104",
+      "89",
+      "82",
+      "72",
+      "46",
+      "100",
+      "78",
+      "59",
+      "51",
+      "80",
+      "53",
+      "88",
+    ];
+ // Add all your brand IDs here
 
     brandIds.forEach((id) => {
       const brandStorageKey = `${BRAND_DATA_PREFIX}${id}`;
       const storedData = localStorage.getItem(brandStorageKey);
 
-      if (storedData) {
-        try {
-          const { games: brandGames } = JSON.parse(storedData);
-          allGames.push(...brandGames);
-        } catch (error) {
-          console.error(`Error parsing data for brand ${id}:`, error);
-        }
-      }
+      // if (storedData) {
+      //   try {
+      //     const { games: brandGames } = JSON.parse(storedData);
+      //     allGames.push(...brandGames);
+      //   } catch (error) {
+      //     console.error(`Error parsing data for brand ${id}:`, error);
+      //   }
+      // }
+  if (storedData) {
+    try {
+      const parsed = JSON.parse(storedData);
+      const brandGames = Array.isArray(parsed.games)
+        ? parsed.games
+        : parsed.games?.games || [];
+      allGames.push(...brandGames);
+    } catch (error) {
+      console.error(`Error parsing brand ${id}:`, error);
+    }
+  }
     });
 
     return allGames;
@@ -215,105 +247,172 @@ export default function Game() {
   };
 
   // Load games from localStorage based on brand_id
+  // useEffect(() => {
+  //    console.log("🔥 useEffect FIRED - tabName:", tabName);
+  //   const loadGamesFromLocalStorage = () => {
+  //     setLoading(true);
+
+  //     // 🔥 NEW: Check if "All" category is selected
+  //     if (brandId === "all" || tabName?.toLowerCase() === "all") {
+  //       console.log("📦 Loading ALL GAMES from localStorage");
+  //       const allGames = loadAllGames();
+  //       setGames(allGames);
+  //       setOriginalGames(allGames);
+  //       setCategory(allGames);
+  //       setIsAllCategory(true);
+  //       setLoading(false);
+  //       return;
+  //     }
+  //     setIsAllCategory(false);
+
+  //     if (!brandId) {
+  //       // If no brand_id, show empty or default
+  //       setGames([]);
+  //       setCategory([]);
+  //       setLoading(false);
+  //       return;
+  //     }
+
+  //     try {
+  //       const brandStorageKey = `${BRAND_DATA_PREFIX}${brandId}`;
+  //       const storedData = localStorage.getItem(brandStorageKey);
+
+  //       console.log("start try to fetch data ....", brandId);
+  //       // console.log("stored data",storedData)
+  //       console.log(
+  //         "start try to fetch data cat name ....",
+  //         subCategories[0]?.cat_name,
+  //       );
+  //       if (storedData) {
+  //         const { games: brandGames } = JSON.parse(storedData);
+  //         // console.log(
+  //         //   `📦 Loaded ${brandGames.length} games for brand ${brandId}`
+  //         // );
+
+  //         console.log(`games brand :`, brandGames);
+  //         // Filter based on specific requirements
+  //         let filteredGames = brandGames;
+  //         let filteredCategory = brandGames;
+
+  //         const mainCatName = category?.label?.toLowerCase() || "";
+  //         console.log("mainCatName:", mainCatName);
+
+  //         // 🟢 MAIN CATEGORY = "ALL"
+  //         if (mainCatName === "all") {
+  //           console.log("MAIN CATEGORY IS ALL → SHOW ALL GAMES");
+  //           setGames(brandGames);
+  //           return;
+  //         }
+
+  //         // For brand 49 - exclude slot category
+  //         // if (brandId === "49") {
+  //         //   filteredGames = brandGames.filter(
+  //         //     (game) => game.category !== "slot"
+  //         //   );
+  //         // }
+
+  //         // For brand 57 - only CasinoTable
+  //         // if (brandId === "57") {
+  //         //   filteredGames = brandGames.filter(
+  //         //     (game) => game.category === "CasinoTable"
+  //         //   );
+  //         // }
+
+  //         // For brand 52 - only chess
+  //         if (brandId === "52") {
+  //           filteredGames = brandGames.filter(
+  //             (game) => game.category === "chess",
+  //           );
+  //         }
+  //         console.log("end fetch data ....");
+  //         console.log("all games", filterGames);
+  //         setGames(filteredGames);
+  //         setOriginalGames(filteredGames);
+  //         setCategory(filteredCategory);
+  //       } else {
+  //         console.error(
+  //           `⚠️ No data found for brand ${brandId} in localStorage`,
+  //         );
+  //         setGames([]);
+  //         setCategory([]);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error loading games from localStorage:", error);
+  //       setGames([]);
+  //       setGames([]);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   loadGamesFromLocalStorage();
+  // }, [tabName]);
+
+  // Load games from localStorage based on brand_id
+  // ✅ ONLY tabName dependency, brandId locally calculated
+useEffect(() => {
+  console.log("🔥 GAME LOAD useEffect fired, tabName:", tabName);
+
+  const currentTabLocal = tabConfig[tabName] || tabConfig.home;
+  const brandIdLocal = currentTabLocal?.brand_id;
+
+  setLoading(true);
+  isAllCategoryRef.current = false; // ← reset ref
+  setIsAllCategory(false);
+
+  if (brandIdLocal == "all" || tabName?.toLowerCase() == "all") {
+    const allGames = loadAllGames();
+    console.log("✅ All games loaded:", allGames, allGames.length);
+    setGames(allGames);
+    setOriginalGames(allGames);
+    setCategory(allGames);
+    isAllCategoryRef.current = true; // ← ref update karo
+    setIsAllCategory(true);
+    setLoading(false);
+    return;
+  }
+
+  if (!brandIdLocal) {
+    setGames([]);
+    setCategory([]);
+    setLoading(false);
+    return;
+  }
+
+  const brandStorageKey = `${BRAND_DATA_PREFIX}${brandIdLocal}`;
+  const storedData = localStorage.getItem(brandStorageKey);
+
+if (storedData) {
+  const parsed = JSON.parse(storedData);
+  // ✅ Nested structure handle karo
+  const brandGames = Array.isArray(parsed.games)
+    ? parsed.games
+    : parsed.games?.games || [];
+
+  let filteredGames = brandGames;
+  if (brandIdLocal === "52") {
+    filteredGames = brandGames.filter((g) => g.category === "chess");
+  }
+  setGames(filteredGames);
+  setOriginalGames(filteredGames);
+  setCategory(filteredGames);
+} else {
+  setGames([]);
+  setCategory([]);
+}
+
+  setLoading(false);
+}, [tabName]);
+
+  // ✅ Mount useEffect - games ko TOUCH MAT KARO yahan
   useEffect(() => {
-    const loadGamesFromLocalStorage = () => {
-      setLoading(true);
+    const passedCategory = location.state?.selectedCategory;
+    console.log("🟡 MOUNT useEffect - passedCategory:", passedCategory);
 
-      // 🔥 NEW: Check if "All" category is selected
-      if (brandId === "all" || tabName?.toLowerCase() === "all") {
-        console.log("📦 Loading ALL GAMES from localStorage");
-        const allGames = loadAllGames();
-        setGames(allGames);
-        setOriginalGames(allGames);
-        setCategory(allGames);
-        setIsAllCategory(true);
-        setLoading(false);
-        return;
-      }
-      setIsAllCategory(false);
-
-      if (!brandId) {
-        // If no brand_id, show empty or default
-        setGames([]);
-        setCategory([]);
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const brandStorageKey = `${BRAND_DATA_PREFIX}${brandId}`;
-        const storedData = localStorage.getItem(brandStorageKey);
-
-        console.log("start try to fetch data ....", brandId);
-        // console.log("stored data",storedData)
-        console.log(
-          "start try to fetch data cat name ....",
-          subCategories[0]?.cat_name,
-        );
-        if (storedData) {
-          const { games: brandGames } = JSON.parse(storedData);
-          // console.log(
-          //   `📦 Loaded ${brandGames.length} games for brand ${brandId}`
-          // );
-
-          console.log(`games brand :`, brandGames);
-          // Filter based on specific requirements
-          let filteredGames = brandGames;
-          let filteredCategory = brandGames;
-
-          const mainCatName = category?.label?.toLowerCase() || "";
-          console.log("mainCatName:", mainCatName);
-
-          // 🟢 MAIN CATEGORY = "ALL"
-          if (mainCatName === "all") {
-            console.log("MAIN CATEGORY IS ALL → SHOW ALL GAMES");
-            setGames(brandGames);
-            return;
-          }
-
-          // For brand 49 - exclude slot category
-          // if (brandId === "49") {
-          //   filteredGames = brandGames.filter(
-          //     (game) => game.category !== "slot"
-          //   );
-          // }
-
-          // For brand 57 - only CasinoTable
-          // if (brandId === "57") {
-          //   filteredGames = brandGames.filter(
-          //     (game) => game.category === "CasinoTable"
-          //   );
-          // }
-
-          // For brand 52 - only chess
-          if (brandId === "52") {
-            filteredGames = brandGames.filter(
-              (game) => game.category === "chess",
-            );
-          }
-          console.log("end fetch data ....");
-          console.log("all games", filterGames);
-          setGames(filteredGames);
-          setOriginalGames(filteredGames);
-          setCategory(filteredCategory);
-        } else {
-          console.error(
-            `⚠️ No data found for brand ${brandId} in localStorage`,
-          );
-          setGames([]);
-          setCategory([]);
-        }
-      } catch (error) {
-        console.error("Error loading games from localStorage:", error);
-        setGames([]);
-        setGames([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadGamesFromLocalStorage();
-  }, [tabName, brandId]);
+    // ✅ Sirf subCategory aur sponser fetch karo, games mat chhedo
+    getSubCategory(passedCategory?.cat_id || tabName);
+    sponnserImage();
+  }, []); // ← games related kuch nahi
 
   const handleGameOpen = async (id, name) => {
     const userId = localStorage.getItem("userId");
@@ -329,8 +428,8 @@ export default function Game() {
         const payload = {
           user_id: userId,
           amount: profileDetails?.wallet || 0,
-          //  game_id: id,
-          game_uid: id,
+           game_id: id,
+          // game_uid: id,
           game_name: name,
         };
         console.log("payload:", payload);
@@ -418,31 +517,23 @@ export default function Game() {
     setSelectedCategory(tab);
     // if (tab?.cat_id) {
     getSubCategory(tab);
-
     // }
   };
 
-  useEffect(() => {
-    const passedCategory = location.state?.selectedCategory;
-    // console.log("Received Category from Tabs:", passedCategory);
-    // getSubCategory(passedCategory.id);
-    // console.log("tabname", tabName);
-    console.log("tabname id", tabConfig[tabName]);
-    getSubCategory(passedCategory?.cat_id || tabName);
-    // 🔥 NEW: Check if passed category is "All"
-    if (passedCategory?.cat_id === 1 || passedCategory?.id === "all") {
-      setIsAllCategory(true);
-      const allGames = loadAllGames();
-      console.log("all games:", allGames);
-      setGames(allGames);
-      setOriginalGames(allGames);
-      setCategory(allGames);
-    } else {
-      getSubCategory(passedCategory?.cat_id || tabName);
-    }
-    sponnserImage();
-  }, []);
+  // useEffect(() => {
+  //   const passedCategory = location.state?.selectedCategory;
+  //   // console.log("Received Category from Tabs:", passedCategory);
+  //   // getSubCategory(passedCategory.id);
+  //   // console.log("tabname", tabName);
+  //   console.log("tabname id", tabConfig[tabName]);
+  //   getSubCategory(passedCategory?.cat_id || tabName);
+  //   // 🔥 NEW: Check if passed category is "All"
 
+  //   sponnserImage();
+  // }, []);
+
+  // const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  // const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
@@ -480,22 +571,111 @@ export default function Game() {
     setGames(filtered);
   };
 
+  // const filterGames = (sub, category) => {
+  //   if (!sub) return;
+  //   console.log("category:", category);
+
+  //   // 🔥 NEW: If "All" category, filter from all games
+  //   if (isAllCategory) {
+  //     const allGames = loadAllGames();
+  //     const subName = sub.sub_cat_name?.toLowerCase();
+
+  //     if (subName === "all") {
+  //       setGames(allGames);
+  //       setOriginalGames(allGames);
+  //       return;
+  //     }
+
+  //     const wordList = subName.split(" ");
+  //     const filteredGames = allGames.filter((game) => {
+  //       const name1 = game.game_name?.toLowerCase() || "";
+  //       const name2 = game.gameNameEn?.toLowerCase() || "";
+  //       const name3 = game.category?.toLowerCase() || "";
+  //       return wordList.some(
+  //         (w) => name1.includes(w) || name2.includes(w) || name3.includes(w),
+  //       );
+  //     });
+  //     setOriginalGames(filteredGames);
+  //     setGames(filteredGames);
+  //     return;
+  //   }
+
+  //   // Original filter logic for specific brands
+  //   const brandStorageKey = `${BRAND_DATA_PREFIX}${brandId}`;
+  //   const storedData = localStorage.getItem(brandStorageKey);
+
+  //   if (!storedData) {
+  //     setGames([]);
+  //     return;
+  //   }
+
+  //   const { games: brandGames } = JSON.parse(storedData);
+  //   let filteredGames = brandGames;
+
+  //   const mainCatName = category?.label?.toLowerCase() || "";
+  //   console.log("mainCatName:", mainCatName);
+
+  //   if (mainCatName === "all") {
+  //     console.log("MAIN CATEGORY IS ALL → SHOW ALL GAMES");
+  //     setGames(brandGames);
+  //     return;
+  //   }
+
+  //   // Brand-specific filters
+  //   // if (brandId === "49") {
+  //   //   filteredGames = filteredGames.filter((game) => game.category !== "slot");
+  //   // }
+
+  //   // if (brandId === "57") {
+  //   //   filteredGames = filteredGames.filter(
+  //   //     (game) => game.category === "CasinoTable"
+  //   //   );
+  //   // }
+
+  //   if (brandId === "52") {
+  //     filteredGames = filteredGames.filter((game) => game.category === "chess");
+  //   }
+
+  //   const subName = sub.sub_cat_name?.toLowerCase();
+
+  //   if (subName === "all") {
+  //     console.log("Filtered Games (ALL):", filteredGames);
+  //     setGames(filteredGames);
+  //     setOriginalGames(filteredGames);
+  //     return;
+  //   }
+
+  //   const wordList = subName.split(" ");
+  //   filteredGames = filteredGames.filter((game) => {
+  //     const name1 = game.game_name?.toLowerCase() || "";
+  //     const name2 = game.gameNameEn?.toLowerCase() || "";
+  //     const name3 = game.category?.toLowerCase() || "";
+  //     return wordList.some(
+  //       (w) => name1.includes(w) || name2.includes(w) || name3.includes(w),
+  //     );
+  //   });
+
+  //   console.log("Filtered Games:", filteredGames);
+  //   setGames(filteredGames);
+  //   setOriginalGames(filteredGames);
+  // };
+ 
   const filterGames = (sub, category) => {
     if (!sub) return;
-    console.log("category:", category);
 
-    // 🔥 NEW: If "All" category, filter from all games
-    if (isAllCategory) {
-      const allGames = loadAllGames();
+    // ✅ ref use karo — kabhi stale nahi hoga
+    if (isAllCategoryRef.current) {
+      // ✅ loadAllGames() ki jagah originalGames use karo (already loaded hai)
+      const allGames =
+        originalGames.length > 0 ? originalGames : loadAllGames();
       const subName = sub.sub_cat_name?.toLowerCase();
 
-      if (subName === "all") {
+      if (!subName || subName === "all") {
         setGames(allGames);
-        setOriginalGames(allGames);
         return;
       }
 
-      const wordList = subName.split(" ");
+      const wordList = subName.split(" ").filter(Boolean);
       const filteredGames = allGames.filter((game) => {
         const name1 = game.game_name?.toLowerCase() || "";
         const name2 = game.gameNameEn?.toLowerCase() || "";
@@ -504,12 +684,14 @@ export default function Game() {
           (w) => name1.includes(w) || name2.includes(w) || name3.includes(w),
         );
       });
-      setOriginalGames(filteredGames);
-      setGames(filteredGames);
+
+      // ✅ Agar koi match nahi toh sabhi games dikhao, empty mat karo
+      setGames(filteredGames.length > 0 ? filteredGames : allGames);
+      setOriginalGames(allGames); // originalGames reset mat karo
       return;
     }
 
-    // Original filter logic for specific brands
+    // --- Existing brand-specific logic neeche same rahega ---
     const brandStorageKey = `${BRAND_DATA_PREFIX}${brandId}`;
     const storedData = localStorage.getItem(brandStorageKey);
 
@@ -518,28 +700,11 @@ export default function Game() {
       return;
     }
 
-    const { games: brandGames } = JSON.parse(storedData);
+   const parsed = JSON.parse(storedData);
+   const brandGames = Array.isArray(parsed.games)
+     ? parsed.games
+     : parsed.games?.games || [];
     let filteredGames = brandGames;
-
-    const mainCatName = category?.label?.toLowerCase() || "";
-    console.log("mainCatName:", mainCatName);
-
-    if (mainCatName === "all") {
-      console.log("MAIN CATEGORY IS ALL → SHOW ALL GAMES");
-      setGames(brandGames);
-      return;
-    }
-
-    // Brand-specific filters
-    // if (brandId === "49") {
-    //   filteredGames = filteredGames.filter((game) => game.category !== "slot");
-    // }
-
-    // if (brandId === "57") {
-    //   filteredGames = filteredGames.filter(
-    //     (game) => game.category === "CasinoTable"
-    //   );
-    // }
 
     if (brandId === "52") {
       filteredGames = filteredGames.filter((game) => game.category === "chess");
@@ -547,14 +712,13 @@ export default function Game() {
 
     const subName = sub.sub_cat_name?.toLowerCase();
 
-    if (subName === "all") {
-      console.log("Filtered Games (ALL):", filteredGames);
+    if (!subName || subName === "all") {
       setGames(filteredGames);
       setOriginalGames(filteredGames);
       return;
     }
 
-    const wordList = subName.split(" ");
+    const wordList = subName.split(" ").filter(Boolean);
     filteredGames = filteredGames.filter((game) => {
       const name1 = game.game_name?.toLowerCase() || "";
       const name2 = game.gameNameEn?.toLowerCase() || "";
@@ -564,7 +728,6 @@ export default function Game() {
       );
     });
 
-    console.log("Filtered Games:", filteredGames);
     setGames(filteredGames);
     setOriginalGames(filteredGames);
   };
@@ -703,12 +866,12 @@ export default function Game() {
                   <div
                     key={game.game_uid || index}
                     className="aspect-[3/4] rounded-[8px] overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
-                    // onClick={() => handleGameOpen(game.gameID, game.game_name)}
-                    onClick={() => handleGameOpen(game.gmId, game.name)}
+                    onClick={() => handleGameOpen(game.gameID, game.game_name)}
+                    // onClick={() => handleGameOpen(game.gmId, game.name)}
                   >
-                    {game.img ? (
+                    {game.game_img ? (
                       <img
-                        src={game.img}
+                        src={game.game_img}
                         alt={game.game_name || game.name || "Game"}
                         className="w-full h-full object-cover lg2:object-fill rounded-[8px]  "
                         // onError={(e) => {

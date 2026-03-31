@@ -49,8 +49,8 @@ export default function RedeemBonus() {
       
 
       const payload = {
-        user_id: localStorage.getItem("userId"),
-        coupon_code: coupon,
+        userid: localStorage.getItem("userId"),
+        code: coupon,
       };
       
       const res = await axios.post(`${apis.bonus_info}`, payload);
@@ -61,9 +61,11 @@ export default function RedeemBonus() {
         return
       }
       handleGetHistory()
-      navigate("/Bonus", {state:{
-        data:res.data
-      }});
+      // navigate("/Bonus", {state:{
+      //   data:res.data
+      // }});
+      toast.success(res?.data?.message)
+      navigate("/");
       fetchProfile()
     } catch (error) {
       console.error("Error applying coupon:", error);
@@ -118,7 +120,7 @@ export default function RedeemBonus() {
         <div className="bg-red lg2:rounded-t-2xl p-2 px-4 hidden lg:block">
           <h2 className="text-white text-sm font-semibold">{t(`Reedem`)}</h2>
         </div>
-        <div className=" mt-4 lg2:mt-0 bg-lightMain rounded-xl lg2:rounded-t-none shadow p-4 gap-3 lg2:items-center lg2:justify-start lg2:flex hidden">
+        <div className=" mt-4 lg2:mt-0 bg-grayBg rounded-xl lg2:rounded-t-none shadow p-4 gap-3 lg2:items-center lg2:justify-start lg2:flex hidden">
           <div className="flex w-full lg2:w-auto items-center gap-2">
             <input
               type="text"

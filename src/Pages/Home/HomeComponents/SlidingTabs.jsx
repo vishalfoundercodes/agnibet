@@ -575,6 +575,219 @@ const categories = [
   },
 ];
 
+
+// const categories = [
+//   { id: "all", label: "All", type: "text", cat_id: 1 },
+
+//   // { id: "recent", label: "Recent", type: "text" },
+
+//   { id: "Mac88", label: "Mac88", type: "custom", icon: Mac88, cat_id: 2 },
+//   {
+//     id: "Macexcite",
+//     label: "Mac Excite",
+//     type: "custom",
+//     icon: Mac88,
+//     cat_id: 3,
+//   },
+
+//   {
+//     id: "LivePrediction",
+//     label: "Live Prediction",
+//     type: "custom",
+//     icon: LivePrediction,
+//     cat_id: 4,
+//   },
+
+//   {
+//     id: "FunGames",
+//     label: "Fun Games",
+//     type: "custom",
+//     icon: FunGames,
+//     cat_id: 5,
+//   },
+
+//   {
+//     id: "Macc88 Virtuals",
+//     label: "Macc88 Virtuals",
+//     type: "custom",
+//     icon: Cassino,
+//     cat_id: 6,
+//   },
+
+//   {
+//     id: "ColorChickenGames",
+//     label: "Color & Chicken Games",
+//     type: "custom",
+//     icon: ColorPrediction,
+//     cat_id: 7,
+//   },
+
+//   { id: "Live88", label: "Live88", type: "custom", icon: Evolution, cat_id: 8 },
+
+//   { id: "Spribe", label: "Spribe", type: "custom", icon: Spribe, cat_id: 9 },
+
+//   {
+//     id: "Evolution",
+//     label: "Evolution",
+//     type: "custom",
+//     icon: Evolution,
+//     cat_id: 10,
+//   },
+
+//   { id: "Astar", label: "Astar", type: "custom", icon: SportsBook, cat_id: 11 },
+
+//   {
+//     id: "InOut",
+//     label: "In Out",
+//     type: "custom",
+//     icon: SportsBook,
+//     cat_id: 12,
+//   },
+
+//   { id: "Ezugi", label: "Ezugi", type: "custom", icon: CrashGames, cat_id: 13 },
+
+//   { id: "Vivo", label: "Vivo", type: "custom", icon: Cassino, cat_id: 14 },
+
+//   { id: "Jili", label: "JILI", type: "custom", icon: Jili, cat_id: 15 },
+
+//   {
+//     id: "AeSexy",
+//     label: "Ae Sexy",
+//     type: "custom",
+//     icon: TurboGames,
+//     cat_id: 16,
+//   },
+
+//   {
+//     id: "BetSoft",
+//     label: "Bet Soft",
+//     type: "custom",
+//     icon: SlotIcon,
+//     cat_id: 17,
+//   },
+
+//   {
+//     id: "TurboGames",
+//     label: "Turbo ",
+//     type: "custom",
+//     icon: TurboGames,
+//     cat_id: 18,
+//   },
+
+//   { id: "CQ9", label: "CQ9", type: "custom", icon: SlotIcon, cat_id: 19 },
+
+//   { id: "JDB", label: "JDB", type: "custom", icon: SlotIcon, cat_id: 50 },
+
+//   {
+//     id: "PGsGaming",
+//     label: "PGs Gaming",
+//     type: "custom",
+//     icon: SlotIcon,
+//     cat_id: 21,
+//   },
+
+//   {
+//     id: "MiniGames",
+//     label: "Mini Games",
+//     type: "custom",
+//     icon: SlotIcon,
+//     cat_id: 22,
+//   },
+
+//   {
+//     id: "SAGaming",
+//     label: "SA Gaming",
+//     type: "custom",
+//     icon: SlotIcon,
+//     cat_id: 23,
+//   },
+
+//   {
+//     id: "SmartSoft",
+//     label: "Smart Soft",
+//     type: "custom",
+//     icon: SlotIcon,
+//     cat_id: 24,
+//   },
+
+//   {
+//     id: "Playtech",
+//     label: "Playtech",
+//     type: "custom",
+//     icon: SlotIcon,
+//     cat_id: 25,
+//   },
+
+//   {
+//     id: "TrendingGames",
+//     label: "Trending Games",
+//     type: "custom",
+//     icon: PopularGames,
+//     cat_id: 27,
+//   },
+
+//   {
+//     id: "CrashGames",
+//     label: "Crash Games",
+//     type: "custom",
+//     icon: CrashGames,
+//     cat_id: 28,
+//   },
+
+//   {
+//     id: "SlotGames",
+//     label: "Slot Games",
+//     type: "custom",
+//     icon: SlotIcon,
+//     cat_id: 29,
+//   },
+
+//   {
+//     id: "FishingGames",
+//     label: "Fishing Games",
+//     type: "custom",
+//     icon: FishingGames,
+//     cat_id: 30,
+//   },
+
+//   { id: "Aura", label: "Aura", type: "custom", icon: SlotIcon, cat_id: 31 },
+//   {
+//     id: "Bgaming",
+//     label: "Bgaming",
+//     type: "custom",
+//     icon: TurboGames,
+//     cat_id: 32,
+//   },
+//   {
+//     id: "PragmaticPlay",
+//     label: "Pragmatic Play",
+//     type: "custom",
+//     icon: PopularGames,
+//     cat_id: 33,
+//   },
+//   {
+//     id: "MicroGaming",
+//     label: "Micro Gaming",
+//     type: "custom",
+//     icon: SportsBook,
+//     cat_id: 36,
+//   },
+//   {
+//     id: "T1",
+//     label: "T1",
+//     type: "custom",
+//     icon: SlotIcon,
+//     cat_id: 34,
+//   },
+//   {
+//     id: "TADAGaming",
+//     label: "Tada gaming",
+//     type: "custom",
+//     icon: FishingGames,
+//     cat_id: 35,
+//   },
+// ];
+
 export default function SlidingTabs({ withHeader = false, onTabChange }) {
   const { t } = useTranslation();
   const [active, setActive] = useState("home");
@@ -670,10 +883,18 @@ export default function SlidingTabs({ withHeader = false, onTabChange }) {
             <button
               key={cat.id}
               ref={(el) => (tabRefs.current[cat.id] = el)}
+              // onClick={() => {
+              //   console.log("cat", cat);
+              //   handleClick(cat);
+              //   onTabChange(cat.cat_id);
+              // }}
+
               onClick={() => {
-                console.log("cat", cat);
                 handleClick(cat);
-                onTabChange(cat.cat_id);
+                if (typeof onTabChange === "function") {
+                  // ✅ guard lagao
+                  onTabChange(cat.cat_id);
+                }
               }}
               className={`flex items-center gap-0 px-2 py-1 rounded-[8px] border
                 transition-all duration-200 cursor-pointer

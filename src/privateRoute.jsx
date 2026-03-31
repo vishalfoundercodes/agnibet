@@ -75,7 +75,7 @@ const PrivateRoute = ({ children }) => {
   if (!isAuthenticated) {
     if (!toastShown) {
       toastShown = true;
-      toast.warning("⚠️ Please login first!");
+      toast.warning("Please login first!");
       setTimeout(() => {
         toastShown = false;
       }, 2000);
