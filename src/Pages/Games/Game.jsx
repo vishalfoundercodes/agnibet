@@ -124,8 +124,8 @@ export default function Game() {
     astar: { label: "Spribe", brand_id: "82" },
     InOut: { label: "Spribe", brand_id: "112" },
     inout: { label: "Spribe", brand_id: "112" },
-    CQ9: { label: "Spribe", brand_id: "25" },
-    cq9: { label: "Spribe", brand_id: "25" },
+    CQ9: { label: "Spribe", brand_id: "52" },
+    cq9: { label: "Spribe", brand_id: "52" },
     JDB: { label: "Spribe", brand_id: "50" },
     jdb: { label: "Spribe", brand_id: "50" },
     PGsGaming: { label: "PGsGaming", brand_id: "123" },
@@ -491,7 +491,7 @@ if (storedData) {
             // navigate(`/playgame?url=${encodeURIComponent(url)}`);
             //  navigate(url, { replace: true });
             // window.location.assign(url);
-               if (brand == "49" || brand == 49) {
+               if (brand[0].cat_name == "Jili" || brand[0].cat_name == 49) {
                  window.location.assign(url);
                } else {
                  navigate(`/playgame?url=${encodeURIComponent(url)}`);
@@ -878,7 +878,9 @@ if (storedData) {
                   <div
                     key={game.game_uid || index}
                     className="aspect-[3/4] rounded-[8px] overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
-                    onClick={() => handleGameOpen(game.gameID, game.game_name,game.brand_id)}
+                    onClick={() =>
+                      handleGameOpen(game.gameID, game.game_name, subCategories)
+                    }
                     // onClick={() => handleGameOpen(game.gmId, game.name)}
                   >
                     {game.game_img ? (
