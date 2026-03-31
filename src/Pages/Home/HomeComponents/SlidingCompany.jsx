@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 // ✅ Categories
 const categories = [
   { id: "casino", type: "custom", icon: Company1,name:"PG", brandId: "123" },
-  { id: "slot", type: "custom", icon: Company2,name:"CQ9", brandId: "25" },
+  { id: "slot", type: "custom", icon: Company2,name:"CQ9", brandId: "52" },
   { id: "aviator", type: "custom", icon: Company3,name:"JDB", brandId: "50" },
   { id: "aviator2", type: "custom", icon: Company4,name:"Aviator", brandId: "2" },
 ];

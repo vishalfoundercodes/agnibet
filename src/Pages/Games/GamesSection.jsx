@@ -11,38 +11,38 @@ import { useScroll } from "../../Context/ScrollContext";
 import { t } from "i18next";
 import { useTranslation } from "react-i18next";
 
-const GameSection = ({ title, games, icon, brand,  sectionRef, gamesDetails }) => {
-  // console.log("title games:", games);
+const GameSection = ({ title, games, icon, brand, sectionRef, gamesDetails }) => {
+  console.log("title games:", games);
   const { profileDetails, setprofileDetails } = useProfile();
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   // const { registerSection } = useScroll();
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
   const [loading, setloading] = useState(false);
-  const account_type=localStorage.getItem("account_type");
+  const account_type = localStorage.getItem("account_type");
 
- const sectionBrandId =
-   brand?.brand_id || brand?.id || title?.toLowerCase().replace(/\s+/g, "-");
- const sectionElement = useRef(null);
- const { registerSection } = useScroll();
+  const sectionBrandId =
+    brand?.brand_id || brand?.id || title?.toLowerCase().replace(/\s+/g, "-");
+  const sectionElement = useRef(null);
+  const { registerSection } = useScroll();
 
- // Determine device type at render time
- const isMobile = window.innerWidth <= 768;
- const deviceType = isMobile ? "mobile" : "desktop";
+  // Determine device type at render time
+  const isMobile = window.innerWidth <= 768;
+  const deviceType = isMobile ? "mobile" : "desktop";
 
- useEffect(() => {
-   if (sectionElement.current && sectionBrandId) {
-     registerSection(sectionBrandId, sectionElement.current);
+  useEffect(() => {
+    if (sectionElement.current && sectionBrandId) {
+      registerSection(sectionBrandId, sectionElement.current);
 
-     if (sectionRef && typeof sectionRef === "function") {
-       sectionRef(sectionElement.current);
-     }
-   }
- }, [sectionBrandId, registerSection, sectionRef]);
+      if (sectionRef && typeof sectionRef === "function") {
+        sectionRef(sectionElement.current);
+      }
+    }
+  }, [sectionBrandId, registerSection, sectionRef]);
 
- if (!games || games.length === 0) {
-   return null;
- }
+  if (!games || games.length === 0) {
+    return null;
+  }
 
   const scrollRow = (rowId, direction) => {
     const container = document.getElementById(rowId);
@@ -57,7 +57,21 @@ const GameSection = ({ title, games, icon, brand,  sectionRef, gamesDetails }) =
 
   // ✅ Use all games passed as props - no filtering needed
   // const filteredGames = games;
-  const filteredGames = Array.isArray(games?.games) ? games.games : [];
+  // const filteredGames = Array.isArray(games?.games) ? games.games : [];
+  // ✅ brand_id resolve karo brand prop se
+  const resolvedBrandId = brand?.brand_id || brand?.id;
+
+  // ✅ filteredGames mein brand_id inject karo
+  const filteredGames = (
+    Array.isArray(games)
+      ? games
+      : Array.isArray(games?.games)
+        ? games.games
+        : []
+  ).map((game) => ({
+    ...game,
+    brand_id: game.brand_id || resolvedBrandId, // ✅ game ka apna brand_id ho toh rakho, warna prop wala
+  }));
 
   // ✅ Check if current title should NOT show second row
   const noSecondRowTitles = [
@@ -110,6 +124,7 @@ const GameSection = ({ title, games, icon, brand,  sectionRef, gamesDetails }) =
             handleGameOpen(
               game.gameID || game.game_code,
               game.game_name || game.name,
+              game.brand_id,
             );
           }}
         >
@@ -133,14 +148,48 @@ const GameSection = ({ title, games, icon, brand,  sectionRef, gamesDetails }) =
   //    console.log("games jilli:", games);
   //  },[]);
 
-const handleGameOpen = async (id, name) => {
-  const userId = localStorage.getItem("userId");
-  if (!userId) {
-    toast.warn("Please login first.");
-    return;
-  }
-  if (account_type == "1") {
-    // toast.warn("Please login with your real account.");
+  const handleGameOpen = async (id, name, brand) => {
+    console.log("Opening game with ID:", id, "Name:", name, "Brand:", brand);
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      toast.warn("Please login first.");
+      return;
+    }
+    if (account_type == "1") {
+      // toast.warn("Please login with your real account.");
+      try {
+        setloading(true);
+        const payload = {
+          user_id: userId,
+          amount: profileDetails?.wallet || 0,
+          game_id: id,
+          // game_uid: id,
+          game_name: name,
+        };
+        console.log("payload:", payload);
+        const res = await axios.post(apis.openGame, payload);
+        console.log("response for demo account:", res);
+        if (res?.data?.status === 200 || res?.data?.status === true) {
+          // const url = res?.data?.launchUrl;
+          console.log("game_url", url);
+          const url = res?.data?.game_url;
+          if (url) {
+            // ✅ Open in same tab (with header for desktop, direct for mobile)
+            navigate(`/playgame?url=${encodeURIComponent(url)}`);
+            // window.location.assign(url);
+          } else {
+            toast.error("Game URL not found");
+          }
+        }
+      } catch (error) {
+        console.log("error for demo account:", error);
+        toast.error(error?.response?.data?.message || "Something went wrong");
+      } finally {
+        setloading(false);
+      }
+      return;
+    }
+
     try {
       setloading(true);
       const payload = {
@@ -152,58 +201,27 @@ const handleGameOpen = async (id, name) => {
       };
       console.log("payload:", payload);
       const res = await axios.post(apis.openGame, payload);
-      console.log("response for demo account:", res);
-      if (res?.data?.status === 200 || res?.data?.status === true) {
-        // const url = res?.data?.launchUrl;
-        console.log("game_url",url);
-        const url = res?.data?.game_url;
+      console.log("response:", res);
+      if (res?.data?.status === true || res?.data?.status === 200) {
+        const url = res?.data?.launchUrl;
+        // const url = res?.data?.game_url;
         if (url) {
           // ✅ Open in same tab (with header for desktop, direct for mobile)
-          navigate(`/playgame?url=${encodeURIComponent(url)}`);
-          // window.location.assign(url);
+          if (brand == "49" || brand == 49 ) {
+            window.location.assign(url);
+          } else {
+            navigate(`/playgame?url=${encodeURIComponent(url)}`);
+          }
         } else {
           toast.error("Game URL not found");
         }
       }
     } catch (error) {
-      console.log("error for demo account:", error);
       toast.error(error?.response?.data?.message || "Something went wrong");
     } finally {
       setloading(false);
     }
-    return;
-  }
-
-  try {
-    setloading(true);
-    const payload = {
-      user_id: userId,
-      amount: profileDetails?.wallet || 0,
-      game_id: id,
-      // game_uid: id,
-      game_name: name,
-    };
-    console.log("payload:", payload);
-    const res = await axios.post(apis.openGame, payload);
-    console.log("response:", res);
-    if (res?.data?.status === true || res?.data?.status === 200) {
-      const url = res?.data?.launchUrl;
-      // const url = res?.data?.game_url;
-      if (url) {
-        // ✅ Open in same tab (with header for desktop, direct for mobile)
-        navigate(`/playgame?url=${encodeURIComponent(url)}`);
-        // window.location.assign(url);
-      } else {
-        toast.error("Game URL not found");
-      }
-    }
-  } catch (error) {
-    toast.error(error?.response?.data?.message || "Something went wrong");
-  } finally {
-    setloading(false);
-  }
-};
-
+  };
 
   if (loading)
     return (
@@ -304,6 +322,7 @@ const handleGameOpen = async (id, name) => {
                 handleGameOpen(
                   game.gameID || game.game_code,
                   game.game_name || game.name,
+                  game.brand_id,
                 );
               }}
             >
@@ -334,6 +353,6 @@ const handleGameOpen = async (id, name) => {
       </div>
     </div>
   );
-};
+};;
 
 export default GameSection;

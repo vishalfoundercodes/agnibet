@@ -116,8 +116,8 @@ export default function Game() {
     ColorChickenGames: { label: "Color & Chicken", brand_id: "112" },
     Mines: { label: "Mines", brand_id: "104" },
     Plinko: { label: "Plinko", brand_id: "112" },
-    Jili: { label: "Jili", brand_id: "5" },
-    jili: { label: "Jili", brand_id: "5" },
+    Jili: { label: "Jili", brand_id: "49" },
+    jili: { label: "Jili", brand_id: "49" },
     Spribe: { label: "Spribe", brand_id: "19" },
     spribe: { label: "spribe", brand_id: "19" },
     Astar: { label: "Spribe", brand_id: "82" },
@@ -414,7 +414,8 @@ if (storedData) {
     sponnserImage();
   }, []); // ← games related kuch nahi
 
-  const handleGameOpen = async (id, name) => {
+  const handleGameOpen = async (id, name,brand) => {
+    console.log("brand:",brand)
     const userId = localStorage.getItem("userId");
     if (!userId) {
       toast.error("Please login first.");
@@ -437,16 +438,21 @@ if (storedData) {
         const res = await axios.post(apis.openGame, payload);
         console.log("game launch:", res?.data);
         if (res?.data?.status === 200 || res?.data?.status === true) {
-          //  const url = res?.data?.launchUrl;
-          const url = res?.data?.game_url;
+           const url = res?.data?.launchUrl;
+          // const url = res?.data?.game_url;
           console.log("urlll", url);
           if (url) {
             // ✅ Open in same tab (with header for desktop, direct for mobile)
-            navigate(`/playgame?url=${encodeURIComponent(url)}`);
+            // navigate(`/playgame?url=${encodeURIComponent(url)}`);
             // navigate(url, { replace: true });
             // window.location.assign(url);
 
             //  navigate(`/playgame`,{state:{url:url}});
+               if (brand == "49" || brand == 49 ) {
+            window.location.assign(url);
+          } else {
+            navigate(`/playgame?url=${encodeURIComponent(url)}`);
+          }
             // window.location.href = res?.data?.apiResponse?.data?.url;
           } else {
             toast.error("Game URL not found");
@@ -466,8 +472,8 @@ if (storedData) {
         user_id: userId,
         amount: profileDetails?.wallet || 0,
         // amount: 10,
-        game_uid: id,
-        //  game_id: id,
+        // game_uid: id,
+         game_id: id,
         game_name: name,
       };
       console.log("payload", payload);
@@ -475,15 +481,21 @@ if (storedData) {
       console.log("response from game api:", apis.openGame);
       console.log("game launch:", res?.data);
       if (res?.data?.status === 200 || res?.data?.status === true) {
-        if (res?.data?.game_url) {
+        if (res?.data?.launchUrl) {
           // window.location.href = res?.data?.apiResponse?.data?.url;
-          //  const url = res?.data?.launchUrl;
-          const url = res?.data?.game_url;
+           const url = res?.data?.launchUrl;
+          // const url = res?.data?.game_url;
           if (url) {
+            
             // ✅ Open in same tab (with header for desktop, direct for mobile)
-            navigate(`/playgame?url=${encodeURIComponent(url)}`);
+            // navigate(`/playgame?url=${encodeURIComponent(url)}`);
             //  navigate(url, { replace: true });
             // window.location.assign(url);
+               if (brand == "49" || brand == 49) {
+                 window.location.assign(url);
+               } else {
+                 navigate(`/playgame?url=${encodeURIComponent(url)}`);
+               }
           } else {
             toast.error("Game URL not found");
           }
@@ -866,7 +878,7 @@ if (storedData) {
                   <div
                     key={game.game_uid || index}
                     className="aspect-[3/4] rounded-[8px] overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
-                    onClick={() => handleGameOpen(game.gameID, game.game_name)}
+                    onClick={() => handleGameOpen(game.gameID, game.game_name,game.brand_id)}
                     // onClick={() => handleGameOpen(game.gmId, game.name)}
                   >
                     {game.game_img ? (
