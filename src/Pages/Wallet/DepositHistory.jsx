@@ -153,9 +153,9 @@ export default function DepositHistory() {
     // Now that the date filter is applied, we apply the tab filter
     if (activeTab === "All") return true;
 
-    if (activeTab === "Processing" && deposit.status === 1) return true;
-    if (activeTab === "Success" && deposit.status === 2) return true;
-    if (activeTab === "Failed" && deposit.status === 3) return true;
+    if (activeTab === "Processing" && deposit.status === 0) return true;
+    if (activeTab === "Success" && deposit.status === 1) return true;
+    if (activeTab === "Failed" && deposit.status === 2) return true;
 
     // If no tab matches, return false (exclude the deposit)
     return false;
