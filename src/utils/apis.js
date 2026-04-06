@@ -11,6 +11,7 @@ export const configModalApk = `${baseUrlWinBhai}/apk/`;
 
 const apis = {
   sendOtp: `${configModalWinBhai}send-otp`,
+  send_forget_otp: `${configModalWinBhai}send-forget-otp`,
   verifyOtp: `${configModalWinBhai}verify-otp`,
   learn: `${configModalWinBhai}get-category-language-data?category_id=`,
   affiliateDashboard: `${configModalWinBhai}campaign_summary`,

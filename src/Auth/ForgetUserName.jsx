@@ -90,13 +90,16 @@ export default function ForgetUserName() {
              const sendOtp = async (number) => {
                try {
                  // ✅ 1. Check OTP pack first
-                 setLoading(true);
+                 
                  const payload = {
                    mobile: number,
                  };
 
                  // ✅ 2. Send OTP
-                 const res = await axios.post(`${apis.sendOtp}`, payload);
+                 const res = await axios.post(
+                   `${apis.send_forget_otp}`,
+                   payload,
+                 );
                  // console.log(`${apis.sendOtp}${number}`);
                  // console.log(res?.data);
 
@@ -108,9 +111,7 @@ export default function ForgetUserName() {
                } catch (error) {
                  // console.error("Send OTP Error:", error);
                  toast.error("Unable to send OTP. Please try again.");
-               } finally {
-                 setLoading(false);
-               }
+               } 
              };
 
              const handleVerify = async (value) => {
