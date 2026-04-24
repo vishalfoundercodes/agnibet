@@ -132,7 +132,7 @@ const AffiliateModal = ({ isOpen, setIsOpen, onCampaignCreated, onClose }) => {
                 <input
                   type="text"
                   disabled
-                  value={`https://agnibet.com/signup?campaign=${
+                  value={`https://dubaiclub247.com/signup?campaign=${
                     uniqueCode || ""
                   }`}
                   className="mt-1 w-full px-4 py-2 border rounded-md bg-grayBg cursor-not-allowed border-lightBorder text-white pr-12"
@@ -142,7 +142,7 @@ const AffiliateModal = ({ isOpen, setIsOpen, onCampaignCreated, onClose }) => {
                 <button
                   type="button"
                   onClick={() => {
-                    const link = `https://agnibet.com/signup?campaign=${
+                    const link = `https://dubaiclub247.com/signup?campaign=${
                       uniqueCode || ""
                     }`;
                     if (!uniqueCode) {

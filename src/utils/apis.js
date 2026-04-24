@@ -1,13 +1,11 @@
-import AffiliateModal from "../Pages/ReusableComponent/AddAffiliation";
 
-export const baseUrlWinBhai = "https://root.agnibet.com";
+export const baseUrlWinBhai = "https://root.dubaiclub247.online";
 export const configModalWinBhai = `${baseUrlWinBhai}/api/`
 
-export const referral_url = "https://root.agnibet.com/";
+export const referral_url = "https://root.dubaiclub247.online/";
 
 export const configModalApk = `${baseUrlWinBhai}/apk/`;
 
-// https://root.agnibet.com/api/deposit_history?user_id=1
 
 const apis = {
   sendOtp: `${configModalWinBhai}send-otp`,

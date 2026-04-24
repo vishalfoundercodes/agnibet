@@ -44,9 +44,9 @@ const wingo_game_history = apis.wingo_game_history
 const wingo_win_amount_announcement = apis.wingo_win_amount_announcement
 const images = [zero, one, two, three, four, five, six, seven, eight, nine];
 const notes = [
-  "Notice:To visit our official website, be sure to use the link below,https://agnibet.com / Please re",
-  "Notice:To visit our official website, be sure to use the link below,https://agnibet.com / Please re",
-  "Notice:To visit our official website, be sure to use the link below,https://agnibet.com / Please re",
+  "Notice:To visit our official website, be sure to use the link below,https://dubaiclub247.online / Please revisit",
+  "Notice:To visit our official website, be sure to use the link below,https://dubaiclub247.online / Please revisit",
+  "Notice:To visit our official website, be sure to use the link below,https://dubaiclub247.online / Please revisit",
 ];
 const WinGo = () => {
   const [myDetails, setMyDetails] = useState(null)

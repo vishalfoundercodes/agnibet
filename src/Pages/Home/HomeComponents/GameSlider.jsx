@@ -374,7 +374,7 @@ const [openLangDropdown, setOpenLangDropdown] = useState(false);
       >
         {/* Header */}
         <div className="bg-red flex justify-between items-center px-4 py-3 text-white sticky top-0">
-          <h2 className="font-bold text-lg">AgniBet</h2>
+          <h2 className="font-bold text-lg">Dubaiclub247</h2>
           <button onClick={onClose} className="text-xl">
             <FaTimes />
           </button>
